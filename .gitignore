@@ -1,14 +1,18 @@
 *.exe
 Debug/
+Debug\
 Release/
+Release\
 bin/
+bin\
 obj/
-run commandline/
-Release_No_MT_Build/
-Real_Run_Commandline/
+obj\
 packages/
+packages\
 _UpgradeReport_Files/
+_UpgradeReport_Files\
 _ReSharper.*/
+_ReSharper.*\
 
 *.vsp
 *.sdf
@@ -28,3 +32,4 @@ UpgradeLog.htm
 UpgradeLog.XML
 
 .idea/
+.idea\
