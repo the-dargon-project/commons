@@ -1,0 +1,53 @@
+K 25
+svn:wc:ra_dav:version-url
+V 46
+/svn/!svn/ver/37/ItzWarty/ItzWartyLib/Database
+END
+wDB.cs
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/svn/!svn/ver/37/ItzWarty/ItzWartyLib/Database/wDB.cs
+END
+wDBDatabaseCollection.cs
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/!svn/ver/38/ItzWarty/ItzWartyLib/Database/wDBDatabaseCollection.cs
+END
+wDBRowCollection.cs
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/!svn/ver/38/ItzWarty/ItzWartyLib/Database/wDBRowCollection.cs
+END
+wDBTableCollection.cs
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/!svn/ver/38/ItzWarty/ItzWartyLib/Database/wDBTableCollection.cs
+END
+wDBDatabase.cs
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/!svn/ver/38/ItzWarty/ItzWartyLib/Database/wDBDatabase.cs
+END
+wDBRow.cs
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svn/!svn/ver/38/ItzWarty/ItzWartyLib/Database/wDBRow.cs
+END
+wDBTable.cs
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svn/!svn/ver/38/ItzWarty/ItzWartyLib/Database/wDBTable.cs
+END
+wDBValueCollection.cs
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/!svn/ver/38/ItzWarty/ItzWartyLib/Database/wDBValueCollection.cs
+END

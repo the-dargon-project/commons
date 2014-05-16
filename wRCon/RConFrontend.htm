@@ -1,0 +1,116 @@
+﻿<html>
+  <head>
+    <script type="text/javascript">
+      window.onload = function(){
+        //We use push method... so it's very simple
+        var inFrame = document.createElement("iframe");
+        document.body.appendChild(inFrame);
+        inFrame.style.position = "absolute";
+        inFrame.style.left = "-1337px";
+        inFrame.style.width = "100px"; //Ensure rendering
+        inFrame.style.height = "100px";
+
+        inFrame.src = "{$streamaddr}&r=" + 1 * new Date();
+
+        inFrame.onload = function(){
+          PostToLog("<br/><br/>Server connection has ended.");
+        };
+
+        input = document.getElementById("input");
+        log   = document.getElementById("log");
+        input.onkeydown = function(e){
+          if(e.keyCode == 13)//enter
+          {
+            input.innerHTML = input.textContent || input.innerText;
+            var response = input.textContent||input.innerText;
+            if(readingPassword)
+            {
+              var final = "";
+              for(var i = 0; i < input.innerHTML.length; i++)
+               final += "*";
+              log.innerHTML += final + "<br/>";
+            }
+            else
+              log.innerHTML += input.innerHTML + "<br/>";
+            //input.innerHTML = "";
+            
+            if(readingLine)
+            {
+              //For added enjoyment you can uncomment these lines to cause chrome to crash!
+              //document.body.removeChild(input); //Hack fixes the input becoming unresponsive on
+              //document.body.appendChild(input); //Chrome for some reason.  Probably my fault
+              
+              var xhr = new XMLHttpRequest();
+              xhr.open("GET", "{$sendaddr}&r=" + response + "&time=" + new Date().getTime());
+              xhr.send(null);
+              
+              //input.selectedIndex = 0;
+              readingKey = false;
+              document.getElementById("input").innerHTML = "";
+              document.getElementById("input").contentEditable = false;
+              log.focus(); //I know, right? -_-
+              input.blur();
+              input.focus();
+              return false;
+            }
+          }
+        }
+        input.onfocus = function(){ input.focused = true; };
+        input.onblur = function(){ input.focused = false; };
+        setInterval(
+          function(){
+            if(!input.focused)
+              input.focus();
+          }, 10
+        );
+      };
+      PostToLog = function(s)
+      {
+        document.getElementById("log").innerHTML += s.replace(/\n/g, "<br />").replace(/[ ]/g, "&nbsp;");
+        document.body.scrollTop = document.body.offsetHeight;
+      };
+      Clear = function () {
+        document.getElementById("log").innerHTML = "";
+      };
+      
+      readingKey = false;
+      readingLine= false;
+      readingPassword = false;
+      ReadLine = function()
+      {
+        //var input = document.getElementById("input");
+        //input.innerHTML = "";
+        input.contentEditable = true;
+        input.style.fontFamily = "";
+        //input.focus();
+        //input.style.position = "absolute";
+        //input.style.left = "0px";
+        //input.style.top = "0px";
+        //input.style.float = "left";
+        //input.style.backgroundColor = "#FF00FF";
+        //document.body.removeChild(input);
+        //document.body.appendChild(input);
+        //input.focus();
+        //input.innerHTML="";
+        readingLine = true;
+        readingPassword = false;
+      };
+      ReadLinePassword = function()
+      {
+        input = document.getElementById("input");
+        input.innerHTML = "";
+        input.contentEditable = true;
+        input.focus();
+        input.style.fontFamily = "MS Outlook, Gigi, Wingdings";
+        //input.style.color = "#000000";
+        readingLine = true;
+        readingPassword = true;
+      };
+    </script>
+  </head>
+  <body style="background-color:#000000; color:#999999; font-family:Courier New; font-size:10pt; line-height:12px; font-weight:bold;"><!-- onmousedown="return false;" onselectstart="return false;">-->
+    <span style="padding:none;" id="log">
+      
+    </span><span id="input" style="outline:none;"></span>
+  </body>
+</html>
