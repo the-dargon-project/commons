@@ -1,6 +1,0 @@
-C:\the-dargon-project\source\Projects\Desktop\Core\ItzWartyLib\bin\x86\Debug\License - Algorithmia.txt
-C:\the-dargon-project\source\Projects\Desktop\Core\ItzWartyLib\bin\x86\Debug\wLib.dll
-C:\the-dargon-project\source\Projects\Desktop\Core\ItzWartyLib\bin\x86\Debug\wLib.pdb
-C:\the-dargon-project\source\Projects\Desktop\Core\ItzWartyLib\obj\x86\Debug\wLib.dll
-C:\the-dargon-project\source\Projects\Desktop\Core\ItzWartyLib\obj\x86\Debug\wLib.pdb
-C:\the-dargon-project\source\Projects\Desktop\Core\ItzWartyLib\obj\x86\Debug\ItzWarty.csprojResolveAssemblyReference.cache

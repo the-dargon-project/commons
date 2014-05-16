@@ -1,3 +1,0 @@
-C:\the-dargon-project\source\Projects\Desktop\Core\ItzWartyLib\bin\Release\License - Algorithmia.txt
-C:\the-dargon-project\source\Projects\Desktop\Core\ItzWartyLib\bin\Release\wLib.dll
-C:\the-dargon-project\source\Projects\Desktop\Core\ItzWartyLib\obj\Release\wLib.dll
