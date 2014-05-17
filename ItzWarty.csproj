@@ -91,7 +91,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ApplicationInformation.cs" />
     <Compile Include="CLIStatus.cs" />
     <Compile Include="Code\CodeBlock.cs" />
     <Compile Include="Code\CodeToken.cs" />
@@ -106,7 +105,6 @@
     <Compile Include="Collections\OrderedMultiValueDictionary.cs" />
     <Compile Include="Collections\PriorityQueue.cs" />
     <Compile Include="Collections\ValuesSortState.cs" />
-    <Compile Include="CrossAppDomainObject.cs" />
     <Compile Include="Database\wDB.cs" />
     <Compile Include="Database\wDBDatabase.cs" />
     <Compile Include="Database\wDBDatabaseCollection.cs" />
@@ -116,11 +114,17 @@
     <Compile Include="Database\wDBTableCollection.cs" />
     <Compile Include="Database\wDBValueCollection.cs" />
     <Compile Include="EqualityComparer.cs" />
-    <Compile Include="Extends.cs" />
+    <Compile Include="Extensions.cs" />
+    <Compile Include="Extensions.Assembly.cs" />
+    <Compile Include="Extensions.Collections.cs" />
+    <Compile Include="Extensions.Drawing.cs" />
+    <Compile Include="Extensions.IO.cs" />
+    <Compile Include="Extensions.Linq.cs" />
+    <Compile Include="Extensions.String.cs" />
+    <Compile Include="Extensions.Treelike.cs" />
     <Compile Include="FileSizeFormatProvider.cs" />
     <Compile Include="FileUtil.cs" />
     <Compile Include="FontLoader.cs" />
-    <Compile Include="FuncComparer.cs" />
     <Compile Include="Geometry\Clockness.cs" />
     <Compile Include="Geometry\Displays\Plot2D.cs">
       <SubType>Component</SubType>
@@ -155,14 +159,12 @@
     <Compile Include="Geometry\VoronoiDiagram.cs" />
     <Compile Include="Geometry\IReadOnlyPoint2DSet.cs" />
     <Compile Include="Geometry\Edge3D.cs" />
-    <Compile Include="Matrix.cs" />
     <Compile Include="Collections\MultiValueDictionary.cs" />
-    <Compile Include="Node.cs" />
     <Compile Include="Output.cs" />
     <Compile Include="ParentProcessUtilities.cs" />
-    <Compile Include="PerformanceUtil.cs" />
     <Compile Include="ClassLoader.cs" />
     <Compile Include="Geometry\Point2D.cs" />
+    <Compile Include="PerformanceUtil.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="NullConsole.cs" />
     <Compile Include="ReverseComparer.cs" />
@@ -178,6 +180,8 @@
     <Compile Include="Util.cs" />
     <Compile Include="Geometry\Vector2D.cs" />
     <Compile Include="Geometry\Vector3D.cs" />
+    <Compile Include="Utilities.cs" />
+    <Compile Include="Utilities.Octals.cs" />
     <Compile Include="WinAPI.cs" />
   </ItemGroup>
   <ItemGroup>

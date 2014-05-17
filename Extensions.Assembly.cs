@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ItzWarty
 {
-   public static class Extensions
+   public static partial class Extensions
    {
       /// <summary>
       /// Gets the build time of the application
