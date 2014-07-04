@@ -63,7 +63,7 @@ namespace ItzWarty.Geometry
          // sort input by x, then y
          Array.Sort(
             input, 
-            new FuncComparer<Point2D>(
+            new LambdaComparer<Point2D>(
                (a, b) => {
                   if (a.X < b.X)
                      return -1;

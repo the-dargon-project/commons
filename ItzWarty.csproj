@@ -92,27 +92,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CLIStatus.cs" />
-    <Compile Include="Code\CodeBlock.cs" />
-    <Compile Include="Code\CodeToken.cs" />
-    <Compile Include="Code\DefaultSyntaxHighlighter.cs" />
-    <Compile Include="Code\ISyntaxHighlighter.cs" />
-    <Compile Include="Code\TextEditorCharacter.cs" />
-    <Compile Include="Code\WRichTextBox.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="Collections\ConcurrentSet.cs" />
     <Compile Include="Collections\IOrderedDictionary.cs" />
     <Compile Include="Collections\OrderedDictionary.cs" />
     <Compile Include="Collections\OrderedMultiValueDictionary.cs" />
     <Compile Include="Collections\PriorityQueue.cs" />
     <Compile Include="Collections\ValuesSortState.cs" />
-    <Compile Include="Database\wDB.cs" />
-    <Compile Include="Database\wDBDatabase.cs" />
-    <Compile Include="Database\wDBDatabaseCollection.cs" />
-    <Compile Include="Database\wDBRow.cs" />
-    <Compile Include="Database\wDBRowCollection.cs" />
-    <Compile Include="Database\wDBTable.cs" />
-    <Compile Include="Database\wDBTableCollection.cs" />
-    <Compile Include="Database\wDBValueCollection.cs" />
     <Compile Include="EqualityComparer.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="Extensions.Assembly.cs" />
@@ -160,6 +145,7 @@
     <Compile Include="Geometry\IReadOnlyPoint2DSet.cs" />
     <Compile Include="Geometry\Edge3D.cs" />
     <Compile Include="Collections\MultiValueDictionary.cs" />
+    <Compile Include="LambdaComparer.cs" />
     <Compile Include="Output.cs" />
     <Compile Include="ParentProcessUtilities.cs" />
     <Compile Include="ClassLoader.cs" />
