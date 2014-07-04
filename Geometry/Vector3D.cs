@@ -35,7 +35,6 @@ namespace ItzWarty.Geometry
       public double Z { get; set; }
 
       // - Constructors ---------------------------------------------------------------------------
-      public Vector3D(Matrix m) { this.X = m.Content[0][0]; this.Y = m.Content[0][1]; this.Z = m.Content[0][2]; }
       public Vector3D(double x, double y, double z) { this.X = x; this.Y = y; this.Z = z; }
 
       // - Unary Operations -----------------------------------------------------------------------
@@ -151,16 +150,6 @@ namespace ItzWarty.Geometry
       public static double Distance(Vector3D a, Vector3D b)
       {
          return new Vector3D(a.X - b.X, a.Y - b.Y, a.Z - b.Z).Magnitude();
-      }
-
-      public Matrix ToMatrix(bool allowTransform)
-      {
-         return new Matrix(
-             new double[][]
-                {
-                    new double[]{ X, Y, Z, allowTransform?1:0}
-                }
-         );
       }
    }
 }
