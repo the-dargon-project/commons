@@ -99,6 +99,7 @@
     <Compile Include="Collections\PriorityQueue.cs" />
     <Compile Include="Collections\ValuesSortState.cs" />
     <Compile Include="EqualityComparer.cs" />
+    <Compile Include="ExpiringCache.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="Extensions.Assembly.cs" />
     <Compile Include="Extensions.Collections.cs" />
@@ -146,6 +147,7 @@
     <Compile Include="Geometry\Edge3D.cs" />
     <Compile Include="Collections\MultiValueDictionary.cs" />
     <Compile Include="LambdaComparer.cs" />
+    <Compile Include="Networking\LowIntegrityPipeFactory.cs" />
     <Compile Include="Output.cs" />
     <Compile Include="ParentProcessUtilities.cs" />
     <Compile Include="ClassLoader.cs" />
