@@ -32,6 +32,7 @@
     <WarningLevel>4</WarningLevel>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <Prefer32Bit>false</Prefer32Bit>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>none</DebugType>
@@ -108,6 +109,7 @@
     <Compile Include="Extensions.Linq.cs" />
     <Compile Include="Extensions.String.cs" />
     <Compile Include="Extensions.Treelike.cs" />
+    <Compile Include="Extensions.Within.cs" />
     <Compile Include="FileSizeFormatProvider.cs" />
     <Compile Include="FileUtil.cs" />
     <Compile Include="FontLoader.cs" />
@@ -158,6 +160,8 @@
     <Compile Include="ReverseComparer.cs" />
     <Compile Include="Geometry\Shape2D.cs" />
     <Compile Include="Geometry\ShapeType2D.cs" />
+    <Compile Include="Services\IServiceLocator.cs" />
+    <Compile Include="Services\ServiceLocator.cs" />
     <Compile Include="SingleGlobalInstance.cs" />
     <Compile Include="StaticRandom.cs" />
     <Compile Include="TemporarySeek.cs" />

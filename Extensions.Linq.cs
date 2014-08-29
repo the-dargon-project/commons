@@ -33,6 +33,13 @@ namespace ItzWarty
                yield return value;
       }
 
+      public static T SelectRandom<T>(this IEnumerable<T> source, Random rng = null)
+      {
+         int rand = rng != null ? rng.Next() : StaticRandom.Next(Int32.MaxValue);
+         var options = source.ToList();
+         return options[rand % options.Count];
+      }
+
 
       // via http://stackoverflow.com/questions/1651619/optimal-linq-query-to-get-a-random-sub-collection-shuffle
       public static IEnumerable<T> Shuffle<T>(this IEnumerable<T> source, Random rng = null)
@@ -67,5 +74,7 @@ namespace ItzWarty
       {
          return !source.Any(predicate);
       }
+
+      public static string Join<T>(this IEnumerable<T> e, string delimiter) { return String.Join(delimiter, e); }
    }
 }
