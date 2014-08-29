@@ -108,8 +108,51 @@ namespace ItzWarty
             throw new ArgumentNullException("generator");
 
          T[] result = new T[count];
-         for(int i = 0; i < count; i++)
+         for (int i = 0; i < count; i++)
             result[i] = generator(i);
+         return result;
+      }
+
+      /// <summary>
+      /// Creates an array using the given function N times.
+      /// The function takes a parameter a from 0 to countA and a parameter b, from 0 to countB, and returns T.
+      /// </summary>
+      public static T[] Generate<T>(int countA, int countB, Func<int, int, T> generator)
+      {
+         if (countA < 0)
+            throw new ArgumentOutOfRangeException("countA < 0");
+         if (countB < 0)
+            throw new ArgumentOutOfRangeException("countB < 0");
+         if (generator == null)
+            throw new ArgumentNullException("generator");
+
+         T[] result = new T[countA * countB];
+         for (int a = 0; a < countA; a++)
+            for (int b = 0; b < countB; b++)
+               result[a * countB + b] = generator(a, b);
+         return result;
+      }
+
+      /// <summary>
+      /// Creates an array using the given function N times.
+      /// </summary>
+      public static T[] Generate<T>(int countA, int countB, int countC, Func<int, int, int, T> generator)
+      {
+         if (countA < 0)
+            throw new ArgumentOutOfRangeException("countA < 0");
+         if (countB < 0)
+            throw new ArgumentOutOfRangeException("countB < 0");
+         if (countC < 0)
+            throw new ArgumentOutOfRangeException("countC < 0");
+         if (generator == null)
+            throw new ArgumentNullException("generator");
+
+         T[] result = new T[countA * countB * countC];
+         int i = 0;
+         for (int a = 0; a < countA; a++)
+            for (int b = 0; b < countB; b++)
+               for (int c = 0; c < countC; c++)
+               result[i++] = generator(a, b, c);
          return result;
       }
 
@@ -139,6 +182,22 @@ namespace ItzWarty
          catch(Exception e)
          {
             throw e;
+         }
+         return result.ToArray();
+      }
+
+      public static T[] Concat<T>(params object[] args)
+      {
+         var result = new List<T>();
+         foreach (var element in args)
+         {
+            if (element is T)
+               result.Add((T)element);
+            else
+            {
+               foreach (var subElement in (IEnumerable<T>)element)
+                  result.Add(subElement);
+            }
          }
          return result.ToArray();
       }
