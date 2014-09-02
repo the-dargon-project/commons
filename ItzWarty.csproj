@@ -128,6 +128,7 @@
     <Compile Include="Geometry\Point3D.cs" />
     <Compile Include="Geometry\PointCollection3D.cs" />
     <Compile Include="Geometry\PointCollection2D.cs" />
+    <Compile Include="Geometry\Ray3D.cs" />
     <Compile Include="Geometry\Shape3D.cs" />
     <Compile Include="Geometry\ShapeType3D.cs" />
     <Compile Include="Geometry\Vertex3D.cs" />

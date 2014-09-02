@@ -26,6 +26,7 @@ namespace ItzWarty.Geometry
       // - Constructors ---------------------------------------------------------------------------
       public Vector2D(Point2D from, Point2D to) : this(to.X - from.X, to.Y - from.Y) { }
       public Vector2D(double x, double y) { this.X = x; this.Y = y; }
+      public Point2D ToPoint2D() { return new Point2D(X, Y); }
 
       // - Unary Operations -----------------------------------------------------------------------
       public static Vector2D operator -(Vector2D v) { return new Vector2D(-v.X, -v.Y); }

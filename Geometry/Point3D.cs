@@ -16,6 +16,7 @@ namespace ItzWarty.Geometry
       public double Z { get; private set; }
 
       public Point3D(double x, double y, double z) : base(ShapeType3D.Point) { this.X = x; this.Y = y; this.Z = z; }
+      public Vector3D ToVector3D() { return new Vector3D(X, Y, Z); }
 
       // :: boilerplate
       public override bool IsFinite { get { return true; } }
@@ -82,7 +83,7 @@ namespace ItzWarty.Geometry
 
       public override string ToString()
       {
-         return "(" + X + ", " + Y + ")";
+         return "(" + X + ", " + Y + ", " + Z + ")";
       }
 
       /// <summary>
