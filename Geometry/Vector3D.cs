@@ -106,7 +106,7 @@ namespace ItzWarty.Geometry
       public Vector3D Cross(Vector3D b) { return new Vector3D(Y * b.Z - Z * b.Y, Z * b.X - X * b.Z, X * b.Y - Y * b.X); }
       public static Vector3D Cross(Vector3D a, Vector3D b) { return a.Cross(b); }
 
-      public double ScalarProjectionOnto(Vector3D b) { return Dot(this, b) / this.Magnitude(); }
+      public double ScalarProjectionOnto(Vector3D b) { return Dot(this, b) / b.Magnitude(); }
       public Vector3D ProjectSelfOnto(Vector3D b) { return ScalarProjectionOnto(b) * this.ToUnitVector(); }
 
       /// <summary>
