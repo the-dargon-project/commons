@@ -39,27 +39,25 @@ namespace ItzWarty.Geometry.VoronoiAlgorithms
 
       private void RunIteration(int stepCount = -1)
       {
-         for (int i = 0; i != stepCount; i++)
-         {
-            if (m_queue.Count != 0)
-            {
-               var e = m_queue.Next();
-               if (e.EventType == VEventType.Site)
-               {
-                  AddParabola(e.Site);
-                  m_lineY = e.Site.Y;
-               }
+         for (int i = 0; i != stepCount && !m_queue.Empty; i++) {
+            var e = m_queue.Next();
+            if (e.EventType == VEventType.Site) {
+               AddParabola(e.Site);
+               m_lineY = e.Site.Y;
+            } else {
+               Console.WriteLine("Unhandled event type " + e.EventType);
             }
          }
       }
 
       private void AddParabola(Point2D site)
       {
+         Console.WriteLine("Add Parabola at " + site);
          if (m_root == null)
          {
             m_root = new VParabolaNode(site);
          }
-         else if (m_root.EnumerateLeaves().All((leaf) => leaf.Site.Y == site.Y))
+         else if (m_root.EnumerateLeaves().All((leaf) => Math.Abs(leaf.Site.Y - site.Y) <= kEqualityEpsilon))
          {
             // Degenerate case - all parabola sites on the same y-value.
             // If this happens, then our edge starts between us and our nearest point, and we need
@@ -108,32 +106,38 @@ namespace ItzWarty.Geometry.VoronoiAlgorithms
             var intersection = cutParabola.CalculatePointAtX(site.X, site.Y);
 
             // create the left and right edges...
-            var vCutMiddle = middle.Site - cutParabola.Site;
+            var vCutMiddle = site - cutParabola.Site;
             var rightDirection = vCutMiddle.Perp(); // performs 90deg counterclockwise rotation in euclidean space
             var leftDirection = rightDirection.Flip();
             var leftEdge = new VEdgeNode(intersection, leftDirection, left, middle);
-            var rightEdge = new VEdgeNode(intersection, leftDirection, leftEdge, right);
+            var rightEdge = new VEdgeNode(intersection, rightDirection, leftEdge, right);
 
-            if (cutParent.Left == null)
-               cutParent.Left = rightEdge;
-            else
-               cutParent.Right = rightEdge;
+            if (cutParent == null) {
+               this.m_root = rightEdge;
+            } else {
+               if (cutParent.Left == null) // hacky - null because the cutParabola was removed
+                  cutParent.Left = rightEdge;
+               else
+                  cutParent.Right = rightEdge;
+            }
 
             // :: Manage Circle Events
             // Unregister the cut parabola node's event, which is now invalidated.
-            if (cutParabola.CircleEvent != null)
-            {
+            if (cutParabola.CircleEvent != null) {
                m_queue.Remove(cutParabola.CircleEvent);
                cutParabola.CircleEvent = null;
             }
 
             // Register the left, right, and middle circle events
-            if (cutParabolaLeft != null)
+            if (cutParabolaLeft != null) {
                RegisterCircleEvent(cutParabolaLeft, left, middle);
-            if (cutParabolaRight != null)
+            }
+            if (cutParabolaRight != null) {
                RegisterCircleEvent(middle, right, cutParabolaRight);
-            if (cutParabolaLeft != null && cutParabolaRight != null)
+            }
+            if (cutParabolaLeft != null && cutParabolaRight != null) {
                RegisterCircleEvent(left, middle, right); // wtf? Shouldn't be necessary, right?
+            }
          }
       }
 

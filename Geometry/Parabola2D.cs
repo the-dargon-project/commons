@@ -21,7 +21,8 @@ namespace ItzWarty.Geometry
       {
          m_focus = focus;
          m_directrix = directrix;
-         m_tOffset = -m_directrix.NearestT(m_focus);
+         m_tOffset = m_directrix.NearestT(m_focus);
+         Console.WriteLine("HAVE TOFFSET " + m_tOffset + " focus " + focus + " directrix " + directrix);
       }
 
       // :: boilerplate
@@ -42,6 +43,20 @@ namespace ItzWarty.Geometry
          var offset = m_directrix.OffsetToT(t);
          var perpBisector = new Line2D(m_directrix.Start + offset, m_directrix.Vector.Perp());
          var offsetMagnitude = offset.Magnitude();
+
+         // Find point on perp bisector which is equidistant from directrix and site.
+         // directrix distance squared = (vx * t)^2 + (vy * t)^2
+         // the point is at p0 + v * t, x = x0 + vx * t, y = y0 + vy * t
+         // focus distance squared = (x - focusX)^2 + (y - focusY)^2
+         //                        = (x0 + vx * t - focusX)^2 + (y0 + vy * t - focusY)^2
+         //                        = (vx * t + (x0 - focusX))^2 + (vy * t + (y0 - focusY))^2
+         // let x0f = x0 - focusX, y0f = y0 - focusY
+         //                        = (vx * t + x0f)^2 + (vy * t + y0f)^2
+         //                        = vx^2 * t^2 + 2 * vx * t * x0f + x0f^2 + vy^2 * t^2 + 2 * vy * t * y0f + y0f^2
+         //                        = (vx^2 + vy^2) * t^2 + (2 * vx * x0f + 2 * vy * y0f) * t + (x0f^2 + y0f^2)
+         // Equate these two (with t being the only variable) to solve equation...
+         
+         // todo: not fully implemented!
 
          // Find two points on perp bisector at the same distance from point as offset...
          // we want the point with the lowest t, as that is closest to the directrix.

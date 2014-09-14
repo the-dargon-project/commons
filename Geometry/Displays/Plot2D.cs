@@ -35,7 +35,6 @@ namespace ItzWarty.Geometry.Displays
          m_yHigh = yHigh;
          m_scale = scale;
 
-         m_elementGraph = new Bitmap(ClientSize.Width, ClientSize.Height, PixelFormat.Format32bppArgb);
          m_topLeft = new Point2D(m_xLow, m_yHigh);
          m_topRight = new Point2D(m_xHigh, m_yHigh);
          m_bottomLeft = new Point2D(m_xLow, m_yLow);
@@ -47,6 +46,8 @@ namespace ItzWarty.Geometry.Displays
 
          ClientSize = new Size((int)Math.Ceiling(scale * (m_xHigh - m_xLow) + 1), (int)Math.Ceiling(scale * (m_yHigh - m_yLow) + 1));
          BackColor = Color.White;
+
+         m_elementGraph = new Bitmap(ClientSize.Width, ClientSize.Height, PixelFormat.Format32bppArgb);
 
          SetStyle(ControlStyles.AllPaintingInWmPaint, true);
          SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
@@ -67,10 +68,10 @@ namespace ItzWarty.Geometry.Displays
          e.Graphics.DrawLine(Pens.Black, 0, haY, ClientSize.Width, haY);
       }
 
-      public void Draw(Line2D line)
+      public void Draw(Line2D line, Pen pen = null)
       {
          var start = line.PointAtT(0);
-         var end = line.PointAtT(1);
+         var end = line.PointAtT(10);
          
          // ensure start x is < end.x
          if (start.X > end.X)
@@ -97,7 +98,7 @@ namespace ItzWarty.Geometry.Displays
          lock (m_lock)
          {
             using (var g = Graphics.FromImage(m_elementGraph))
-               g.DrawLine(Pens.Red, m_scale * (float)(start.X - m_xLow), m_scale * (float)(m_yHigh - start.Y ), m_scale * (float)(end.X - m_xLow), m_scale * (float)(m_yHigh - end.Y));
+               g.DrawLine(pen ?? Pens.Red, m_scale * (float)(start.X - m_xLow), m_scale * (float)(m_yHigh - start.Y ), m_scale * (float)(end.X - m_xLow), m_scale * (float)(m_yHigh - end.Y));
             Invalidate();
          }
       }
@@ -116,10 +117,16 @@ namespace ItzWarty.Geometry.Displays
          }
       }
 
-      public void DrawParabola(Parabola2D parabola, Brush brush = null)
+      public void DrawParabola(Parabola2D parabola, Pen pen = null)
       {
-         // Find intersection of parabola with 4 edges of viewing region.
-         //var topIntersections = parabola.FindIntersection(
+         // smart way to do this: Find intersection of parabola with 4 edges of viewing region.
+         using (var g = Graphics.FromImage(m_elementGraph)) {
+            for (var t = -10; t < 10; t++) {
+               var start = parabola.PointAtT(t);
+               var end = parabola.PointAtT(t + 1);
+               g.DrawLine(pen ?? Pens.Red, m_scale * (float)(start.X - m_xLow), m_scale * (float)(m_yHigh - start.Y), m_scale * (float)(end.X - m_xLow), m_scale * (float)(m_yHigh - end.Y));
+            }
+         }
       }
    }
 }

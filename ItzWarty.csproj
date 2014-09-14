@@ -6,7 +6,7 @@
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{097B6B08-4034-408A-B3C0-A12E8F9E8893}</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>ItzWarty</RootNamespace>
     <AssemblyName>wLib</AssemblyName>
@@ -96,6 +96,7 @@
     <Compile Include="Collections\ConcurrentSet.cs" />
     <Compile Include="Collections\IOrderedDictionary.cs" />
     <Compile Include="Collections\ListDictionary.cs" />
+    <Compile Include="Collections\MultiValueSortedDictionary.cs" />
     <Compile Include="Collections\OrderedDictionary.cs" />
     <Compile Include="Collections\OrderedMultiValueDictionary.cs" />
     <Compile Include="Collections\PriorityQueue.cs" />
@@ -129,6 +130,7 @@
     <Compile Include="Geometry\Point3D.cs" />
     <Compile Include="Geometry\PointCollection3D.cs" />
     <Compile Include="Geometry\PointCollection2D.cs" />
+    <Compile Include="Geometry\PolygonTriangulator2D.cs" />
     <Compile Include="Geometry\Ray3D.cs" />
     <Compile Include="Geometry\Shape3D.cs" />
     <Compile Include="Geometry\ShapeType3D.cs" />

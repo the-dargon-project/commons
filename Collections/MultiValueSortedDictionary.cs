@@ -46,17 +46,17 @@ namespace ItzWarty.Collections
    /// </summary>
    /// <typeparam name="TKey">The type of the key.</typeparam>
    /// <typeparam name="TValue">The type of the value.</typeparam>
-   public class MultiValueDictionary<TKey, TValue> : Dictionary<TKey, HashSet<TValue>> 
+   public class MultiValueSortedDictionary<TKey, TValue> : SortedDictionary<TKey, HashSet<TValue>> 
    {
       /// <summary>
       /// Initializes a new instance of the <see cref="MultiValueDictionary&lt;TKey, TValue&gt;"/> class.
       /// </summary>
-      public MultiValueDictionary()
+      public MultiValueSortedDictionary()
          : base()
       {
       }
 
-      public MultiValueDictionary(IEqualityComparer<TKey> comparer)
+      public MultiValueSortedDictionary(IComparer<TKey> comparer)
          : base(comparer)
       {
          
