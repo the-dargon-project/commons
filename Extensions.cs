@@ -12,6 +12,14 @@ namespace ItzWarty
 {
    public static class Extend
    {
+      // http://stackoverflow.com/questions/311165/how-do-you-convert-byte-array-to-hexadecimal-string-and-vice-versa
+      public static string ToHex(this byte[] a)
+      {
+         var hex = new StringBuilder(a.Length * 2);
+         foreach (byte b in a)
+            hex.AppendFormat("{0:x2}", b);
+         return hex.ToString();
+      }
 
       [MethodImpl(MethodImplOptions.AggressiveInlining)]
       public static ulong GetUnixTime(this DateTime dateTime)

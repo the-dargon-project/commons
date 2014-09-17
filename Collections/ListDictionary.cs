@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ItzWarty.Collections
 {
-   public class ListDictionary<K, V> : IDictionary<K, V>
+   public class ListDictionary<K, V> : IDictionary<K, V>, IReadOnlyDictionary<K, V>
    {
       private List<KeyValuePair<K, V>> list = new List<KeyValuePair<K, V>>();  
 
@@ -160,6 +160,10 @@ namespace ItzWarty.Collections
       /// </returns>
       /// <param name="key">The key of the element to get or set.</param><exception cref="T:System.ArgumentNullException"><paramref name="key"/> is null.</exception><exception cref="T:System.Collections.Generic.KeyNotFoundException">The property is retrieved and <paramref name="key"/> is not found.</exception><exception cref="T:System.NotSupportedException">The property is set and the <see cref="T:System.Collections.Generic.IDictionary`2"/> is read-only.</exception>
       public V this[K key] { get { return Get(key); } set { AddOrUpdate(key, value); } }
+
+      IEnumerable<K> IReadOnlyDictionary<K, V>.Keys { get { return Keys; } }
+
+      IEnumerable<V> IReadOnlyDictionary<K, V>.Values { get { return Values; } }
 
       /// <summary>
       /// Gets an <see cref="T:System.Collections.Generic.ICollection`1"/> containing the keys of the <see cref="T:System.Collections.Generic.IDictionary`2"/>.

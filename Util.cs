@@ -21,7 +21,7 @@ namespace ItzWarty
         public GeneratorExitException() : base("The Generator is unable to produce more results.  Perhaps, there is nothing left to produce?") { }
     }
 
-   public static class Util
+   public unsafe static class Util
    {
       /// <summary>
       /// Gets all files in the given directory, and its subdirectories.
@@ -296,6 +296,49 @@ namespace ItzWarty
                min = bytes[i];
          }
          return min;
+      }
+
+      public static bool ByteArraysEqual(byte[] param1, byte[] param2)
+      {
+         if (param1.Length != param2.Length) {
+            return false;
+         }
+
+         fixed (byte* pParam1 = param1)
+         fixed (byte* pParam2 = param2) {
+            byte* pCurrent1 = pParam1, pCurrent2 = pParam2;
+            var length = param1.Length;
+            int longCount = length / 8;
+            for (var i = 0; i < longCount; i++) {
+               if (*(ulong*)pCurrent1 != *(ulong*)pCurrent2) {
+                  return false;
+               }
+               pCurrent1 += 8;
+               pCurrent2 += 8;
+            }
+            if ((length & 4) != 0) {
+               if (*(uint*)pCurrent1 != *(uint*)pCurrent2) {
+                  return false;
+               }
+               pCurrent1 += 4;
+               pCurrent2 += 4;
+            }
+            if ((length & 2) != 0) {
+               if (*(ushort*)pCurrent1 != *(ushort*)pCurrent2) {
+                  return false;
+               }
+               pCurrent1 += 2;
+               pCurrent2 += 2;
+            }
+            if ((length & 1) != 0) {
+               if (*pCurrent1 != *pCurrent2) {
+                  return false;
+               }
+               pCurrent1 += 1;
+               pCurrent2 += 1;
+            }
+            return true;
+         }
       }
 
       public static void SubscribeToEventOnce<T>(ref EventHandler<T> @event, EventHandler<T> callback)

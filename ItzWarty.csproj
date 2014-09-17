@@ -94,6 +94,8 @@
   <ItemGroup>
     <Compile Include="CLIStatus.cs" />
     <Compile Include="Collections\ConcurrentSet.cs" />
+    <Compile Include="Collections\ImmutableCollection.cs" />
+    <Compile Include="Collections\ImmutableDictionary.cs" />
     <Compile Include="Collections\IOrderedDictionary.cs" />
     <Compile Include="Collections\ListDictionary.cs" />
     <Compile Include="Collections\MultiValueSortedDictionary.cs" />
