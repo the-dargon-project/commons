@@ -16,7 +16,7 @@ namespace ItzWarty
     {
         public delegate bool CallBackPtr(int hwnd, int lParam);
 
-        /// <summary>
+       /// <summary>
         /// Callback should return true to have enumwindows return the hwnd to the given window.
         /// </summary>
         /// <param name="callPtr"></param>
@@ -192,6 +192,9 @@ namespace ItzWarty
 
         [DllImport("user32.dll", SetLastError = false)]
         public static extern IntPtr GetDesktopWindow();
+
+        [DllImport("kernel32.dll", ExactSpelling = true)]
+        public static extern IntPtr GetConsoleWindow();
 
         static readonly IntPtr HWND_TOPMOST = new IntPtr(-1);
         static readonly IntPtr HWND_NOTOPMOST = new IntPtr(-2);
