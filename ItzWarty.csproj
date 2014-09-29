@@ -6,10 +6,10 @@
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{097B6B08-4034-408A-B3C0-A12E8F9E8893}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>ItzWarty</RootNamespace>
-    <AssemblyName>wLib</AssemblyName>
+    <AssemblyName>libwarty</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SccProjectName>
@@ -63,6 +63,7 @@
     <PlatformTarget>x86</PlatformTarget>
     <OutputPath>bin\x86\Debug\</OutputPath>
     <Prefer32Bit>false</Prefer32Bit>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
     <PlatformTarget>x86</PlatformTarget>
@@ -169,6 +170,7 @@
     <Compile Include="Services\IServiceLocator.cs" />
     <Compile Include="Services\ServiceLocator.cs" />
     <Compile Include="SingleGlobalInstance.cs" />
+    <Compile Include="Specialized\CaseInsensitiveStringEqualityComparer.cs" />
     <Compile Include="StaticRandom.cs" />
     <Compile Include="TemporarySeek.cs" />
     <Compile Include="ThirdParty\Ini\IniFile.cs" />
