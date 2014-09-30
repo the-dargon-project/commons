@@ -76,5 +76,19 @@ namespace ItzWarty
       }
 
       public static string Join<T>(this IEnumerable<T> e, string delimiter) { return String.Join(delimiter, e); }
+
+      public static TAccumulate Aggregate<TSource, TAccumulate>(this IEnumerable<TSource> source, TAccumulate seed, Action<TAccumulate, TSource> action)
+      {
+         if (seed == null) {
+            throw new ArgumentNullException("seed");
+         }
+         if (action == null) {
+            throw new ArgumentNullException("action");
+         }
+
+         TAccumulate result = seed;
+         foreach (TSource element in source) action(result, element);
+         return result;
+      } 
    }
 }
