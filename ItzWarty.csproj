@@ -158,7 +158,6 @@
     <Compile Include="LambdaComparer.cs" />
     <Compile Include="Networking\LowIntegrityPipeFactory.cs" />
     <Compile Include="Output.cs" />
-    <Compile Include="ParentProcessUtilities.cs" />
     <Compile Include="ClassLoader.cs" />
     <Compile Include="Geometry\Point2D.cs" />
     <Compile Include="PerformanceUtil.cs" />
