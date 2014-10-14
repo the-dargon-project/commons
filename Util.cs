@@ -475,6 +475,9 @@ namespace ItzWarty
          //}
       }
 
+      public static KeyValuePair<TKey, TValue> PairValue<TKey, TValue>(this TKey key, TValue value) { return new KeyValuePair<TKey, TValue>(key, value); }
+      public static KeyValuePair<TKey, TValue> PairKey<TKey, TValue>(this TValue value, TKey key) { return key.PairValue(value); }
+
       /// <summary>
       /// Calls the given function, passing self as the argument.
       /// </summary>
