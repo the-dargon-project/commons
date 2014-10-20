@@ -44,6 +44,16 @@ namespace ItzWarty
          writer.Write('\0');
       }
 
+      public static Guid ReadGuid(this BinaryReader reader)
+      {
+         return new Guid(reader.ReadBytes(16));
+      }
+
+      public static void WriteGuid(this BinaryWriter writer, Guid guid)
+      {
+         writer.Write(guid.ToByteArray(), 0, 16);
+      }
+
       //http://stackoverflow.com/questions/8613187/an-elegant-way-to-consume-all-bytes-of-a-binaryreader
       public static byte[] ReadAllBytes(this BinaryReader reader)
       {
