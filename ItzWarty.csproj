@@ -172,8 +172,6 @@
     <Compile Include="Util.cs" />
     <Compile Include="Geometry\Vector2D.cs" />
     <Compile Include="Geometry\Vector3D.cs" />
-    <Compile Include="Utilities.cs" />
-    <Compile Include="Utilities.Octals.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="License - Algorithmia.txt">

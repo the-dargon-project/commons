@@ -39,14 +39,6 @@ namespace ItzWarty
          return temp.ToString().Substring(0, length);
       }
 
-      public static T[] Cast<T, U>(this U[] values, Func<U, T> cast)
-      {
-         T[] result = new T[values.Length];
-         for (int i = 0; i < result.Length; i++)
-            result[i] = cast(values[i]);
-         return result;
-      }
-
       /// <summary>
       /// Creates an array using the given function N times.
       /// The function takes a parameter i, from 0 to count, and returns T.
@@ -137,15 +129,12 @@ namespace ItzWarty
          return result.ToArray();
       }
 
-      public static T[] Concat<T>(params object[] args)
-      {
+      public static T[] Concat<T>(params object[] args) {
          var result = new List<T>();
-         foreach (var element in args)
-         {
+         foreach (var element in args) {
             if (element is T)
                result.Add((T)element);
-            else
-            {
+            else {
                foreach (var subElement in (IEnumerable<T>)element)
                   result.Add(subElement);
             }
@@ -328,39 +317,6 @@ namespace ItzWarty
          return result;
       }
 
-      public static KeyValuePair<TKey, TValue> PairValue<TKey, TValue>(this TKey key, TValue value) { return new KeyValuePair<TKey, TValue>(key, value); }
-      public static KeyValuePair<TKey, TValue> PairKey<TKey, TValue>(this TValue value, TKey key) { return key.PairValue(value); }
-
-      /// <summary>
-      /// Calls the given function, passing self as the argument.
-      /// </summary>
-      public static T With<T>(this T self, Action<T> func)
-      {
-         func(self);
-         return self;
-      }
-
-      /// <summary>
-      /// Calls the given function, passing self as the argument.
-      /// </summary>
-      public static U With<T, U>(this T self, Func<T, U> func)
-      {
-         return func(self);
-      }
-
-      /// <summary>
-      /// Runs self through the function, and returns the result.
-      /// </summary>
-      /// <typeparam name="T">The type of the fileName parameter</typeparam>
-      /// <typeparam name="U">The type of the output result</typeparam>
-      /// <param name="self">The fileName parameter which is passed through func</param>
-      /// <param name="func">The function which we pass our fileName parameter through.</param>
-      /// <returns>func(self)</returns>
-      public static U Pass<T, U>(this T self, Func<T, U> func)
-      {
-         return func(self);
-      }
-
       /// <SUMMARY>
       /// FROM: http://blogs.msdn.com/b/toub/archive/2006/05/05/590814.aspx
       /// Computes the Levenshtein Edit Distance between two enumerables.</SUMMARY>
@@ -426,95 +382,6 @@ namespace ItzWarty
          return rows[curRow][m];
       }
 
-      /// <summary>                                                                                              
-      /// Checks whether argument is <see langword="null"/> and throws <see cref="ArgumentNullException"/> if so.
-      /// </summary>                                                                                             
-      /// <param name="argument">Argument to check on <see langword="null"/>.</param>                            
-      /// <param name="argumentName">Argument name to pass to Exception constructor.</param>                     
-      /// <returns>Specified argument.</returns>                                                                 
-      /// <exception cref="ArgumentNullException"/>                                                              
-      [DebuggerStepThrough]
-      public static T ThrowIfNull<T>(this T argument, string argumentName)
-         where T : class
-      {
-         if(argument == null)
-         {
-            throw new ArgumentNullException(argumentName);
-         }
-         else
-         {
-            return argument;
-         }
-      }
-
-
-      public static TSource MinBy<TSource, TKey>(this IEnumerable<TSource> source,
-                                                 Func<TSource, TKey> selector)
-      {
-         return source.MinBy(selector, Comparer<TKey>.Default);
-      }
-
-      public static TSource MinBy<TSource, TKey>(this IEnumerable<TSource> source,
-                                                 Func<TSource, TKey> selector, IComparer<TKey> comparer)
-      {
-         source.ThrowIfNull("source");
-         selector.ThrowIfNull("selector");
-         comparer.ThrowIfNull("comparer");
-         using (IEnumerator<TSource> sourceIterator = source.GetEnumerator())
-         {
-            if (!sourceIterator.MoveNext())
-            {
-               throw new InvalidOperationException("Sequence was empty");
-            }
-            TSource min = sourceIterator.Current;
-            TKey minKey = selector(min);
-            while (sourceIterator.MoveNext())
-            {
-               TSource candidate = sourceIterator.Current;
-               TKey candidateProjected = selector(candidate);
-               if (comparer.Compare(candidateProjected, minKey) < 0)
-               {
-                  min = candidate;
-                  minKey = candidateProjected;
-               }
-            }
-            return min;
-         }
-      }
-
-      public static TSource MaxBy<TSource, TKey>(this IEnumerable<TSource> source,
-                                                 Func<TSource, TKey> selector)
-      {
-         return source.MaxBy(selector, Comparer<TKey>.Default);
-      }
-
-      public static TSource MaxBy<TSource, TKey>(this IEnumerable<TSource> source,
-                                                 Func<TSource, TKey> selector, IComparer<TKey> comparer)
-      {
-         source.ThrowIfNull("source");
-         selector.ThrowIfNull("selector");
-         comparer.ThrowIfNull("comparer");
-         using (IEnumerator<TSource> sourceIterator = source.GetEnumerator())
-         {
-            if (!sourceIterator.MoveNext())
-            {
-               throw new InvalidOperationException("Sequence was empty");
-            }
-            TSource max = sourceIterator.Current;
-            TKey maxKey = selector(max);
-            while (sourceIterator.MoveNext())
-            {
-               TSource candidate = sourceIterator.Current;
-               TKey candidateProjected = selector(candidate);
-               if (comparer.Compare(candidateProjected, maxKey) > 0)
-               {
-                  max = candidate;
-                  maxKey = candidateProjected;
-               }
-            }
-            return max;
-         }
-      }
       /// <summary>
       /// Takes fileName like annieSquare.dds, AnnieSquare.dds, annie_square_dds, ANNIE_SQUARE.dds and 
       /// outputs  an array such as ["annie", "square", "dds"].  Non-alphanumeric values are deemed
