@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>ItzWarty</RootNamespace>
     <AssemblyName>libwarty</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SccProjectName>
     </SccProjectName>
@@ -21,6 +21,29 @@
     <SccProvider>
     </SccProvider>
     <TargetFrameworkProfile />
+    <ProjectTypeGuids>{786C830F-07A1-408B-BD7F-6EE04809D6DB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <TargetFrameworkProfile>Profile44</TargetFrameworkProfile>
+    <MinimumVisualStudioVersion>12.0</MinimumVisualStudioVersion>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>4.0</OldToolsVersion>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -82,18 +105,6 @@
     <OutputPath>bin\x86\DummyPlatform\</OutputPath>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.Windows.Forms" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="CLIStatus.cs" />
     <Compile Include="Collections\ConcurrentSet.cs" />
     <Compile Include="Collections\ImmutableCollection.cs" />
     <Compile Include="Collections\ImmutableDictionary.cs" />
@@ -107,25 +118,15 @@
     <Compile Include="EqualityComparer.cs" />
     <Compile Include="ExpiringCache.cs" />
     <Compile Include="Extensions.cs" />
-    <Compile Include="Extensions.Assembly.cs" />
     <Compile Include="Extensions.Collections.cs" />
-    <Compile Include="Extensions.Drawing.cs" />
     <Compile Include="Extensions.IO.cs" />
     <Compile Include="Extensions.Linq.cs" />
     <Compile Include="Extensions.String.cs" />
     <Compile Include="Extensions.Treelike.cs" />
     <Compile Include="Extensions.Within.cs" />
-    <Compile Include="FileLock.cs" />
+    <None Include="Deprecated\FileLock.cs" />
     <Compile Include="FileSizeFormatProvider.cs" />
-    <Compile Include="FileUtil.cs" />
-    <Compile Include="FontLoader.cs" />
     <Compile Include="Geometry\Clockness.cs" />
-    <Compile Include="Geometry\Displays\Plot2D.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Geometry\Displays\Display2D.cs">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="Geometry\Face3D.cs" />
     <Compile Include="Geometry\InfinitesimalIterationException.cs" />
     <Compile Include="Geometry\IReadOnlyPoint3DSet.cs" />
@@ -139,12 +140,11 @@
     <Compile Include="Geometry\Shape3D.cs" />
     <Compile Include="Geometry\ShapeType3D.cs" />
     <Compile Include="Geometry\Vertex3D.cs" />
-    <Compile Include="Geometry\VoronoiAlgorithms\FortunesAlgorithm.Display.cs" />
+    <None Include="Geometry\VoronoiAlgorithms\FortunesAlgorithm.cs" />
     <Compile Include="Geometry\VoronoiAlgorithms\VCircleEvent.cs" />
     <Compile Include="Geometry\VoronoiAlgorithms\VEdgeNode.cs" />
     <Compile Include="Geometry\VoronoiAlgorithms\VNode.cs" />
     <Compile Include="Geometry\VoronoiAlgorithms\VEvent.cs" />
-    <Compile Include="Geometry\VoronoiAlgorithms\FortunesAlgorithm.cs" />
     <Compile Include="Geometry\GeometryUtilities.cs" />
     <Compile Include="Geometry\Line2D.cs" />
     <Compile Include="Geometry\Quad2D.cs" />
@@ -157,25 +157,16 @@
     <Compile Include="Geometry\Edge3D.cs" />
     <Compile Include="Collections\MultiValueDictionary.cs" />
     <Compile Include="LambdaComparer.cs" />
-    <Compile Include="Networking\LowIntegrityPipeFactory.cs" />
-    <Compile Include="Output.cs" />
-    <Compile Include="ClassLoader.cs" />
     <Compile Include="Geometry\Point2D.cs" />
-    <Compile Include="PerformanceUtil.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="NullConsole.cs" />
     <Compile Include="ReferenceCounter.cs" />
     <Compile Include="ReverseComparer.cs" />
     <Compile Include="Geometry\Shape2D.cs" />
     <Compile Include="Geometry\ShapeType2D.cs" />
-    <Compile Include="Services\IServiceLocator.cs" />
-    <Compile Include="Services\ServiceLocator.cs" />
-    <Compile Include="SingleGlobalInstance.cs" />
     <Compile Include="Specialized\CaseInsensitiveStringEqualityComparer.cs" />
     <Compile Include="StaticRandom.cs" />
     <Compile Include="TemporarySeek.cs" />
-    <Compile Include="ThirdParty\Ini\IniFile.cs" />
-    <Compile Include="ThirdParty\ScreenCapture.cs" />
     <Compile Include="UniqueIdentificationSet.cs" />
     <Compile Include="UsingTimer.cs" />
     <Compile Include="Util.cs" />
@@ -183,14 +174,25 @@
     <Compile Include="Geometry\Vector3D.cs" />
     <Compile Include="Utilities.cs" />
     <Compile Include="Utilities.Octals.cs" />
-    <Compile Include="WinAPI.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="License - Algorithmia.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

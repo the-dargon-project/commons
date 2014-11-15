@@ -35,18 +35,18 @@ namespace ItzWarty
         /// </summary>
         public TimeSpan ElapsedTime { get { return DateTime.Now - StartTime; } }
 
-        /// <summary>
-        /// Returns a method that formats the given string, swapping {0} for milliseconds
-        /// </summary>
-        /// <param name="format"></param>
-        /// <returns></returns>
-        public static Action<UsingTimer> PrintTimeSpanOnDispose(string s = "{0} ms")
-        {
-            return delegate(UsingTimer timer)
-            {
-                Console.WriteLine(s, timer.ElapsedTime.TotalMilliseconds);
-            };
-        }
+//        /// <summary>
+//        /// Returns a method that formats the given string, swapping {0} for milliseconds
+//        /// </summary>
+//        /// <param name="format"></param>
+//        /// <returns></returns>
+//        public static Action<UsingTimer> PrintTimeSpanOnDispose(string s = "{0} ms")
+//        {
+//            return delegate(UsingTimer timer)
+//            {
+//                Console.WriteLine(s, timer.ElapsedTime.TotalMilliseconds);
+//            };
+//        }
 
         /// <summary>
         /// Returns a method that does nothing on dispose.

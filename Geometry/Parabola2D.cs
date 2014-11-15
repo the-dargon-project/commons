@@ -22,7 +22,6 @@ namespace ItzWarty.Geometry
          m_focus = focus;
          m_directrix = directrix;
          m_tOffset = m_directrix.NearestT(m_focus);
-         Console.WriteLine("HAVE TOFFSET " + m_tOffset + " focus " + focus + " directrix " + directrix);
       }
 
       // :: boilerplate

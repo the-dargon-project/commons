@@ -78,7 +78,6 @@ namespace ItzWarty
 
             if (m_garbageCollectOnExpiration)
             {
-               Console.WriteLine("Cache \"" + m_name + "\" has expired");
                GC.Collect(GC.MaxGeneration);
             }
          }

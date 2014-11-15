@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace ItzWarty
 {
@@ -16,7 +15,8 @@ namespace ItzWarty
       /// </summary>
       public static string ReadStringOfLength(this BinaryReader reader, int length)
       {
-         return Encoding.ASCII.GetString(reader.ReadBytes(length));
+         var data = Util.Generate(length, i => reader.ReadByte());
+         return Encoding.UTF8.GetString(data, 0, data.Length);
       }
 
       /// <summary>
@@ -26,13 +26,13 @@ namespace ItzWarty
       /// <returns></returns>
       public static string ReadNullTerminatedString(this BinaryReader reader)
       {
-         List<byte> dest = new List<byte>();
+         ICollection<byte> dest = new List<byte>();
          byte b;
-         while ((b = reader.ReadByte()) != 0)
-         {
+         while ((b = reader.ReadByte()) != 0) {
             dest.Add(b);
          }
-         return Encoding.UTF8.GetString(dest.ToArray());
+         var bytes = dest.ToArray();
+         return Encoding.UTF8.GetString(bytes, 0, bytes.Length);
       }
 
       public static void WriteNullTerminatedString(this BinaryWriter writer, string value)
@@ -80,7 +80,7 @@ namespace ItzWarty
             throw new Exception("Couldn't write the string " + s + " as tinytext, as it was too long");
          else
          {
-            var content = Encoding.ASCII.GetBytes(s);
+            var content = Encoding.UTF8.GetBytes(s);
             writer.Write((byte)s.Length);
             writer.Write(content, 0, s.Length);
          }
@@ -98,7 +98,7 @@ namespace ItzWarty
             throw new Exception("Couldn't write the string " + s + " as text, as it was too long");
          else
          {
-            var content = Encoding.ASCII.GetBytes(s);
+            var content = Encoding.UTF8.GetBytes(s);
             writer.Write((ushort)s.Length);
             writer.Write(content, 0, s.Length);
          }
@@ -114,7 +114,7 @@ namespace ItzWarty
       {
          // We don't do any range checking, as string.length is a signed integer value,
          // and thusly cannot surpass 2^32 - 1
-         var content = Encoding.ASCII.GetBytes(s);
+         var content = Encoding.UTF8.GetBytes(s);
          writer.Write((uint)s.Length);
          writer.Write(content, 0, s.Length);
       }
@@ -128,7 +128,7 @@ namespace ItzWarty
       public static string ReadTinyText(this BinaryReader reader)
       {
          var length = reader.ReadByte();
-         return Encoding.ASCII.GetString(reader.ReadBytes(length));
+         return Encoding.UTF8.GetString(reader.ReadBytes(length), 0, length);
       }
 
       /// <summary>
@@ -140,7 +140,7 @@ namespace ItzWarty
       public static string ReadText(this BinaryReader reader)
       {
          var length = reader.ReadUInt16();
-         return Encoding.ASCII.GetString(reader.ReadBytes(length));
+         return Encoding.UTF8.GetString(reader.ReadBytes(length), 0, length);
       }
 
       /// <summary>
@@ -156,7 +156,7 @@ namespace ItzWarty
          if (length > Int32.MaxValue)
             throw new Exception("Attempted to read a string longer than permitted by .net");
          else
-            return Encoding.ASCII.GetString(reader.ReadBytes((int)length));
+            return Encoding.UTF8.GetString(reader.ReadBytes((int)length), 0, (int)length);
       }
    }
 }

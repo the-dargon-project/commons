@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.Specialized;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace ItzWarty.Collections
 {
@@ -11,7 +7,7 @@ namespace ItzWarty.Collections
    /// </summary>
    /// <typeparam name="TKey"></typeparam>
    /// <typeparam name="TValue"></typeparam>
-   public interface IOrderedDictionary<TKey, TValue> : IDictionary<TKey, TValue>, IOrderedDictionary
+   public interface IOrderedDictionary<TKey, TValue> : IDictionary<TKey, TValue>
    {
       new TValue this[int index] { get; set; }
       new TValue this[TKey key] { get; set; }

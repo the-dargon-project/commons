@@ -2,9 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Collections.Specialized;
 using System.Linq;
-using System.Text;
 
 namespace ItzWarty.Collections
 {
@@ -362,122 +360,6 @@ namespace ItzWarty.Collections
       IEnumerator IEnumerable.GetEnumerator()
       {
          return GetEnumerator();
-      }
-
-      #endregion
-
-      #region IOrderedDictionary
-
-      IDictionaryEnumerator IOrderedDictionary.GetEnumerator()
-      {
-         return new DictionaryEnumerator<TKey, TValue>(this);
-      }
-
-      void IOrderedDictionary.Insert(int index, object key, object value)
-      {
-         Insert(index, (TKey)key, (TValue)value);
-      }
-
-      void IOrderedDictionary.RemoveAt(int index)
-      {
-         RemoveAt(index);
-      }
-
-      object IOrderedDictionary.this[int index]
-      {
-         get
-         {
-            return this[index];
-         }
-         set
-         {
-            this[index] = (TValue)value;
-         }
-      }
-
-      #endregion
-
-      #region IDictionary
-
-      void IDictionary.Add(object key, object value)
-      {
-         Add((TKey)key, (TValue)value);
-      }
-
-      void IDictionary.Clear()
-      {
-         Clear();
-      }
-
-      bool IDictionary.Contains(object key)
-      {
-         return _keyedCollection.Contains((TKey)key);
-      }
-
-      IDictionaryEnumerator IDictionary.GetEnumerator()
-      {
-         return new DictionaryEnumerator<TKey, TValue>(this);
-      }
-
-      bool IDictionary.IsFixedSize
-      {
-         get { return false; }
-      }
-
-      bool IDictionary.IsReadOnly
-      {
-         get { return false; }
-      }
-
-      ICollection IDictionary.Keys
-      {
-         get { return (ICollection)this.Keys; }
-      }
-
-      void IDictionary.Remove(object key)
-      {
-         Remove((TKey)key);
-      }
-
-      ICollection IDictionary.Values
-      {
-         get { return (ICollection)this.Values; }
-      }
-
-      object IDictionary.this[object key]
-      {
-         get
-         {
-            return this[(TKey)key];
-         }
-         set
-         {
-            this[(TKey)key] = (TValue)value;
-         }
-      }
-
-      #endregion
-
-      #region ICollection
-
-      void ICollection.CopyTo(Array array, int index)
-      {
-         ((ICollection)_keyedCollection).CopyTo(array, index);
-      }
-
-      int ICollection.Count
-      {
-         get { return ((ICollection)_keyedCollection).Count; }
-      }
-
-      bool ICollection.IsSynchronized
-      {
-         get { return ((ICollection)_keyedCollection).IsSynchronized; }
-      }
-
-      object ICollection.SyncRoot
-      {
-         get { return ((ICollection)_keyedCollection).SyncRoot; }
       }
 
       #endregion

@@ -2,45 +2,22 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Text;
-using System.Drawing;
-using System.Drawing.Drawing2D;
-using System.Drawing.Imaging;
-using System.IO;
-using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading;
 
 namespace ItzWarty
 {
-    public class GeneratorExitException : Exception
-    {
-        public GeneratorExitException() : base("The Generator is unable to produce more results.  Perhaps, there is nothing left to produce?") { }
-    }
+   public class GeneratorExitException : Exception {
+      public GeneratorExitException() : base("The Generator is unable to produce more results.  Perhaps, there is nothing left to produce?") {}
+   }
 
    public unsafe static class Util
    {
-      /// <summary>
-      /// Gets all files in the given directory, and its subdirectories.
-      /// This is used because apparently Directory.GetFiles("path", "*", SubDirectories) doesn't work with space
-      /// </summary>
-      /// <returns></returns>
-      public static string[] GetAllChildFiles(string path)
-      {
-         List<string> result = new List<string>();
-         result.AddRange(Directory.GetFiles(path));
-
-         string[] childDirs = Directory.GetDirectories(path);
-         foreach(string dir in childDirs)
-            if(!File.GetAttributes(dir).HasFlag(FileAttributes.ReparsePoint))
-               result.AddRange(GetAllChildFiles(dir));
-
-         return result.ToArray();
-      }
-
       /// <summary>
       /// Returns whether or not the given value is within (inclusive) the other two parameters
       /// </summary>
@@ -60,32 +37,6 @@ namespace ItzWarty
          while(temp.Length < length)
             temp.Append(Guid.NewGuid().ToByteArray().ToHex());
          return temp.ToString().Substring(0, length);
-      }
-
-
-      private static Dictionary<string, Icon> iconCache = new Dictionary<string, Icon>();
-                                              //So we don't have to reprod icon nonstop
-
-      /// <summary>
-      /// Gets the icon of the given file extension
-      /// </summary>
-      public static Icon GetFileExtensionIcon(string extension)
-      {
-         if(iconCache.ContainsKey(extension)) return iconCache[extension];
-         else
-         {
-            string dummyDir = Environment.CurrentDirectory + "/temp/";
-            string dummyFilePath = Environment.CurrentDirectory + "/temp/dummy." + extension;
-               //doesn't matter if passed string is .bmp or bmp
-            Directory.CreateDirectory(dummyDir);
-            File.Create(dummyFilePath).Dispose();
-            Icon result = Icon.ExtractAssociatedIcon(dummyFilePath);
-            //File.Delete(dummyFilePath);
-            //Directory.Delete(dummyDir);
-
-            iconCache.Add(extension, result); //Add to icon cache
-            return result;
-         }
       }
 
       public static T[] Cast<T, U>(this U[] values, Func<U, T> cast)
@@ -212,68 +163,6 @@ namespace ItzWarty
          for(int i = 0; i < count; i++)
             result[i] = t;
          return result;
-      }
-
-      /// <summary>
-      /// http://www.geekymonkey.com/Programming/CSharp/RGB2HSL_HSL2RGB.htm
-      /// Returns HSL from 0-1
-      /// </summary>
-      /// <param name="rgb"></param>
-      /// <param name="h"></param>
-      /// <param name="s"></param>
-      /// <param name="l"></param>
-      public static void RGB2HSL(Color rgb, out double h, out double s, out double l)
-      {
-         h = rgb.GetHue() / 360.0f;
-         s = rgb.GetSaturation();
-         l = rgb.GetBrightness();
-         return;
-         double r = rgb.R / 255.0;
-         double g = rgb.G / 255.0;
-         double b = rgb.B / 255.0;
-         double v;
-         double m;
-         double vm;
-         double r2, g2, b2;
-
-         h = 0; // default to black
-         s = 0;
-         l = 0;
-         v = Math.Max(r, g);
-         v = Math.Max(v, b);
-         m = Math.Min(r, g);
-         m = Math.Min(m, b);
-         l = (m + v) / 2.0;
-         if(l <= 0.0)
-         {
-            return;
-         }
-         vm = v - m;
-         s = vm;
-         if(s > 0.0)
-         {
-            s /= (l <= 0.5) ? (v + m) : (2.0 - v - m);
-         }
-         else
-         {
-            return;
-         }
-         r2 = (v - r) / vm;
-         g2 = (v - g) / vm;
-         b2 = (v - b) / vm;
-         if(r == v)
-         {
-            h = (g == m ? 5.0 + b2 : 1.0 - g2);
-         }
-         else if(g == v)
-         {
-            h = (b == m ? 1.0 + r2 : 3.0 - b2);
-         }
-         else
-         {
-            h = (r == m ? 3.0 + g2 : 5.0 - r2);
-         }
-         h /= Math.PI * 2; // 6.0;
       }
 
       public static byte FindMaximum(byte[] bytes)
@@ -439,42 +328,6 @@ namespace ItzWarty
          return result;
       }
 
-      /// <summary>
-      /// Creates the given directory and all directories leading up to it.
-      /// </summary>
-      public static void PrepareDirectory(string path)
-      {
-         Directory.CreateDirectory(path);
-         return;
-         path = path.Replace("/", "\\");
-         String[] dirs = path.Split("\\");
-         for(int i = 1; i < dirs.Length; i++)
-         {
-            String dirPath = String.Join("\\", dirs.SubArray(0, i)) + "\\";
-            if(!Directory.Exists(dirPath))
-               Directory.CreateDirectory(dirPath);
-            //ostream.WriteLine(dirPath);
-         }
-      }
-
-      /// <summary>
-      /// Creates the given m_parent directory and all directories leading up to it.
-      /// path should be a filename.
-      /// </summary>
-      public static void PrepareParentDirectory(string path)
-      {
-         path = path.Replace('\\', '/');
-         PrepareDirectory(path.Substring(0, path.LastIndexOf('/')));
-         //String[] dirs = path.Split("\\");
-         //for(int i = 1; i < dirs.Length - 1; i++)
-         //{
-         //   String dirPath = String.Join("\\", dirs.SubArray(0, i)) + "\\";
-         //   if(!Directory.Exists(dirPath))
-         //      Directory.CreateDirectory(dirPath);
-         //   //ostream.WriteLine(dirPath);
-         //}
-      }
-
       public static KeyValuePair<TKey, TValue> PairValue<TKey, TValue>(this TKey key, TValue value) { return new KeyValuePair<TKey, TValue>(key, value); }
       public static KeyValuePair<TKey, TValue> PairKey<TKey, TValue>(this TValue value, TKey key) { return key.PairValue(value); }
 
@@ -493,15 +346,6 @@ namespace ItzWarty
       public static U With<T, U>(this T self, Func<T, U> func)
       {
          return func(self);
-      }
-
-      /// <summary>
-      /// Calls the given function on a separate thread, passing self as the argument.
-      /// </summary>
-      public static T WithNewThread<T>(this T self, Action<T> func)
-      {
-         new Thread(() => { func(self); }).Start();
-         return self;
       }
 
       /// <summary>
@@ -850,21 +694,6 @@ namespace ItzWarty
          }
       }
 
-      public static bool ExistingPathsEqual(string path1, string path2)
-      {
-         return Path.GetFullPath(path1).TrimEnd('\\').Equals(Path.GetFullPath(path2).TrimEnd('\\'), StringComparison.InvariantCultureIgnoreCase);
-      }
-
-      public static string[] GetFiles(string[] directoryPaths, string searchPattern, SearchOption searchOption)
-      {
-         var result = new List<string>();
-         foreach (var path in directoryPaths)
-         {
-            result.AddRange(Directory.GetFiles(path, searchPattern, searchOption));
-         }
-         return result.ToArray();
-      }
-
       /// <summary>
       /// Returns an array containing numbers spaced between 0 and the given maximum value
       /// </summary>
@@ -923,16 +752,18 @@ namespace ItzWarty
       /// <param name="enumValue"></param>
       /// <returns></returns>
       public static TAttribute GetAttributeOrNull<TAttribute>(this Enum enumValue)
+         where TAttribute : Attribute
       {
          var enumType = enumValue.GetType();
-         var memberInfo = enumType.GetMember(enumValue.ToString());
-         var attributes = memberInfo[0].GetCustomAttributes(typeof(TAttribute), false);
+         var memberInfo = enumType.GetTypeInfo().DeclaredMembers.First(member => member.Name.Equals(enumValue.ToString()));
+         var attributes = memberInfo.GetCustomAttributes(typeof(TAttribute), false);
          return (TAttribute)attributes.FirstOrDefault();
       }
 
       public static TAttribute GetAttributeOrNull<TAttribute>(this object instance)
+         where TAttribute : Attribute
       {
-         var attributes = instance.GetType().GetCustomAttributes(typeof(TAttribute), false);
+         var attributes = instance.GetType().GetTypeInfo().GetCustomAttributes(typeof(TAttribute), false);
          return (TAttribute)attributes.FirstOrDefault();
       }
    }
