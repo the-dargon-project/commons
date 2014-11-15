@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
-namespace ItzWarty
+namespace ItzWarty.FormatProviders
 {
     //http://stackoverflow.com/questions/128618/c-file-size-format-provider
     public class FileSizeFormatProvider : IFormatProvider, ICustomFormatter

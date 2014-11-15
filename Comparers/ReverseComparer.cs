@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace ItzWarty
+namespace ItzWarty.Comparers
 {
    public class ReverseComparer<T> : IComparer<T>
       where T : IComparable<T>

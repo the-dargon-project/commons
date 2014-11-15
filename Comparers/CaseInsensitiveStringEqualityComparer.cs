@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace ItzWarty.Specialized
+namespace ItzWarty.Comparers
 {
    public unsafe class CaseInsensitiveStringEqualityComparer : IEqualityComparer<string>
    {

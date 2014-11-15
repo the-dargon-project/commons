@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-namespace ItzWarty
+namespace ItzWarty.Comparers
 {
    public class EqualityComparer<T> : IEqualityComparer<T>, IEqualityComparer
    {

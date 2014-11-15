@@ -1,11 +1,10 @@
 ﻿//http://stackoverflow.com/questions/3130922/sortedsett-and-anonymous-icomparert-in-the-constructor-is-not-working
+
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
-namespace ItzWarty
+namespace ItzWarty.Comparers
 {
     public class LambdaComparer<T> : IComparer<T>
     {

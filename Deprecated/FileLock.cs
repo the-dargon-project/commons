@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
+﻿using System.IO;
 
-namespace ItzWarty
+namespace ItzWarty.Deprecated
 {
    public class FileLock : ReferenceCounter<FileLock>
    {

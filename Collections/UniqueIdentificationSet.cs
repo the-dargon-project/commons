@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 
-namespace ItzWarty
+namespace ItzWarty.Collections
 {
    /// <summary>
    /// Represents a set of all unique UInt32 values.
