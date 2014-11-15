@@ -49,7 +49,7 @@ namespace ItzWarty
          return new Guid(reader.ReadBytes(16));
       }
 
-      public static void WriteGuid(this BinaryWriter writer, Guid guid)
+      public static void Write(this BinaryWriter writer, Guid guid)
       {
          writer.Write(guid.ToByteArray(), 0, 16);
       }

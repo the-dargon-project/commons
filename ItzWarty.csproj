@@ -115,6 +115,7 @@
     <Compile Include="Extensions.String.cs" />
     <Compile Include="Extensions.Treelike.cs" />
     <Compile Include="Extensions.Within.cs" />
+    <Compile Include="FileLock.cs" />
     <Compile Include="FileSizeFormatProvider.cs" />
     <Compile Include="FileUtil.cs" />
     <Compile Include="FontLoader.cs" />
@@ -163,6 +164,7 @@
     <Compile Include="PerformanceUtil.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="NullConsole.cs" />
+    <Compile Include="ReferenceCounter.cs" />
     <Compile Include="ReverseComparer.cs" />
     <Compile Include="Geometry\Shape2D.cs" />
     <Compile Include="Geometry\ShapeType2D.cs" />
