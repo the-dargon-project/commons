@@ -112,10 +112,10 @@ namespace ItzWarty
       /// </summary>
       public static string RemoveOuterQuote(this string s)
       {
-         if (s.Length > 1)
-         {
-            if ((s[0] == '\'' && s.Last() == '\'') ||
-                (s[0] == '"' && s.Last() == '"')
+         if (s.Length > 1) {
+            char lastChar = s[s.Length - 1];
+            if ((s[0] == '\'' && lastChar == '\'') ||
+                (s[0] == '"' && lastChar == '"')
             )
                return s.Substring(1, s.Length - 2);
             else

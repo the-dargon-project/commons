@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>ItzWarty</RootNamespace>
     <AssemblyName>libwarty</AssemblyName>
-    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SccProjectName>
     </SccProjectName>
@@ -22,8 +22,8 @@
     </SccProvider>
     <TargetFrameworkProfile />
     <ProjectTypeGuids>{786C830F-07A1-408B-BD7F-6EE04809D6DB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-    <TargetFrameworkProfile>Profile44</TargetFrameworkProfile>
-    <MinimumVisualStudioVersion>12.0</MinimumVisualStudioVersion>
+    <TargetFrameworkProfile>Profile7</TargetFrameworkProfile>
+    <MinimumVisualStudioVersion>11.0</MinimumVisualStudioVersion>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
     <UpgradeBackupLocation>
@@ -116,7 +116,7 @@
     <Compile Include="Collections\PriorityQueue.cs" />
     <Compile Include="Collections\ValuesSortState.cs" />
     <Compile Include="Comparers\EqualityComparer.cs" />
-    <Compile Include="ExpiringCache.cs" />
+    <None Include="Deprecated\ExpiringCache.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="Extensions.Collections.cs" />
     <Compile Include="Extensions.IO.cs" />
