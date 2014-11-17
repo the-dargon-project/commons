@@ -5,8 +5,7 @@ using System.Linq;
 
 namespace ItzWarty.Collections
 {
-   public class ConcurrentSet<T> : ICollection<T>, IReadOnlyCollection<T>, IEnumerable<T>, IEnumerable
-   {
+   public class ConcurrentSet<T> : IConcurrentSet<T> {
       ConcurrentDictionary<T, byte> storage;
 
       public ConcurrentSet()
@@ -46,7 +45,7 @@ namespace ItzWarty.Collections
 
       public int Count { get { return storage.Count; } }
 
-      public bool IsEmptry { get { return storage.IsEmpty; } }
+      public bool IsEmpty { get { return storage.IsEmpty; } }
 
       public void Clear()
       {

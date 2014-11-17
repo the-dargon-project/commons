@@ -19,7 +19,7 @@ namespace ItzWarty.Collections
    /// the child nodes of node N. The tree is balanced and left-aligned so there
    /// are no 'holes' in this list. 
    /// <typeparam name="T">Type T, should implement IComparable[T];</typeparam>
-   public class PriorityQueue<T> where T : IComparable<T>
+   public class PriorityQueue<T> : IPriorityQueue<T> where T : IComparable<T>
    {
       private HashSet<T> m_removed = new HashSet<T>();
 

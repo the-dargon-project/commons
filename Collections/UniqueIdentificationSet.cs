@@ -60,8 +60,7 @@ namespace ItzWarty.Collections
    ///          segment.prepend([value, value]);
    ///        }
    /// </summary>
-   public class UniqueIdentificationSet
-   {
+   public class UniqueIdentificationSet : IUniqueIdentificationSet {
       /// <summary>
       /// A segment in our UID Set
       /// <seealso cref="UniqueIdentificationSet"/>

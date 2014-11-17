@@ -46,8 +46,7 @@ namespace ItzWarty.Collections
    /// </summary>
    /// <typeparam name="TKey">The type of the key.</typeparam>
    /// <typeparam name="TValue">The type of the value.</typeparam>
-   public class MultiValueSortedDictionary<TKey, TValue> : SortedDictionary<TKey, HashSet<TValue>> 
-   {
+   public class MultiValueSortedDictionary<TKey, TValue> : SortedDictionary<TKey, HashSet<TValue>>, IMultiValueSortedDictionary<TKey, TValue> {
       /// <summary>
       /// Initializes a new instance of the <see cref="MultiValueDictionary&lt;TKey, TValue&gt;"/> class.
       /// </summary>

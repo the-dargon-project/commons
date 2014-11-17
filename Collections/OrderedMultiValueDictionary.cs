@@ -3,8 +3,7 @@ using System.Collections.Generic;
 
 namespace ItzWarty.Collections
 {
-   public class OrderedMultiValueDictionary<TKey, TValue> : IEnumerable<KeyValuePair<TKey, ISet<TValue>>>
-   {
+   public class OrderedMultiValueDictionary<TKey, TValue> : IOrderedMultiValueDictionary<TKey, TValue> {
       private readonly bool m_valuesSorted;
       private readonly OrderedDictionary<TKey, ISet<TValue>> m_dict;
 
