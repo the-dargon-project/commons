@@ -633,5 +633,14 @@ namespace ItzWarty
          var attributes = instance.GetType().GetTypeInfo().GetCustomAttributes(typeof(TAttribute), false);
          return (TAttribute)attributes.FirstOrDefault();
       }
+
+      public static bool IsThrown<TException>(Action action) where TException : Exception {
+         try {
+            action();
+            return false;
+         } catch (TException e) {
+            return true;
+         }
+      }
    }
 }
