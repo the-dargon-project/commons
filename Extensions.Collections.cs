@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using ItzWarty.Collections;
 
 namespace ItzWarty
 {
@@ -55,6 +56,28 @@ namespace ItzWarty
          V result;
          dict.TryGetValue(key, out result);
          return result;
+      }
+
+      public static bool TryAdd<K, V>(this IConcurrentDictionary<K, V> dict, K key, Func<V> valueFactory) {
+         bool added = false;
+         dict.AddOrUpdate(key, (k) => {
+            added = true;
+            return valueFactory();
+         }, Util.KeepExisting);
+         return added;
+      }
+
+      public static bool TryAdd<K, V>(this IConcurrentDictionary<K, V> dict, K key, Func<K, V> valueFactory) {
+         bool added = false;
+         dict.AddOrUpdate(key, (k) => {
+            added = true;
+            return valueFactory(k);
+         }, Util.KeepExisting);
+         return added;
+      }
+
+      public static bool TryRemove<K, V>(this IConcurrentDictionary<K, V> dict, K key, V value) {
+         return dict.Remove(new KeyValuePair<K, V>(key, value));
       }
    }
 }

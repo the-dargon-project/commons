@@ -25,7 +25,7 @@ namespace ItzWarty.Collections {
       public ConcurrentDictionary(int concurrencyLevel, int capacity) 
          : base(concurrencyLevel, capacity) { }
 
-      public ConcurrentDictionary(int concurrencyLevel, int capacity, IEqualityComparer<TKey> comparer) 
+      public ConcurrentDictionary(int concurrencyLevel, int capacity, IEqualityComparer<TKey> comparer)
          : base(concurrencyLevel, capacity, comparer) { }
    }
 }
