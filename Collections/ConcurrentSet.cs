@@ -1,11 +1,12 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace ItzWarty.Collections
 {
-   public class ConcurrentSet<T> : IConcurrentSet<T> {
+   public class ConcurrentSet<T> : IConcurrentSet<T>, ISet<T> {
       ConcurrentDictionary<T, byte> storage;
 
       public ConcurrentSet()
@@ -68,15 +69,39 @@ namespace ItzWarty.Collections
          return storage.TryRemove(item, out dontCare);
       }
 
-      void ICollection<T>.Add(T item)
-      {
+      void ICollection<T>.Add(T item) {
          ((ICollection<KeyValuePair<T, byte>>)storage).Add(new KeyValuePair<T, byte>(item, 0));
       }
 
-      void ICollection<T>.CopyTo(T[] array, int arrayIndex)
+      bool ISet<T>.Add(T item) {
+         return TryAdd(item);
+      }
+
+      public void CopyTo(T[] array) {
+         this.CopyTo(array, 0, this.Count);
+      }
+
+      public void CopyTo(T[] array, int arrayIndex)
       {
-         foreach (KeyValuePair<T, byte> pair in storage)
+         this.CopyTo(array, arrayIndex, this.Count);
+      }
+
+      public void CopyTo(T[] array, int arrayIndex, int count) {
+         if (array == null) {
+            throw new ArgumentNullException("array");
+         } else if (arrayIndex < 0) {
+            throw new ArgumentOutOfRangeException("arrayIndex");
+         } else if (arrayIndex + count > this.Count) {
+            throw new ArgumentException("arrayIndex + count > Count");
+         }
+
+         foreach (KeyValuePair<T, byte> pair in storage) {
             array[arrayIndex++] = pair.Key;
+            count--;
+
+            if (count == 0)
+               break;
+         }
       }
 
       bool ICollection<T>.IsReadOnly

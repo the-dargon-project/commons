@@ -5,8 +5,7 @@ using System.Linq;
 
 namespace ItzWarty.Collections
 {
-   public class ListDictionary<K, V> : IDictionary<K, V>, IReadOnlyDictionary<K, V>
-   {
+   public class ListDictionary<K, V> : IListDictionary<K, V> {
       private List<KeyValuePair<K, V>> list = new List<KeyValuePair<K, V>>();  
 
       public IEnumerator<KeyValuePair<K, V>> GetEnumerator() { return list.GetEnumerator(); }

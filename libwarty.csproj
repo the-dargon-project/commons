@@ -71,11 +71,15 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Collections\CollectionsFactory.cs" />
     <Compile Include="Collections\ConcurrentDictionary.cs" />
     <Compile Include="Collections\ConcurrentSet.cs" />
     <Compile Include="Collections\HashSet.cs" />
+    <Compile Include="Collections\ICollectionsFactory.cs" />
     <Compile Include="Collections\IConcurrentDictionary.cs" />
     <Compile Include="Collections\IConcurrentSet.cs" />
+    <Compile Include="Collections\IHashSet.cs" />
+    <Compile Include="Collections\IListDictionary.cs" />
     <Compile Include="Collections\ImmutableCollection.cs" />
     <Compile Include="Collections\ImmutableDictionary.cs" />
     <Compile Include="Collections\ImmutableSet.cs" />
@@ -85,12 +89,15 @@
     <Compile Include="Collections\IOrderedMultiValueDictionary.cs" />
     <Compile Include="Collections\IPriorityQueue.cs" />
     <Compile Include="Collections\IReadOnlySet.cs" />
+    <Compile Include="Collections\ISet.cs" />
+    <Compile Include="Collections\ISortedSet.cs" />
     <Compile Include="Collections\IUniqueIdentificationSet.cs" />
     <Compile Include="Collections\ListDictionary.cs" />
     <Compile Include="Collections\MultiValueSortedDictionary.cs" />
     <Compile Include="Collections\OrderedDictionary.cs" />
     <Compile Include="Collections\OrderedMultiValueDictionary.cs" />
     <Compile Include="Collections\PriorityQueue.cs" />
+    <Compile Include="Collections\SortedDictionary.cs" />
     <Compile Include="Collections\SortedSet.cs" />
     <Compile Include="Collections\ValuesSortState.cs" />
     <Compile Include="Comparers\EqualityComparer.cs" />
