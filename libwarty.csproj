@@ -78,6 +78,7 @@
     <Compile Include="Collections\IConcurrentSet.cs" />
     <Compile Include="Collections\ImmutableCollection.cs" />
     <Compile Include="Collections\ImmutableDictionary.cs" />
+    <Compile Include="Collections\ImmutableSet.cs" />
     <Compile Include="Collections\IMultiValueDictionary.cs" />
     <Compile Include="Collections\IMultiValueSortedDictionary.cs" />
     <Compile Include="Collections\IOrderedDictionary.cs" />
