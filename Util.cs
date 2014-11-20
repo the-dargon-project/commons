@@ -642,5 +642,9 @@ namespace ItzWarty
             return true;
          }
       }
+
+      public static TValue KeepExisting<TKey, TValue>(TKey key, TValue value) {
+         return value;
+      }
    }
 }
