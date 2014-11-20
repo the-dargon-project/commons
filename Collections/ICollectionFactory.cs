@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace ItzWarty.Collections {
-   public interface ICollectionsFactory {
+   public interface ICollectionFactory {
       IConcurrentDictionary<K, V> CreateConcurrentDictionary<K, V>();
       IConcurrentDictionary<K, V> CreateConcurrentDictionary<K, V>(IEnumerable<KeyValuePair<K, V>> collection);
       IConcurrentDictionary<K, V> CreateConcurrentDictionary<K, V>(IEqualityComparer<K> comparer);

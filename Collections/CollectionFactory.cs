@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 
 namespace ItzWarty.Collections {
-   public class CollectionsFactory : ICollectionsFactory {
+   public class CollectionFactory : ICollectionFactory {
       public IConcurrentDictionary<K, V> CreateConcurrentDictionary<K, V>() {
          return new ConcurrentDictionary<K, V>();
       }
