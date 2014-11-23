@@ -52,6 +52,7 @@ namespace ItzWarty.Collections {
 
       IQueue<T> CreateQueue<T>();
       IPriorityQueue<T> CreatePriorityQueue<T>() where T : IComparable<T>;
+      IConcurrentQueue<T> CreateConcurrentQueue<T>();
 
       IUniqueIdentificationSet CreateUniqueIdentificationSet(bool filled);
       IUniqueIdentificationSet CreateUniqueIdentificationSet(uint low, uint high);

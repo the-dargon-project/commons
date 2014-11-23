@@ -73,10 +73,12 @@
   <ItemGroup>
     <Compile Include="Collections\CollectionFactory.cs" />
     <Compile Include="Collections\ConcurrentDictionary.cs" />
+    <Compile Include="Collections\ConcurrentQueue.cs" />
     <Compile Include="Collections\ConcurrentSet.cs" />
     <Compile Include="Collections\HashSet.cs" />
     <Compile Include="Collections\ICollectionFactory.cs" />
     <Compile Include="Collections\IConcurrentDictionary.cs" />
+    <Compile Include="Collections\IConcurrentQueue.cs" />
     <Compile Include="Collections\IConcurrentSet.cs" />
     <Compile Include="Collections\IHashSet.cs" />
     <Compile Include="Collections\IListDictionary.cs" />

@@ -143,6 +143,10 @@ namespace ItzWarty.Collections {
          return new PriorityQueue<T>();
       }
 
+      public IConcurrentQueue<T> CreateConcurrentQueue<T>() {
+         return new ConcurrentQueue<T>();
+      }
+
       public IUniqueIdentificationSet CreateUniqueIdentificationSet(bool filled) {
          return new UniqueIdentificationSet(filled);
       }
