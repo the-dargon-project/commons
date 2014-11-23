@@ -147,6 +147,10 @@ namespace ItzWarty.Collections {
          return new ConcurrentQueue<T>();
       }
 
+      public IConcurrentQueue<T> CreateSingleConsumerSingleProducerConcurrentQueue<T>() where T : class {
+         return new SingleConsumerSingleProducerConcurrentQueue<T>();
+      }
+
       public IUniqueIdentificationSet CreateUniqueIdentificationSet(bool filled) {
          return new UniqueIdentificationSet(filled);
       }
