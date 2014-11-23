@@ -128,15 +128,15 @@ namespace ItzWarty
       }
 
       [MethodImpl(MethodImplOptions.AggressiveInlining)]
-      public static ulong GetUnixTime(this DateTime dateTime)
+      public static long GetUnixTime(this DateTime dateTime)
       {
-         return (ulong)(dateTime - new DateTime(1970, 1, 1, 0, 0, 0)).TotalSeconds;
+         return (long)(dateTime - new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)).TotalSeconds;
       }
 
       [MethodImpl(MethodImplOptions.AggressiveInlining)]
-      public static ulong GetUnixTimeMilliseconds(this DateTime dateTime)
+      public static long GetUnixTimeMilliseconds(this DateTime dateTime)
       {
-         return (ulong)(dateTime - new DateTime(1970, 1, 1, 0, 0, 0)).TotalMilliseconds;
+         return (long)(dateTime - new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)).TotalMilliseconds;
       }
 
       //http://stackoverflow.com/questions/128618/c-file-size-format-provider

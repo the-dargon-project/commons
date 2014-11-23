@@ -646,5 +646,9 @@ namespace ItzWarty
       public static TValue KeepExisting<TKey, TValue>(TKey key, TValue value) {
          return value;
       }
+
+      public static long GetUnixTimeMilliseconds() {
+         return (long)(DateTime.UtcNow - new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc)).TotalMilliseconds;
+      }
    }
 }
