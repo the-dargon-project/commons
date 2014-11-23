@@ -50,6 +50,7 @@ namespace ItzWarty.Collections {
          
       IOrderedMultiValueDictionary<K, V> CreateOrderedMultiValueDictionary<K, V>(ValuesSortState valuesSortState = ValuesSortState.Unsorted);
 
+      IQueue<T> CreateQueue<T>();
       IPriorityQueue<T> CreatePriorityQueue<T>() where T : IComparable<T>;
 
       IUniqueIdentificationSet CreateUniqueIdentificationSet(bool filled);

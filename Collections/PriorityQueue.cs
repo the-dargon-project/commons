@@ -2,6 +2,7 @@
 // via http://stackoverflow.com/questions/1937690/c-sharp-priority-queue
 
 using System;
+using System.Collections;
 using System.Collections.Generic;
 
 namespace ItzWarty.Collections
@@ -19,20 +20,30 @@ namespace ItzWarty.Collections
    /// the child nodes of node N. The tree is balanced and left-aligned so there
    /// are no 'holes' in this list. 
    /// <typeparam name="T">Type T, should implement IComparable[T];</typeparam>
-   public class PriorityQueue<T> : IPriorityQueue<T> where T : IComparable<T>
+   public class PriorityQueue<T> : IPriorityQueue<T>, IQueue<T> where T : IComparable<T>
    {
-      private HashSet<T> m_removed = new HashSet<T>();
+      private readonly HashSet<T> m_removed = new HashSet<T>();
 
       /// <summary>Clear all the elements from the priority queue</summary>
       public void Clear()
       {
          mA.Clear();
+         m_removed.Clear();
+      }
+
+      public bool Contains(T item) {
+         return mA.Contains(item) && !m_removed.Contains(item);
+      }
+
+      public void CopyTo(T[] array, int arrayIndex) {
+         foreach (var item in this) {
+            array[arrayIndex++] = item;
+         }
       }
 
       /// <summary>Add an element to the priority queue - O(log(n)) time operation.</summary>
       /// <param name="item">The item to be added to the queue</param>
-      public void Add(T item)
-      {
+      public void Add(T item) {
          // We add the item to the end of the list (at the bottom of the
          // tree). Then, the heap-property could be violated between this element
          // and it's parent. If this is the case, we swap this element with the 
@@ -51,12 +62,39 @@ namespace ItzWarty.Collections
             T tmp = mA[n]; mA[n] = mA[p]; mA[p] = tmp; // Swap item and parent
             n = p;            // And continue
          }
+         m_removed.Remove(item);
+      }
+
+      void IQueue<T>.Enqueue(T item) {
+         Add(item);
+      }
+
+      public IEnumerator<T> GetEnumerator() {
+         foreach (var element in mA) {
+            if (!m_removed.Contains(element)) {
+               yield return element;
+            }
+         }
+      }
+
+      IEnumerator IEnumerable.GetEnumerator() {
+         return GetEnumerator();
+      }
+
+      public void TrimExcess() {
+         for (var i = mA.Count - 1; i >= 0; i--) {
+            var item = mA[i];
+            if (m_removed.Contains(item)) {
+               mA.RemoveAt(i);
+               m_removed.Remove(item);
+            }
+         }
       }
 
       /// <summary>Returns the number of elements in the queue.</summary>
       public int Count
       {
-         get { return mA.Count; }
+         get { return mA.Count - m_removed.Count; }
       }
 
       /// <summary>Returns true if the queue is empty.</summary>
@@ -64,7 +102,7 @@ namespace ItzWarty.Collections
       /// Check using Empty first before calling these methods.
       public bool Empty
       {
-         get { return mA.Count == 0; }
+         get { return Count == 0; }
       }
 
       /// <summary>Allows you to look at the first element waiting in the queue, without removing it.</summary>
@@ -74,9 +112,18 @@ namespace ItzWarty.Collections
          return mA[0];
       }
 
+      public T[] ToArray() {
+         var result = new T[Count];
+         var i = 0;
+         foreach (var element in this) {
+            result[i++] = element;
+         }
+         return result;
+      }
+
       /// <summary>Removes and returns the first element from the queue (least element)</summary>
       /// <returns>The first element in the queue, in ascending order.</returns>
-      public T Next()
+      public T Dequeue()
       {
          T next = default(T);
          bool success = false;

@@ -1,7 +1,7 @@
 ﻿using System;
 
 namespace ItzWarty.Collections {
-   public interface IPriorityQueue<T> where T : IComparable<T> {
+   public interface IPriorityQueue<T> : IQueue<T> where T : IComparable<T> {
       /// <summary>Clear all the elements from the priority queue</summary>
       void Clear();
 
@@ -23,7 +23,7 @@ namespace ItzWarty.Collections {
 
       /// <summary>Removes and returns the first element from the queue (least element)</summary>
       /// <returns>The first element in the queue, in ascending order.</returns>
-      T Next();
+      T Dequeue();
 
       bool Remove(T value);
    }

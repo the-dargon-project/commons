@@ -135,6 +135,10 @@ namespace ItzWarty.Collections {
          return new OrderedMultiValueDictionary<K, V>(valuesSortState);
       }
 
+      public IQueue<T> CreateQueue<T>() {
+         return new Queue<T>();
+      }
+
       public IPriorityQueue<T> CreatePriorityQueue<T>() where T : IComparable<T> {
          return new PriorityQueue<T>();
       }

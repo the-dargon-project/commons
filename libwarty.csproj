@@ -88,6 +88,7 @@
     <Compile Include="Collections\IOrderedDictionary.cs" />
     <Compile Include="Collections\IOrderedMultiValueDictionary.cs" />
     <Compile Include="Collections\IPriorityQueue.cs" />
+    <Compile Include="Collections\IQueue.cs" />
     <Compile Include="Collections\IReadOnlySet.cs" />
     <Compile Include="Collections\ISet.cs" />
     <Compile Include="Collections\ISortedSet.cs" />
@@ -97,6 +98,7 @@
     <Compile Include="Collections\OrderedDictionary.cs" />
     <Compile Include="Collections\OrderedMultiValueDictionary.cs" />
     <Compile Include="Collections\PriorityQueue.cs" />
+    <Compile Include="Collections\Queue.cs" />
     <Compile Include="Collections\SortedDictionary.cs" />
     <Compile Include="Collections\SortedSet.cs" />
     <Compile Include="Collections\ValuesSortState.cs" />
