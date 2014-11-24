@@ -73,10 +73,6 @@ namespace ItzWarty.Collections
          ((ICollection<KeyValuePair<T, byte>>)storage).Add(new KeyValuePair<T, byte>(item, 0));
       }
 
-      bool ISet<T>.Add(T item) {
-         return TryAdd(item);
-      }
-
       public void CopyTo(T[] array) {
          this.CopyTo(array, 0, this.Count);
       }
