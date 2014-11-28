@@ -73,6 +73,17 @@ namespace ItzWarty.Collections
          ((ICollection<KeyValuePair<T, byte>>)storage).Add(new KeyValuePair<T, byte>(item, 0));
       }
 
+      public bool SetEquals(IEnumerable<T> other) {
+         var otherSet = new HashSet<T>(other);
+         var otherInitialCount = otherSet.Count;
+         var thisCount = 0;
+         foreach (var element in this) {
+            otherSet.Remove(element);
+            thisCount++;
+         }
+         return otherSet.Count == 0 && thisCount == otherInitialCount;
+      }
+
       public void CopyTo(T[] array) {
          this.CopyTo(array, 0, this.Count);
       }
