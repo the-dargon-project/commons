@@ -25,7 +25,7 @@ namespace ItzWarty.Comparers
          return m_hasher(obj);
       }
 
-      public bool Equals(object x, object y)
+      bool IEqualityComparer.Equals(object x, object y)
       {
          return m_equalityComparer((T)x, (T)y);
       }
