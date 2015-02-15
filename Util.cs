@@ -638,7 +638,7 @@ namespace ItzWarty
          try {
             action();
             return false;
-         } catch (TException e) {
+         } catch (TException) {
             return true;
          }
       }
