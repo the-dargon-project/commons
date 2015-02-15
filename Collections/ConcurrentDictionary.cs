@@ -27,5 +27,15 @@ namespace ItzWarty.Collections {
 
       public ConcurrentDictionary(int concurrencyLevel, int capacity, IEqualityComparer<TKey> comparer)
          : base(concurrencyLevel, capacity, comparer) { }
+
+      public bool IsReadOnly => false;
+
+      bool IReadOnlyDictionary<TKey, TValue>.ContainsKey(TKey key) { return ContainsKey(key); }
+      bool IReadOnlyDictionary<TKey, TValue>.TryGetValue(TKey key, out TValue value) { return TryGetValue(key, out value); }
+
+      IEnumerable<TKey> IReadOnlyDictionary<TKey, TValue>.Keys => Keys;
+      IEnumerable<TValue> IReadOnlyDictionary<TKey, TValue>.Values => Values;
+      int IReadOnlyCollection<KeyValuePair<TKey, TValue>>.Count => Count;
+      TValue IReadOnlyDictionary<TKey, TValue>.this[TKey key] => this[key];
    }
 }
