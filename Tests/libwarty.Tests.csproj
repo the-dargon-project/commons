@@ -50,6 +50,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Collections\ConcurrentDictionaryUsabilityTest.cs" />
+    <Compile Include="Collections\PriorityQueueUsabilityTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
