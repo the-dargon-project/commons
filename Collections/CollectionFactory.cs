@@ -139,8 +139,10 @@ namespace ItzWarty.Collections {
          return new Queue<T>();
       }
 
-      public IPriorityQueue<T> CreatePriorityQueue<T>() where T : IComparable<T> {
-         return new PriorityQueue<T>();
+      public IPriorityQueue<TValue, TPriority> CreatePriorityQueue<TValue, TPriority>(int capacity) 
+         where TPriority : IComparable<TPriority>, IEquatable<TPriority>
+         where TValue : class, IPriorityQueueNode<TPriority> { 
+         return new HeapPriorityQueue<TValue, TPriority>(capacity);
       }
 
       public IConcurrentQueue<T> CreateConcurrentQueue<T>() {

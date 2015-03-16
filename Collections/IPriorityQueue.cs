@@ -1,16 +1,14 @@
 ﻿using System;
 
 namespace ItzWarty.Collections {
-   public interface IPriorityQueue<T> : IQueue<T> where T : IComparable<T> {
-      /// <summary>Add an element to the priority queue - O(log(n)) time operation.</summary>
-      /// <param name="item">The item to be added to the queue</param>
-      void Add(T item);
+   public interface IPriorityQueue<TValue, TPriority> : IQueue<TValue> where TPriority : IComparable<TPriority> {
+      void Enqueue(TValue node, TPriority priority);
 
       /// <summary>Returns true if the queue is empty.</summary>
       /// Trying to call Peek() or Next() on an empty queue will throw an exception.
       /// Check using Empty first before calling these methods.
       bool Empty { get; }
 
-      bool Remove(T value);
+      bool Remove(TValue value);
    }
 }

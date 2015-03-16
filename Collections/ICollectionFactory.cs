@@ -51,7 +51,9 @@ namespace ItzWarty.Collections {
       IOrderedMultiValueDictionary<K, V> CreateOrderedMultiValueDictionary<K, V>(ValuesSortState valuesSortState = ValuesSortState.Unsorted);
 
       IQueue<T> CreateQueue<T>();
-      IPriorityQueue<T> CreatePriorityQueue<T>() where T : IComparable<T>;
+      IPriorityQueue<TValue, TPriority> CreatePriorityQueue<TValue, TPriority>(int capacity)
+         where TPriority : IComparable<TPriority>, IEquatable<TPriority>
+         where TValue : class, IPriorityQueueNode<TPriority>;
       IConcurrentQueue<T> CreateConcurrentQueue<T>();
       IConcurrentQueue<T> CreateSingleConsumerSingleProducerConcurrentQueue<T>() where T : class;
 
