@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("libwarty")]
+[assembly: AssemblyTitle("ItzWarty.Commons")]
 [assembly: AssemblyDescription("Various utilities and extension methods to make your life easier.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("ItzWarty")]
-[assembly: AssemblyProduct("libwarty")]
+[assembly: AssemblyProduct("ItzWarty.Commons")]
 [assembly: AssemblyCopyright("Copyright © ItzWarty 2014")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
