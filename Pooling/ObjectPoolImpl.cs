@@ -19,8 +19,8 @@ namespace ItzWarty.Pooling {
          this.name = name;
       }
 
-      public string Name { get { return name; } }
-      public int Count { get { return container.Count; } }
+      public string Name => name;
+      public int Count => container.Count;
 
       public T TakeObject() {
          T result;
