@@ -16,6 +16,9 @@ namespace ItzWarty.Collections {
       IConcurrentSet<T> CreateConcurrentSet<T>(IEqualityComparer<T> comparer);
       IConcurrentSet<T> CreateConcurrentSet<T>(IEnumerable<T> collection, IEqualityComparer<T> comparer);
 
+      IConcurrentBag<T> CreateConcurrentBag<T>();
+      IConcurrentBag<T> CreateConcurrentBag<T>(IEnumerable<T> collection);
+
       IHashSet<T> CreateHashSet<T>();
       IHashSet<T> CreateHashSet<T>(IEnumerable<T> collection);
       IHashSet<T> CreateHashSet<T>(IEqualityComparer<T> comparer);

@@ -35,6 +35,14 @@ namespace ItzWarty.Collections {
          return new ConcurrentSet<T>(collection, comparer);
       }
 
+      public IConcurrentBag<T> CreateConcurrentBag<T>() {
+         return new ConcurrentBag<T>();
+      }
+
+      public IConcurrentBag<T> CreateConcurrentBag<T>(IEnumerable<T> collection) {
+         return new ConcurrentBag<T>(collection);
+      }
+
       public IHashSet<T> CreateHashSet<T>() {
          return new HashSet<T>();
       }
