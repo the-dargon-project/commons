@@ -1,15 +1,11 @@
 ﻿using System;
+using NMockito;
 using Xunit;
-using static NMockito.NMockitoStatic;
 
 namespace ItzWarty {
-   public class UtilTests {
+   public class UtilTests : NMockitoInstance {
       private static readonly byte[] buffer = Util.Generate(255, i => (byte)i);
       private readonly byte[] bufferCopy = Util.Generate(buffer.Length, i => buffer[i]);
-
-      public UtilTests() {
-         ReinitializeMocks(this);
-      }
 
       [Fact]
       public void ByteArraysEqual_HappyPathTest() {
