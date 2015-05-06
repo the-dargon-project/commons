@@ -176,44 +176,67 @@ namespace ItzWarty
          return min;
       }
 
-      public static bool ByteArraysEqual(byte[] param1, byte[] param2)
-      {
-         if (param1.Length != param2.Length) {
-            return false;
+      public static bool ByteArraysEqual(byte[] param1, byte[] param2) {
+         return ByteArraysEqual(param1, 0, param1.Length, param2, 0, param2.Length);
+      }
+
+      public static bool ByteArraysEqual(byte[] a, int aOffset, byte[] b, int bOffset, int length) {
+         return ByteArraysEqual(a, aOffset, length, b, bOffset, length);
+      }
+
+      public static bool ByteArraysEqual(byte[] a, int aOffset, int aLength, byte[] b, int bOffset, int bLength) {
+         if (aOffset + aLength > a.Length) {
+            throw new IndexOutOfRangeException("aOffset + aLength > a.Length");
+         } else if (bOffset + bLength > b.Length) {
+            throw new IndexOutOfRangeException("bOffset + bLength > b.Length");
+         } else if (aOffset < 0) {
+            throw new IndexOutOfRangeException("aOffset < 0");
+         } else if (bOffset < 0) {
+            throw new IndexOutOfRangeException("bOffset < 0");
+         } else if (aLength < 0) {
+            throw new IndexOutOfRangeException("aLength < 0");
+         } else if (bLength < 0) {
+            throw new IndexOutOfRangeException("bLength < 0");
          }
 
-         fixed (byte* pParam1 = param1)
-         fixed (byte* pParam2 = param2) {
-            byte* pCurrent1 = pParam1, pCurrent2 = pParam2;
-            var length = param1.Length;
+         if (aLength != bLength) {
+            return false;
+         } else if (a == b && aOffset == bOffset && aLength == bLength) {
+            return true;
+         }
+
+         fixed (byte* pABase = a)
+         fixed (byte* pBBase = b) {
+            byte* pACurrent = pABase + aOffset, pBCurrent = pBBase + bOffset;
+            var length = aLength;
             int longCount = length / 8;
             for (var i = 0; i < longCount; i++) {
-               if (*(ulong*)pCurrent1 != *(ulong*)pCurrent2) {
+               if (*(ulong*)pACurrent != *(ulong*)pBCurrent) {
                   return false;
                }
-               pCurrent1 += 8;
-               pCurrent2 += 8;
+               pACurrent += 8;
+               pBCurrent += 8;
             }
             if ((length & 4) != 0) {
-               if (*(uint*)pCurrent1 != *(uint*)pCurrent2) {
+               if (*(uint*)pACurrent != *(uint*)pBCurrent) {
                   return false;
                }
-               pCurrent1 += 4;
-               pCurrent2 += 4;
+               pACurrent += 4;
+               pBCurrent += 4;
             }
             if ((length & 2) != 0) {
-               if (*(ushort*)pCurrent1 != *(ushort*)pCurrent2) {
+               if (*(ushort*)pACurrent != *(ushort*)pBCurrent) {
                   return false;
                }
-               pCurrent1 += 2;
-               pCurrent2 += 2;
+               pACurrent += 2;
+               pBCurrent += 2;
             }
             if ((length & 1) != 0) {
-               if (*pCurrent1 != *pCurrent2) {
+               if (*pACurrent != *pBCurrent) {
                   return false;
                }
-               pCurrent1 += 1;
-               pCurrent2 += 1;
+               pACurrent += 1;
+               pBCurrent += 1;
             }
             return true;
          }
