@@ -673,5 +673,19 @@ namespace ItzWarty
       public static long GetUnixTimeMilliseconds() {
          return (long)(DateTime.UtcNow - new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc)).TotalMilliseconds;
       }
+
+      public static string NextToken(string input, out string token) {
+         input = input.Trim();
+         var firstSpaceIndex = input.IndexOf(' ');
+         string remaining;
+         if (firstSpaceIndex < 0) {
+            token = input;
+            remaining = "";
+         } else {
+            token = input.Substring(0, firstSpaceIndex);
+            remaining = input.Substring(firstSpaceIndex + 1);
+         }
+         return remaining;
+      }
    }
 }

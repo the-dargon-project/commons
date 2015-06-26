@@ -45,5 +45,23 @@ namespace ItzWarty {
          AssertThrows<IndexOutOfRangeException>(() => Util.ByteArraysEqual(buffer, 1, -1, dummyBuffer, 0, 1));
          AssertThrows<IndexOutOfRangeException>(() => Util.ByteArraysEqual(dummyBuffer, 0, 1, buffer, 1, -1));
       }
+
+      [Fact]
+      public void NextToken_SimpleTest() {
+         string str = "asdf qwerty  yuiop";
+         string token;
+
+         str = Util.NextToken(str, out token);
+         AssertEquals("asdf", token);
+         AssertEquals("qwerty  yuiop", str);
+
+         str = Util.NextToken(str, out token);
+         AssertEquals("qwerty", token);
+         AssertEquals(" yuiop", str);
+
+         str = Util.NextToken(str, out token);
+         AssertEquals("yuiop", token);
+         AssertEquals("", str);
+      }
    }
 }
