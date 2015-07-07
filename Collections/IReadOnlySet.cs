@@ -13,5 +13,6 @@ namespace ItzWarty.Collections {
       void CopyTo(T[] array);
       void CopyTo(T[] array, int arrayIndex);
       void CopyTo(T[] array, int arrayIndex, int count);
+      bool Contains(T element);
    }
 }
