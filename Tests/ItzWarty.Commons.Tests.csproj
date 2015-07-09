@@ -55,6 +55,7 @@
     <Compile Include="Collections\ConcurrentDictionaryUsabilityTest.cs" />
     <Compile Include="Collections\HeapPriorityQueueTests.cs" />
     <Compile Include="Collections\ObjectPoolBenchmark.cs" />
+    <Compile Include="Collections\UniqueIdentificationSetTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UtilTests.cs" />
   </ItemGroup>

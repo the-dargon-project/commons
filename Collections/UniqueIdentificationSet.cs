@@ -76,6 +76,10 @@ namespace ItzWarty.Collections
          /// The high end of our segment's range
          /// </summary>
          public uint high;
+
+         public Segment Clone() {
+            return new Segment { low = low, high = high };
+         }
       }
 
       /// <summary>
@@ -269,6 +273,50 @@ namespace ItzWarty.Collections
                if (!done)
                   throw new Exception("Unable to return UID to Unique ID Set, check for duplicate returns");
             }
+         }
+      }
+
+      public void TakeRange(uint low, uint high) {
+         lock (m_lock) {
+            for (uint value = low; value < high; value++) {
+               TakeUniqueID(value);
+            }
+            TakeUniqueID(high);
+         }
+      }
+
+      public void GiveRange(uint low, uint high) {
+         lock (m_lock) {
+            for (uint value = low; value < high; value++) {
+               GiveUniqueID(value);
+            }
+            GiveUniqueID(high);
+         }
+      }
+
+      public bool Contains(uint value) {
+         lock (m_lock) {
+            // [1 4] [6 10] [13 15]
+            var node = m_segments.First;
+            while(node != null && value > node.Value.high) {
+               node = node.Next;
+            }
+            return node != null && node.Value.low <= value;
+         }
+      }
+
+      public void __Assign(LinkedList<Segment> values) {
+         lock (m_lock) {
+            this.m_segments.Clear();
+            foreach (var value in values) {
+               m_segments.AddLast(value);
+            }
+         }
+      }
+
+      public void __Access(Action<LinkedList<Segment>> accessor) {
+         lock (m_lock) {
+            accessor(m_segments);
          }
       }
 

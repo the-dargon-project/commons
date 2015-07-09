@@ -1,3 +1,6 @@
+using System;
+using System.Collections.Generic;
+
 namespace ItzWarty.Collections {
    public interface IUniqueIdentificationSet {
       /// <summary>
@@ -38,5 +41,13 @@ namespace ItzWarty.Collections {
       /// </summary>
       /// <param name="value">The UID which we are returning to the set.</param>
       void GiveUniqueID(uint value);
+
+      void TakeRange(uint low, uint high);
+      void GiveRange(uint low, uint high);
+
+      bool Contains(uint value);
+
+      void __Assign(LinkedList<UniqueIdentificationSet.Segment> values);
+      void __Access(Action<LinkedList<UniqueIdentificationSet.Segment>> accessor);
    }
 }
