@@ -286,11 +286,79 @@ namespace ItzWarty.Collections
       }
 
       public void GiveRange(uint low, uint high) {
+         // [1,5][7,10][12,15][30,50][55,60] given [9,35] or [11,52] or [6,30]
+         // start:  ^
+         //   end:               ^
+         //
+         // [1,5][12,15][30,50][52,100][150,200]
          lock (m_lock) {
-            for (uint value = low; value < high; value++) {
-               GiveUniqueID(value);
+            // Edge cases... Kill me x_x
+            if (m_segments.Count == 0) {
+               // Edge case: The list is empty
+               m_segments.AddLast(new LinkedListNode<Segment>(new Segment { low = low, high = high }));
+               return;
+            } else if (m_segments.Count > 0) {
+               // Edge case: start-of-list insertion
+               if (m_segments.First.Value.low > high + 1 && high != UInt32.MaxValue) {
+                  m_segments.AddFirst(new LinkedListNode<Segment>(new Segment { low = low, high = high }));
+                  return;
+               }
+
+               // Edge case: start of list merge
+               if (m_segments.First.Value.low == high + 1 && high != UInt32.MaxValue) {
+                  m_segments.First.Value.low = low;
+                  return;
+               }
+
+               // Edge case: end-of-list insertion
+               if (m_segments.Last.Value.high < low - 1 && low != 0) {
+                  m_segments.AddLast(new LinkedListNode<Segment>(new Segment { low = low, high = high }));
+                  return;
+               }
+
+               // Edge case: end-of-list merge
+               if (m_segments.Last.Value.high == low - 1 && low != 0) {
+                  m_segments.Last.Value.high = high;
+                  return;
+               }
             }
-            GiveUniqueID(high);
+
+            // [1,5][12,15][30,50][52,100][150,200]
+            // Find start segment, which we're either expanding or adding before
+            // In terms of properties, smallest segment that contains, is mergeable with, or is greater than low.
+            var startSegment = m_segments.First;
+            while (startSegment != null && startSegment.Value.high < low - 1 && low != 0) {
+               startSegment = startSegment.Next;
+            }
+
+            // Find end segment, greatest segment that contains, is mergeable with, or is less than low.
+            var endSegment = startSegment;
+            if (high == UInt32.MaxValue) {
+               endSegment = m_segments.Last;
+            } else {
+               while (endSegment.Next != null && endSegment.Next.Value.low <= high + 1) {
+                  endSegment = endSegment.Next;
+               }
+            }
+
+            if (startSegment == endSegment) {
+               if (startSegment.Value.low > high + 1) {
+                  // prepend
+                  m_segments.AddBefore(startSegment, new Segment { low = low, high = high });
+               } else {
+                  startSegment.Value.low = Math.Min(low, startSegment.Value.low);
+                  startSegment.Value.high = Math.Max(high, startSegment.Value.high);
+               }
+            } else {
+               startSegment.Value.low = Math.Min(low, startSegment.Value.low);
+               startSegment.Value.high = Math.Max(high, endSegment.Value.high);
+               
+               // Delete everything from startSegment to and including endSegment
+               while (startSegment.Next != endSegment) {
+                  m_segments.Remove(startSegment.Next);
+               }
+               m_segments.Remove(startSegment.Next);
+            }
          }
       }
 
