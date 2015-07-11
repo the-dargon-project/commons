@@ -315,7 +315,7 @@ namespace ItzWarty.Collections
          lock (m_lock) {
             this.m_segments.Clear();
             foreach (var value in values) {
-               m_segments.AddLast(value);
+               m_segments.AddLast(new Segment { low = value.low, high = value.high });
             }
          }
       }

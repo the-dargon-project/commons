@@ -15,6 +15,7 @@ namespace ItzWarty.Collections {
          list.AddFirst(new UniqueIdentificationSet.Segment { low = 2000, high = 3000 });
          list.AddLast(new UniqueIdentificationSet.Segment { low = 4000, high = 5000 });
          uidSet.__Assign(list);
+         list.First.Value.low = 133337; // tests clone rather than reference copy
          uidSet.__Access(x => {
             AssertEquals(2, x.Count);
             AssertEquals(2000U, x.First.Value.low);
