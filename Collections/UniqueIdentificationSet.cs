@@ -305,6 +305,12 @@ namespace ItzWarty.Collections
          }
       }
 
+      public void Clear() {
+         lock (m_lock) {
+            m_segments.Clear();
+         }
+      }
+
       public void __Assign(LinkedList<Segment> values) {
          lock (m_lock) {
             this.m_segments.Clear();

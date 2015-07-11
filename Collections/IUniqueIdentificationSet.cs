@@ -46,6 +46,7 @@ namespace ItzWarty.Collections {
       void GiveRange(uint low, uint high);
 
       bool Contains(uint value);
+      void Clear();
 
       void __Assign(LinkedList<UniqueIdentificationSet.Segment> values);
       void __Access(Action<LinkedList<UniqueIdentificationSet.Segment>> accessor);
