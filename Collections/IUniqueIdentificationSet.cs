@@ -50,6 +50,8 @@ namespace ItzWarty.Collections {
 
       IUniqueIdentificationSet Merge(IUniqueIdentificationSet mergedSet);
       IUniqueIdentificationSet Except(IUniqueIdentificationSet removedSet);
+      IUniqueIdentificationSet Intersect(IUniqueIdentificationSet set);
+      IUniqueIdentificationSet Invert();
 
       void __Assign(LinkedList<UniqueIdentificationSet.Segment> values);
       void __Access(Action<LinkedList<UniqueIdentificationSet.Segment>> accessor);

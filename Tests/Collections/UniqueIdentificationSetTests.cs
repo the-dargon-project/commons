@@ -138,12 +138,61 @@ namespace ItzWarty.Collections {
       }
 
       [Fact]
-      public void ExceptTest() {
-
+      public void IntersectTest() {
+         var setA = new UniqueIdentificationSet(false).With(set => set.__Assign(new LinkedList<UniqueIdentificationSet.Segment>().With(x => {
+            x.AddLast(new UniqueIdentificationSet.Segment { low = 1, high = 5 });
+            x.AddLast(new UniqueIdentificationSet.Segment { low = 10, high = 16 });
+            x.AddLast(new UniqueIdentificationSet.Segment { low = 18, high = 22 });
+         })));
+         var setB = new UniqueIdentificationSet(false).With(set => set.__Assign(new LinkedList<UniqueIdentificationSet.Segment>().With(x => {
+            x.AddLast(new UniqueIdentificationSet.Segment { low = 1, high = 2 });
+            x.AddLast(new UniqueIdentificationSet.Segment { low = 4, high = 6 });
+            x.AddLast(new UniqueIdentificationSet.Segment { low = 9, high = 12 });
+            x.AddLast(new UniqueIdentificationSet.Segment { low = 15, high = 20 });
+         })));
+         AssertEquals("[1, 2][4, 5][10, 12][15, 16][18, 20]", setA.Intersect(setB).ToString());
       }
 
       [Fact]
-      public void GiveTakeMergeExceptRangeRandomTest() {
+      public void InvertTest() {
+         var setA = new UniqueIdentificationSet(false).With(set => set.__Assign(new LinkedList<UniqueIdentificationSet.Segment>().With(x => {
+            x.AddLast(new UniqueIdentificationSet.Segment { low = 0, high = 5 });
+            x.AddLast(new UniqueIdentificationSet.Segment { low = 10, high = 16 });
+            x.AddLast(new UniqueIdentificationSet.Segment { low = 18, high = 22 });
+            x.AddLast(new UniqueIdentificationSet.Segment { low = 25, high = 100 });
+         })));
+         var setB = new UniqueIdentificationSet(false).With(set => set.__Assign(new LinkedList<UniqueIdentificationSet.Segment>().With(x => {
+            x.AddLast(new UniqueIdentificationSet.Segment { low = 1, high = 5 });
+            x.AddLast(new UniqueIdentificationSet.Segment { low = 10, high = 16 });
+            x.AddLast(new UniqueIdentificationSet.Segment { low = 18, high = 22 });
+            x.AddLast(new UniqueIdentificationSet.Segment { low = 25, high = 100 });
+         })));
+         var setC = new UniqueIdentificationSet(false).With(set => set.__Assign(new LinkedList<UniqueIdentificationSet.Segment>().With(x => {
+            x.AddLast(new UniqueIdentificationSet.Segment { low = 1, high = 5 });
+            x.AddLast(new UniqueIdentificationSet.Segment { low = 10, high = 16 });
+            x.AddLast(new UniqueIdentificationSet.Segment { low = 18, high = 22 });
+            x.AddLast(new UniqueIdentificationSet.Segment { low = 25, high = uint.MaxValue });
+         })));
+         var setD = new UniqueIdentificationSet(false).With(set => set.__Assign(new LinkedList<UniqueIdentificationSet.Segment>().With(x => {
+            x.AddLast(new UniqueIdentificationSet.Segment { low = 0, high = 5 });
+            x.AddLast(new UniqueIdentificationSet.Segment { low = 10, high = 16 });
+            x.AddLast(new UniqueIdentificationSet.Segment { low = 18, high = 22 });
+            x.AddLast(new UniqueIdentificationSet.Segment { low = 25, high = uint.MaxValue });
+         })));
+         AssertEquals("[6, 9][17, 17][23, 24][101, " + UInt32.MaxValue + "]", setA.Invert().ToString());
+         AssertEquals("[0, 0][6, 9][17, 17][23, 24][101, " + UInt32.MaxValue + "]", setB.Invert().ToString());
+         AssertEquals("[0, 0][6, 9][17, 17][23, 24]", setC.Invert().ToString());
+         AssertEquals("[6, 9][17, 17][23, 24]", setD.Invert().ToString());
+      }
+
+      [Fact]
+      public void InvertBoundsTest() {
+         AssertEquals("", new UniqueIdentificationSet(true).Invert().ToString());
+         AssertEquals("[0, " + UInt32.MaxValue + "]", new UniqueIdentificationSet(false).Invert().ToString());
+      }
+
+      [Fact]
+      public void GiveTakeMergeExceptInvertIntersectRangeRandomTest() {
          var random = new Random();
          var set = new HashSet<uint>();
          IUniqueIdentificationSet uidSet = new UniqueIdentificationSet(false);
@@ -158,7 +207,7 @@ namespace ItzWarty.Collections {
                if (random.Next() % 2 == 0) {
                   uidSet.GiveRange(low, high);
                } else {
-                  uidSet = uidSet.Merge(new UniqueIdentificationSet(low, high));
+                  uidSet = uidSet.Merge(new UniqueIdentificationSet(low, high).Invert().Invert());
                }
                for (var val = low; val <= high; val++) {
                   AssertTrue(uidSet.Contains(val));
@@ -167,10 +216,13 @@ namespace ItzWarty.Collections {
                for (var val = low; val <= high; val++) {
                   AssertEquals(set.Remove(val), uidSet.Contains(val));
                }
-               if (random.Next() % 2 == 0) {
+               var rand = random.Next() % 3;
+               if (rand == 0) {
                   uidSet.TakeRange(low, high);
+               } else if (rand == 1) {
+                  uidSet = uidSet.Except(new UniqueIdentificationSet(low, high).Invert().Invert());
                } else {
-                  uidSet = uidSet.Except(new UniqueIdentificationSet(low, high));
+                  uidSet = uidSet.Intersect(new UniqueIdentificationSet(low, high).Invert());
                }
                for (var val = low; val <= high; val++) {
                   AssertFalse(uidSet.Contains(val));

@@ -486,6 +486,57 @@ namespace ItzWarty.Collections
          return result;
       }
 
+      public IUniqueIdentificationSet Intersect(IUniqueIdentificationSet setInput) {
+         // [1     5]   [10        16]  [18  22]
+         // [12] [4 6] [9   12]  [15      20]
+         var set = new UniqueIdentificationSet(false).With(x => setInput.__Access(x.__Assign));
+         lock (m_lock) {
+            var resultList = new LinkedList<Segment>();
+            var leftCurrent = m_segments.First;
+            var rightCurrent = set.m_segments.First;
+            while (leftCurrent != null && rightCurrent != null) {
+               var intersects = !(leftCurrent.Value.high < rightCurrent.Value.low ||
+                                  leftCurrent.Value.low > rightCurrent.Value.high);
+               if (intersects) {
+                  resultList.AddLast(new Segment {
+                     low = Math.Max(leftCurrent.Value.low, rightCurrent.Value.low),
+                     high = Math.Min(leftCurrent.Value.high, rightCurrent.Value.high)
+                  });
+               }
+
+               if (leftCurrent.Value.high < rightCurrent.Value.high) {
+                  leftCurrent = leftCurrent.Next;
+               } else {
+                  rightCurrent = rightCurrent.Next;
+               }
+            }
+            return new UniqueIdentificationSet(false).With(x => x.__Assign(resultList));
+         }
+      }
+
+      public IUniqueIdentificationSet Invert() {
+         lock (m_lock) {
+            // Trivial case: empty set -> full set
+            if (m_segments.Count == 0) {
+               return new UniqueIdentificationSet(true);
+            }
+
+            var resultList = new LinkedList<Segment>();
+            var node = m_segments.First;
+            if (node.Value.low != 0) {
+               resultList.AddLast(new Segment { low = 0, high = node.Value.low - 1 });
+            }
+            while (node.Next != null) {
+               resultList.AddLast(new Segment { low = node.Value.high + 1, high = node.Next.Value.low - 1 });
+               node = node.Next;
+            }
+            if (node.Value.high != UInt32.MaxValue) {
+               resultList.AddLast(new Segment { low = node.Value.high + 1, high = UInt32.MaxValue });
+            }
+            return new UniqueIdentificationSet(false).With(x => x.__Assign(resultList));
+         }
+      }
+
       public bool Contains(uint value) {
          lock (m_lock) {
             // [1 4] [6 10] [13 15]
