@@ -102,11 +102,47 @@ namespace ItzWarty.Collections {
       }
 
       [Fact]
+      public void TakeRangeStartTest() {
+         var hardList = new LinkedList<UniqueIdentificationSet.Segment>().With(list => {
+            list.AddLast(new UniqueIdentificationSet.Segment { low = 1, high = 5 });
+            list.AddLast(new UniqueIdentificationSet.Segment { low = 12, high = 15 });
+            list.AddLast(new UniqueIdentificationSet.Segment { low = 30, high = 50 });
+            list.AddLast(new UniqueIdentificationSet.Segment { low = 52, high = 100 });
+            list.AddLast(new UniqueIdentificationSet.Segment { low = 150, high = 200 });
+         });
+         IUniqueIdentificationSet uidSet = new UniqueIdentificationSet(false);
+         uidSet.__Assign(hardList);
+         uidSet.TakeRange(3, 11);
+         AssertEquals("[1, 2][12, 15][30, 50][52, 100][150, 200]", uidSet.ToString());
+
+         uidSet.__Assign(hardList);
+         uidSet.TakeRange(0, 300);
+         AssertEquals("", uidSet.ToString());
+       
+         uidSet.__Assign(hardList);
+         uidSet.TakeRange(1, 3);
+         AssertEquals("[4, 5][12, 15][30, 50][52, 100][150, 200]", uidSet.ToString()); 
+
+         uidSet.__Assign(hardList);
+         uidSet.TakeRange(1, 5);
+         AssertEquals("[12, 15][30, 50][52, 100][150, 200]", uidSet.ToString()); 
+
+         uidSet.__Assign(hardList);
+         uidSet.TakeRange(150, 200);
+         AssertEquals("[1, 5][12, 15][30, 50][52, 100]", uidSet.ToString()); 
+
+
+//         uidSet.__Assign(hardList);
+//         uidSet.TakeRange(0, 300);
+//         AssertEquals("", uidSet.ToString());
+      }
+
+      [Fact]
       public void GiveTakeRangeRandomTest() {
          var random = new Random();
          var set = new HashSet<uint>();
          var uidSet = new UniqueIdentificationSet(false);
-         for (var it = 0; it < 20000; it++) {
+         for (var it = 0; it < 10000; it++) {
             var low = (uint)(random.NextDouble() * (long)100000);
             var high = low + (uint)(random.NextDouble() * (long)100);
 
@@ -115,16 +151,18 @@ namespace ItzWarty.Collections {
                   AssertEquals(set.Add(val), !uidSet.Contains(val));
                }
                uidSet.GiveRange(low, high);
+               for (var val = low; val <= high; val++) {
+                  AssertTrue(uidSet.Contains(val));
+               }
             } else {
-//               for (var val = low; val <= high; val++) {
-//                  AssertEquals(set.Remove(val), uidSet.Contains(val));
-//               }
-//               uidSet.TakeRange(low, high);
+               for (var val = low; val <= high; val++) {
+                  AssertEquals(set.Remove(val), uidSet.Contains(val));
+               }
+               uidSet.TakeRange(low, high);
+               for (var val = low; val <= high; val++) {
+                  AssertFalse(uidSet.Contains(val));
+               }
             }
-
-//            for (uint j = 0; j < 2000; j++) {
-//               AssertEquals(set.Contains(j), uidSet.Contains(j));
-//            }
          }
       }
 

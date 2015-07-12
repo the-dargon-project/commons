@@ -277,11 +277,72 @@ namespace ItzWarty.Collections
       }
 
       public void TakeRange(uint low, uint high) {
+         // [1,5][7,10][12,15][30,50][50,60] given [6,30], [7,30]
+         // start: ^
+         //   end:               ^
          lock (m_lock) {
-            for (uint value = low; value < high; value++) {
-               TakeUniqueID(value);
+            if (m_segments.Count == 0) {
+               // There's nothing to remove.
+               return;
+            } else if (m_segments.Count > 0) {
+               // Removal before the front
+               if (m_segments.First.Value.low > high) {
+                  return;
+               }
+               
+               // Removal afer the back
+               if (m_segments.Last.Value.high < low) {
+                  return;
+               }
             }
-            TakeUniqueID(high);
+
+            // The start segment is the smallest sector that contains or is greater-than low.
+            var startSegment = m_segments.First;
+            while (startSegment != null && startSegment.Value.high < low) {
+               startSegment = startSegment.Next;
+            }
+
+            // Find end segment, greatest segment that contains or is less than low.
+            var endSegment = startSegment;
+            if (high == UInt32.MaxValue) {
+               endSegment = m_segments.Last;
+            } else {
+               while (endSegment.Next != null && endSegment.Next.Value.low <= high + 1) {
+                  endSegment = endSegment.Next;
+               }
+            }
+
+            if (startSegment == endSegment) {
+               var isLowerBoundCut = startSegment.Value.low >= low;
+               var isUpperBoundCut = startSegment.Value.high <= high;
+               if (isLowerBoundCut && isUpperBoundCut) {
+                  m_segments.Remove(startSegment);
+               } else if (isLowerBoundCut && !isUpperBoundCut) {
+                  startSegment.Value.low = Math.Max(startSegment.Value.low, high + 1);
+               } else if (!isLowerBoundCut && isUpperBoundCut) {
+                  startSegment.Value.high = Math.Min(startSegment.Value.high, low - 1);
+               } else {
+                  m_segments.AddAfter(startSegment, new Segment { low = high + 1, high = startSegment.Value.high });
+                  startSegment.Value.high = low - 1;
+               }
+            } else {
+               // Delete everything between startSegment and endSegment
+               while (startSegment.Next != endSegment) {
+                  m_segments.Remove(startSegment.Next);
+               }
+
+               if (startSegment.Value.low >= low) {
+                  m_segments.Remove(startSegment);
+               } else {
+                  startSegment.Value.high = low - 1;
+               }
+
+               if (endSegment.Value.high <= high) {
+                  m_segments.Remove(endSegment);
+               } else {
+                  endSegment.Value.low = high + 1;
+               }
+            }
          }
       }
 
