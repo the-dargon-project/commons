@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace ItzWarty.Collections
@@ -422,6 +423,57 @@ namespace ItzWarty.Collections
             }
          }
       }
+
+      public IUniqueIdentificationSet Merge(IUniqueIdentificationSet otherInput) {
+         // clone other to prevent deadlock
+         UniqueIdentificationSet other = new UniqueIdentificationSet(false);
+         otherInput.__Access(other.__Assign);
+
+         var results = new LinkedList<Segment>();
+         other.__Access(otherSegments => {
+            lock (m_lock) {
+               Segment currentSegment = null;
+               foreach (var segment in MergeHelper_OrderSegmentsByLower(m_segments, otherSegments)) {
+                  if (currentSegment == null) {
+                     currentSegment = segment;
+                  } else {
+                     if (currentSegment.high != UInt32.MaxValue && currentSegment.high + 1 >= segment.low) {
+                        currentSegment.high = Math.Max(currentSegment.high, segment.high);
+                     } else {
+                        results.AddLast(currentSegment);
+                        currentSegment = new Segment { low = segment.low, high = segment.high };
+                     }
+                  }
+               }
+               if (currentSegment != null) {
+                  results.AddLast(currentSegment);
+               }
+            }
+         });
+         return new UniqueIdentificationSet(false).With(uidSet => uidSet.__Assign(results));
+      }
+
+      private IEnumerable<Segment> MergeHelper_OrderSegmentsByLower(LinkedList<Segment> a, LinkedList<Segment> b) {
+         var aCurrent = a.First;
+         var bCurrent = b.First;
+         while(aCurrent != null && bCurrent != null) {
+            if (aCurrent.Value.low <= bCurrent.Value.low) {
+               yield return aCurrent.Value;
+               aCurrent = aCurrent.Next;
+            } else {
+               yield return bCurrent.Value;
+               bCurrent = bCurrent.Next;
+            }
+         }
+         while (aCurrent != null) {
+            yield return aCurrent.Value;
+            aCurrent = aCurrent.Next;
+         }
+         while (bCurrent != null) {
+            yield return bCurrent.Value;
+            bCurrent = bCurrent.Next;
+         }
+      } 
 
       public bool Contains(uint value) {
          lock (m_lock) {

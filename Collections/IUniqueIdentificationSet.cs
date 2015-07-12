@@ -48,6 +48,8 @@ namespace ItzWarty.Collections {
       bool Contains(uint value);
       void Clear();
 
+      IUniqueIdentificationSet Merge(IUniqueIdentificationSet set);
+
       void __Assign(LinkedList<UniqueIdentificationSet.Segment> values);
       void __Access(Action<LinkedList<UniqueIdentificationSet.Segment>> accessor);
    }

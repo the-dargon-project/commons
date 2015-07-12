@@ -138,10 +138,10 @@ namespace ItzWarty.Collections {
       }
 
       [Fact]
-      public void GiveTakeRangeRandomTest() {
+      public void GiveTakeMergeRangeRandomTest() {
          var random = new Random();
          var set = new HashSet<uint>();
-         var uidSet = new UniqueIdentificationSet(false);
+         IUniqueIdentificationSet uidSet = new UniqueIdentificationSet(false);
          for (var it = 0; it < 10000; it++) {
             var low = (uint)(random.NextDouble() * (long)100000);
             var high = low + (uint)(random.NextDouble() * (long)100);
@@ -150,7 +150,11 @@ namespace ItzWarty.Collections {
                for (var val = low; val <= high; val++) {
                   AssertEquals(set.Add(val), !uidSet.Contains(val));
                }
-               uidSet.GiveRange(low, high);
+               if (random.Next() % 2 == 0) {
+                  uidSet.GiveRange(low, high);
+               } else {
+                  uidSet = uidSet.Merge(new UniqueIdentificationSet(low, high));
+               }
                for (var val = low; val <= high; val++) {
                   AssertTrue(uidSet.Contains(val));
                }
@@ -164,6 +168,30 @@ namespace ItzWarty.Collections {
                }
             }
          }
+      }
+
+      [Fact]
+      public void MergeTest () {
+         IUniqueIdentificationSet first = new UniqueIdentificationSet(false).With(x => {
+            x.__Assign(new LinkedList<UniqueIdentificationSet.Segment>().With(list => {
+               list.AddLast(new UniqueIdentificationSet.Segment { low = 1, high = 5 });
+               list.AddLast(new UniqueIdentificationSet.Segment { low = 10, high = 12 });
+               list.AddLast(new UniqueIdentificationSet.Segment { low = 15, high = 20 });
+               list.AddLast(new UniqueIdentificationSet.Segment { low = 22, high = 30 });
+               list.AddLast(new UniqueIdentificationSet.Segment { low = 40, high = UInt32.MaxValue - 1 });
+            }));
+         });
+         IUniqueIdentificationSet second = new UniqueIdentificationSet(false).With(x => {
+            x.__Assign(new LinkedList<UniqueIdentificationSet.Segment>().With(list => {
+               list.AddLast(new UniqueIdentificationSet.Segment { low = 0, high = 0 });
+               list.AddLast(new UniqueIdentificationSet.Segment { low = 6, high = 7 });
+               list.AddLast(new UniqueIdentificationSet.Segment { low = 13, high = 14 });
+               list.AddLast(new UniqueIdentificationSet.Segment { low = 20, high = 21 });
+               list.AddLast(new UniqueIdentificationSet.Segment { low = 22, high = 30 });
+               list.AddLast(new UniqueIdentificationSet.Segment { low = UInt32.MaxValue, high = UInt32.MaxValue });
+            }));
+         });
+         AssertEquals(first.Merge(second).ToString(), "[0, 7][10, 30][40, " + UInt32.MaxValue + "]");
       }
 
       [Fact]
