@@ -138,11 +138,16 @@ namespace ItzWarty.Collections {
       }
 
       [Fact]
-      public void GiveTakeMergeRangeRandomTest() {
+      public void ExceptTest() {
+
+      }
+
+      [Fact]
+      public void GiveTakeMergeExceptRangeRandomTest() {
          var random = new Random();
          var set = new HashSet<uint>();
          IUniqueIdentificationSet uidSet = new UniqueIdentificationSet(false);
-         for (var it = 0; it < 10000; it++) {
+         for (var it = 0; it < 20000; it++) {
             var low = (uint)(random.NextDouble() * (long)100000);
             var high = low + (uint)(random.NextDouble() * (long)100);
 
@@ -162,7 +167,11 @@ namespace ItzWarty.Collections {
                for (var val = low; val <= high; val++) {
                   AssertEquals(set.Remove(val), uidSet.Contains(val));
                }
-               uidSet.TakeRange(low, high);
+               if (random.Next() % 2 == 0) {
+                  uidSet.TakeRange(low, high);
+               } else {
+                  uidSet = uidSet.Except(new UniqueIdentificationSet(low, high));
+               }
                for (var val = low; val <= high; val++) {
                   AssertFalse(uidSet.Contains(val));
                }

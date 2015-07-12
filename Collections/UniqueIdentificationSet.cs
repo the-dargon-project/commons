@@ -473,7 +473,18 @@ namespace ItzWarty.Collections
             yield return bCurrent.Value;
             bCurrent = bCurrent.Next;
          }
-      } 
+      }
+
+      public IUniqueIdentificationSet Except(IUniqueIdentificationSet removedSetInput) {
+         var result = new UniqueIdentificationSet(false).With(x => this.__Access(x.__Assign));
+         var removedSet = new UniqueIdentificationSet(false).With(x => removedSetInput.__Access(x.__Assign));
+         removedSet.__Access(removedSegments => {
+            foreach (var segment in removedSegments) {
+               result.TakeRange(segment.low, segment.high);
+            }
+         });
+         return result;
+      }
 
       public bool Contains(uint value) {
          lock (m_lock) {
