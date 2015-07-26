@@ -512,6 +512,10 @@ namespace ItzWarty
          yield break;
       }
 
+      public static string ToTitleCase(this string s) {
+         return ExtractFileNameTokens(s).Select(token => char.ToUpper(token[0]) + token.Substring(1)).Join(" ");
+      }
+
       private static CharType GetCharType(char c)
       {
          if ('a' <= c && c <= 'z')

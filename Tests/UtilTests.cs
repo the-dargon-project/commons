@@ -63,5 +63,14 @@ namespace ItzWarty {
          AssertEquals("yuiop", token);
          AssertEquals("", str);
       }
+
+      [Fact]
+      public void ToTitleCaseTests() {
+         AssertEquals("", "".ToTitleCase());
+         AssertEquals("", "!@#)!#@*&#".ToTitleCase());
+         AssertEquals("This Is A Test", "This is a test".ToTitleCase());
+         AssertEquals("Tencent Art Pack", "tencent-art-pack".ToTitleCase());
+         AssertEquals("Tencent Art Pack", "tencent&#@*&!art-pack".ToTitleCase());
+      }
    }
 }
