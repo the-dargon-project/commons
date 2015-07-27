@@ -1,9 +1,9 @@
-﻿using System;
-using NMockito;
+﻿using NMockito;
+using System;
 using Xunit;
 
 namespace ItzWarty {
-   public class UtilTests : NMockitoInstance {
+   public partial class UtilTests : NMockitoInstance {
       private static readonly byte[] buffer = Util.Generate(255, i => (byte)i);
       private readonly byte[] bufferCopy = Util.Generate(buffer.Length, i => buffer[i]);
 

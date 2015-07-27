@@ -661,6 +661,12 @@ namespace ItzWarty
          return (TAttribute)attributes.FirstOrDefault();
       }
 
+      public static TAttribute GetAttributeOrNull<TAttribute>(this Type type)
+         where TAttribute : Attribute {
+         var attributes = type.GetTypeInfo().GetCustomAttributes(typeof(TAttribute), false);
+         return (TAttribute)attributes.FirstOrDefault();
+      }
+
       public static bool IsThrown<TException>(Action action) where TException : Exception {
          try {
             action();
