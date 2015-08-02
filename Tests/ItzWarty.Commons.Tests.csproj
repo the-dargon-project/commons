@@ -35,6 +35,36 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Castle.Core.3.3.3\lib\net45\Castle.Core.dll</HintPath>
     </Reference>
+    <Reference Include="Dargon.Management.Api">
+      <HintPath>..\packages\Dargon.Management.Api.0.1.2\lib\net45\Dargon.Management.Api.dll</HintPath>
+    </Reference>
+    <Reference Include="Dargon.PortableObjects">
+      <HintPath>..\packages\Dargon.PortableObjects.0.1.3\lib\net45\Dargon.PortableObjects.dll</HintPath>
+    </Reference>
+    <Reference Include="Dargon.PortableObjects.Streams">
+      <HintPath>..\packages\Dargon.PortableObjects.Streams.0.2.0\lib\net45\Dargon.PortableObjects.Streams.dll</HintPath>
+    </Reference>
+    <Reference Include="Dargon.Ryu.Api">
+      <HintPath>..\packages\Dargon.Ryu.Api.0.0.1\lib\portable-net45+netcore45+MonoAndroid1+MonoTouch1\Dargon.Ryu.Api.dll</HintPath>
+    </Reference>
+    <Reference Include="Dargon.Services">
+      <HintPath>..\packages\Dargon.Services.0.2.1\lib\net45\Dargon.Services.dll</HintPath>
+    </Reference>
+    <Reference Include="ItzWarty.Proxies.Api">
+      <HintPath>..\packages\ItzWarty.Proxies.Api.0.1.0\lib\net45\ItzWarty.Proxies.Api.dll</HintPath>
+    </Reference>
+    <Reference Include="Nito.AsyncEx">
+      <HintPath>..\packages\Nito.AsyncEx.3.0.0\lib\net45\Nito.AsyncEx.dll</HintPath>
+    </Reference>
+    <Reference Include="Nito.AsyncEx.Concurrent">
+      <HintPath>..\packages\Nito.AsyncEx.3.0.0\lib\net45\Nito.AsyncEx.Concurrent.dll</HintPath>
+    </Reference>
+    <Reference Include="Nito.AsyncEx.Enlightenment">
+      <HintPath>..\packages\Nito.AsyncEx.3.0.0\lib\net45\Nito.AsyncEx.Enlightenment.dll</HintPath>
+    </Reference>
+    <Reference Include="NLog">
+      <HintPath>..\packages\NLog.3.1.0.0\lib\net45\NLog.dll</HintPath>
+    </Reference>
     <Reference Include="NMockito, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\NMockito.0.1.0\lib\net45\NMockito.dll</HintPath>
@@ -57,17 +87,22 @@
     <Compile Include="Collections\ObjectPoolBenchmark.cs" />
     <Compile Include="Collections\UniqueIdentificationSetTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RyuPackageTests.cs" />
     <Compile Include="Util.AttributesTests.cs" />
     <Compile Include="UtilTests.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Dargon.Ryu\Dargon.Ryu.Impl\Dargon.Ryu.Impl.csproj">
+      <Project>{2ed5c703-8a91-4701-9ae9-da86aa93a169}</Project>
+      <Name>Dargon.Ryu.Impl</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ItzWarty.Commons.csproj">
       <Project>{097b6b08-4034-408a-b3c0-a12e8f9e8893}</Project>
       <Name>ItzWarty.Commons</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -120,6 +120,7 @@
     <Compile Include="FormatProviders\FileSizeFormatProvider.cs" />
     <Compile Include="Collections\MultiValueDictionary.cs" />
     <Compile Include="Comparers\LambdaComparer.cs" />
+    <Compile Include="ItzWartyCommonsRyuPackage.cs" />
     <Compile Include="Pooling\ObjectPool.cs" />
     <Compile Include="Pooling\ObjectPoolFactory.cs" />
     <Compile Include="Pooling\ObjectPoolImpl.cs" />
@@ -133,6 +134,7 @@
     <Compile Include="Collections\UniqueIdentificationSet.cs" />
     <Compile Include="UsingTimer.cs" />
     <Compile Include="Util.cs" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="License - Algorithmia.txt">
@@ -150,6 +152,11 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Dargon.Ryu.Api">
+      <HintPath>packages\Dargon.Ryu.Api.0.0.1\lib\portable-net45+netcore45+MonoAndroid1+MonoTouch1\Dargon.Ryu.Api.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
