@@ -7,8 +7,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ItzWarty.Commons", "ItzWart
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ItzWarty.Commons.Tests", "Tests\ItzWarty.Commons.Tests.csproj", "{01EDE772-8555-41B9-8627-6CBC25987940}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dargon.Ryu.Impl", "..\Dargon.Ryu\Dargon.Ryu.Impl\Dargon.Ryu.Impl.csproj", "{2ED5C703-8A91-4701-9AE9-DA86AA93A169}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,10 +21,6 @@ Global
 		{01EDE772-8555-41B9-8627-6CBC25987940}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{01EDE772-8555-41B9-8627-6CBC25987940}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{01EDE772-8555-41B9-8627-6CBC25987940}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2ED5C703-8A91-4701-9AE9-DA86AA93A169}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2ED5C703-8A91-4701-9AE9-DA86AA93A169}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2ED5C703-8A91-4701-9AE9-DA86AA93A169}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2ED5C703-8A91-4701-9AE9-DA86AA93A169}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
