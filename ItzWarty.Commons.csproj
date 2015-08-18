@@ -155,7 +155,7 @@
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Dargon.Ryu.Api">
-      <HintPath>packages\Dargon.Ryu.Api.0.0.1\lib\portable-net45+netcore45+MonoAndroid1+MonoTouch1\Dargon.Ryu.Api.dll</HintPath>
+      <HintPath>packages\Dargon.Ryu.Api.0.0.3\lib\portable-net45+netcore45+MonoAndroid1+MonoTouch1\Dargon.Ryu.Api.dll</HintPath>
     </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
