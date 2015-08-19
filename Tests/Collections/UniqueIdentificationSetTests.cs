@@ -256,6 +256,20 @@ namespace ItzWarty.Collections {
       }
 
       [Fact]
+      public void Any_TrivialTest() {
+         AssertEquals(0, new UniqueIdentificationSet(false).Count);
+         AssertEquals(3, new UniqueIdentificationSet(0, 2).Count);
+      }
+
+      [Fact]
+      public void Any_ComplexTest() {
+         IUniqueIdentificationSet uidSet = new UniqueIdentificationSet(1, 2);
+         uidSet.GiveRange(4, 5);
+
+         AssertEquals(4, uidSet.Count);
+      }
+
+      [Fact]
       public void ContainsTest() {
          IUniqueIdentificationSet uidSet = new UniqueIdentificationSet(1, 4);
          uidSet.GiveRange(6, 15);

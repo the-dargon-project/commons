@@ -20,6 +20,8 @@ namespace ItzWarty.Collections {
       /// <returns>A unique identifier</returns>
       void TakeUniqueID(uint uid);
 
+      void TakeRange(uint low, uint high);
+
       /// <summary>
       /// Returns a unique identifier to the Unique Identification Set.
       ///     foreach segment
@@ -42,8 +44,11 @@ namespace ItzWarty.Collections {
       /// <param name="value">The UID which we are returning to the set.</param>
       void GiveUniqueID(uint value);
 
-      void TakeRange(uint low, uint high);
       void GiveRange(uint low, uint high);
+
+
+      bool Any();
+      int Count { get; }
 
       bool Contains(uint value);
       void Clear();

@@ -69,12 +69,12 @@ namespace ItzWarty.Collections
       public class Segment
       {
          /// <summary>
-         /// The low end of our segment's range
+         /// The inclusive low end of our segment's range
          /// </summary>
          public uint low;
 
          /// <summary>
-         /// The high end of our segment's range
+         /// The inclusive high end of our segment's range
          /// </summary>
          public uint high;
 
@@ -110,13 +110,15 @@ namespace ItzWarty.Collections
       /// Initializes a new instance of a Unique Identification Set with the given initial range of
       /// available values
       /// </summary>
-      /// <param name="low">The low bound of the set</param>
-      /// <param name="high">The high bound of the set</param>
+      /// <param name="low">The inclusive low bound of the set</param>
+      /// <param name="high">The inclusive high bound of the set</param>
       public UniqueIdentificationSet(uint low, uint high)
       {
          m_segments = new LinkedList<Segment>();
          m_segments.AddFirst(new Segment() { low = low, high = high});
       }
+
+      public int Count => ComputeCount();
 
       /// <summary>
       /// Takes a unique identifier from the Unique Identification set.
@@ -534,6 +536,22 @@ namespace ItzWarty.Collections
                resultList.AddLast(new Segment { low = node.Value.high + 1, high = UInt32.MaxValue });
             }
             return new UniqueIdentificationSet(false).With(x => x.__Assign(resultList));
+         }
+      }
+
+      public bool Any() {
+         lock (m_lock) {
+            return m_segments.Count > 0;
+         }
+      }
+
+      private int ComputeCount() {
+         lock (m_lock) {
+            int count = 0;
+            foreach (var segment in m_segments) {
+               count += (int)(segment.high - segment.low + 1);
+            }
+            return count;
          }
       }
 

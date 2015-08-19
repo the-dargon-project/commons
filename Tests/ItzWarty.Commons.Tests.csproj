@@ -57,10 +57,6 @@
     <Reference Include="Dargon.Services.Impl">
       <HintPath>..\packages\Dargon.Services.Impl.0.3.0\lib\net45\Dargon.Services.Impl.dll</HintPath>
     </Reference>
-    <Reference Include="ItzWarty.Commons, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\ItzWarty.Commons.0.4.0\lib\portable-net45+netcore45+MonoAndroid1+MonoTouch1\ItzWarty.Commons.dll</HintPath>
-    </Reference>
     <Reference Include="ItzWarty.Proxies.Api">
       <HintPath>..\packages\ItzWarty.Proxies.Api.0.1.0\lib\net45\ItzWarty.Proxies.Api.dll</HintPath>
     </Reference>
@@ -104,6 +100,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ItzWarty.Commons.csproj">
+      <Project>{097b6b08-4034-408a-b3c0-a12e8f9e8893}</Project>
+      <Name>ItzWarty.Commons</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
