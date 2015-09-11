@@ -130,11 +130,6 @@ namespace ItzWarty.Collections {
          uidSet.__Assign(hardList);
          uidSet.TakeRange(150, 200);
          AssertEquals("[1, 5][12, 15][30, 50][52, 100]", uidSet.ToString()); 
-
-
-//         uidSet.__Assign(hardList);
-//         uidSet.TakeRange(0, 300);
-//         AssertEquals("", uidSet.ToString());
       }
 
       [Fact]

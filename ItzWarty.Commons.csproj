@@ -108,6 +108,7 @@
     <Compile Include="Collections\SortedSet.cs" />
     <Compile Include="Collections\ValuesSortState.cs" />
     <Compile Include="Comparers\EqualityComparer.cs" />
+    <Compile Include="Utilities\AttributeUtilities.cs" />
     <None Include="Deprecated\ExpiringCache.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="Extensions.Collections.cs" />

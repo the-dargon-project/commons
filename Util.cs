@@ -646,8 +646,7 @@ namespace ItzWarty
       /// <param name="enumValue"></param>
       /// <returns></returns>
       public static TAttribute GetAttributeOrNull<TAttribute>(this Enum enumValue)
-         where TAttribute : Attribute
-      {
+         where TAttribute : Attribute {
          var enumType = enumValue.GetType();
          var memberInfo = enumType.GetTypeInfo().DeclaredMembers.First(member => member.Name.Equals(enumValue.ToString()));
          var attributes = memberInfo.GetCustomAttributes(typeof(TAttribute), false);
@@ -655,15 +654,21 @@ namespace ItzWarty
       }
 
       public static TAttribute GetAttributeOrNull<TAttribute>(this object instance)
-         where TAttribute : Attribute
-      {
-         var attributes = instance.GetType().GetTypeInfo().GetCustomAttributes(typeof(TAttribute), false);
-         return (TAttribute)attributes.FirstOrDefault();
+         where TAttribute : Attribute {
+         var instanceType = instance as Type ?? instance.GetType();
+         return GetAttributeOrNull<TAttribute>(instanceType);
       }
 
       public static TAttribute GetAttributeOrNull<TAttribute>(this Type type)
          where TAttribute : Attribute {
-         var attributes = type.GetTypeInfo().GetCustomAttributes(typeof(TAttribute), false);
+         var typeInfo = type.GetTypeInfo();
+         return GetAttributeOrNull<TAttribute>(typeInfo);
+      }
+
+
+      public static TAttribute GetAttributeOrNull<TAttribute>(this TypeInfo typeInfo)
+         where TAttribute : Attribute {
+         var attributes = typeInfo.GetCustomAttributes(typeof(TAttribute), false);
          return (TAttribute)attributes.FirstOrDefault();
       }
 
