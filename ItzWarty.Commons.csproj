@@ -109,7 +109,6 @@
     <Compile Include="Collections\ValuesSortState.cs" />
     <Compile Include="Comparers\EqualityComparer.cs" />
     <Compile Include="Utilities\AttributeUtilities.cs" />
-    <None Include="Deprecated\ExpiringCache.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="Extensions.Collections.cs" />
     <Compile Include="Extensions.IO.cs" />
@@ -117,7 +116,6 @@
     <Compile Include="Extensions.String.cs" />
     <Compile Include="Extensions.Treelike.cs" />
     <Compile Include="Extensions.Within.cs" />
-    <None Include="Deprecated\FileLock.cs" />
     <Compile Include="FormatProviders\FileSizeFormatProvider.cs" />
     <Compile Include="Collections\MultiValueDictionary.cs" />
     <Compile Include="Comparers\LambdaComparer.cs" />
