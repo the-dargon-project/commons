@@ -1,0 +1,8 @@
+[submodule "dependencies/commons"]
+	path = dependencies/commons
+	url = git@github.com:the-dargon-project/commons.git
+	branch = master
+[submodule "dependencies/ryu"]
+	path = dependencies/ryu
+	url = git@github.com:the-dargon-project/ryu.git
+	branch = master
