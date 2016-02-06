@@ -1,0 +1,20 @@
+﻿{
+    "version": "1.0.0-*",
+    "description": "Dargon.Commons Class Library",
+    "authors": [ "Warty" ],
+    "tags": [ "" ],
+    "projectUrl": "",
+    "licenseUrl": "",
+
+    "frameworks": {
+        "net451": { }
+    },
+
+    "dependencies": {
+        "Dargon.Ryu.Api": ""
+    },
+
+    "compilationOptions": {
+        "allowUnsafe": true
+    }
+}
