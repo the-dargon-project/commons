@@ -27,6 +27,6 @@ namespace Dargon.Commons.Collections {
       IReadOnlyCollection<TKey> Keys { get; }
       ICollection<ISet<TValue>> Values { get; }
       ISet<TValue> this[TKey key] { get; }
-      IEnumerator<KeyValuePair<TKey, ISet<TValue>>> GetEnumerator();
+      new IEnumerator<KeyValuePair<TKey, ISet<TValue>>> GetEnumerator();
    }
 }

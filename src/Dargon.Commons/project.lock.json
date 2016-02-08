@@ -3,33 +3,134 @@
   "version": 2,
   "targets": {
     ".NETFramework,Version=v4.5.1": {
+      "Fody/1.29.3": {
+        "type": "package"
+      },
+      "NLombok.Fody/0.0.5": {
+        "type": "package",
+        "dependencies": {
+          "Fody": "(, )"
+        },
+        "compile": {
+          "Lib/dotnet/Fody.NLombok.dll": {}
+        },
+        "runtime": {
+          "Lib/dotnet/Fody.NLombok.dll": {}
+        }
+      },
       "Dargon.Ryu.Api/1.0.0": {
         "type": "project",
-        "framework": ".NETFramework,Version=v4.5.1"
-      }
-    },
-    ".NETFramework,Version=v4.5.1/win7-x86": {
-      "Dargon.Ryu.Api/1.0.0": {
-        "type": "project",
-        "framework": ".NETFramework,Version=v4.5.1"
+        "framework": ".NETFramework,Version=v4.5.1",
+        "compile": {
+          "net451/Dargon.Ryu.Api.dll": {}
+        },
+        "runtime": {
+          "net451/Dargon.Ryu.Api.dll": {}
+        }
       }
     },
     ".NETFramework,Version=v4.5.1/win7-x64": {
+      "Fody/1.29.3": {
+        "type": "package"
+      },
+      "NLombok.Fody/0.0.5": {
+        "type": "package",
+        "dependencies": {
+          "Fody": "(, )"
+        },
+        "compile": {
+          "Lib/dotnet/Fody.NLombok.dll": {}
+        },
+        "runtime": {
+          "Lib/dotnet/Fody.NLombok.dll": {}
+        }
+      },
       "Dargon.Ryu.Api/1.0.0": {
         "type": "project",
-        "framework": ".NETFramework,Version=v4.5.1"
+        "framework": ".NETFramework,Version=v4.5.1",
+        "compile": {
+          "net451/Dargon.Ryu.Api.dll": {}
+        },
+        "runtime": {
+          "net451/Dargon.Ryu.Api.dll": {}
+        }
+      }
+    },
+    ".NETFramework,Version=v4.5.1/win7-x86": {
+      "Fody/1.29.3": {
+        "type": "package"
+      },
+      "NLombok.Fody/0.0.5": {
+        "type": "package",
+        "dependencies": {
+          "Fody": "(, )"
+        },
+        "compile": {
+          "Lib/dotnet/Fody.NLombok.dll": {}
+        },
+        "runtime": {
+          "Lib/dotnet/Fody.NLombok.dll": {}
+        }
+      },
+      "Dargon.Ryu.Api/1.0.0": {
+        "type": "project",
+        "framework": ".NETFramework,Version=v4.5.1",
+        "compile": {
+          "net451/Dargon.Ryu.Api.dll": {}
+        },
+        "runtime": {
+          "net451/Dargon.Ryu.Api.dll": {}
+        }
       }
     }
   },
   "libraries": {
+    "Fody/1.29.3": {
+      "sha512": "I+dC/ez9Tl2QH+YuUhZBoqsMJKk3JzNszHpYSEFHzNBES1C5KcNJJPtc0gRUrQBpCz5x9oxPBfMZaI0UXFg9rw==",
+      "type": "package",
+      "files": [
+        "Content/FodyWeavers.xml",
+        "Fody.1.29.3.nupkg.sha512",
+        "Fody.dll",
+        "Fody.nuspec",
+        "Fody.pdb",
+        "FodyCommon.dll",
+        "FodyCommon.pdb",
+        "FodyIsolated.dll",
+        "FodyIsolated.pdb",
+        "Mono.Cecil.Mdb.dll",
+        "Mono.Cecil.Pdb.dll",
+        "Mono.Cecil.Rocks.dll",
+        "Mono.Cecil.dll",
+        "build/dotnet/Fody.targets",
+        "build/portable-net+sl+win+wpa+wp/Fody.targets"
+      ]
+    },
+    "NLombok.Fody/0.0.5": {
+      "sha512": "N+NO9OuW7Rxlqr0hNMRf/kOb5N0Vk5SH7x9BKcEf3tmoCYOO+ZJh9tl8ln26QUvjazns9xt60Q2rFkO375gvlw==",
+      "type": "package",
+      "files": [
+        "Fody.NLombok.dll",
+        "Lib/dotnet/Fody.NLombok.dll",
+        "Lib/portable-net4+sl5+wpa81+wp8+win8+MonoAndroid16+MonoTouch40/Fody.NLombok.dll",
+        "NLombok.Fody.0.0.5.nupkg.sha512",
+        "NLombok.Fody.dll",
+        "NLombok.Fody.nuspec",
+        "Tools/install.ps1",
+        "Tools/uninstall.ps1"
+      ]
+    },
     "Dargon.Ryu.Api/1.0.0": {
       "type": "project",
-      "path": "../../../ryu/src/Dargon.Ryu.Api/project.json"
+      "path": "../../../ryu/src/Dargon.Ryu.Api/project.json",
+      "msbuildProject": "../../../ryu/src/Dargon.Ryu.Api/Dargon.Ryu.Api.xproj"
     }
   },
   "projectFileDependencyGroups": {
     "": [
-      "Dargon.Ryu.Api "
+      "Dargon.Ryu.Api ",
+      "Fody >= 1.29.3",
+      "NLombok.Fody >= 0.0.5"
     ],
     ".NETFramework,Version=v4.5.1": []
   }

@@ -1,4 +1,6 @@
-﻿namespace Dargon.Commons {
+﻿using Fody.Constructors;
+
+namespace Dargon.Commons {
    /// <summary>
    /// USAGE:
    /// in header:

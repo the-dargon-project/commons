@@ -1,0 +1,18 @@
+﻿using Dargon.Ryu;
+using Dargon.Commons.Collections;
+using Dargon.Commons.Pooling;
+using NMockito;
+using Xunit;
+
+namespace Dargon.Commons {
+   public class RyuPackageTests : NMockitoInstance {
+      [Fact]
+      public void Run() {
+         var ryu = new RyuFactory().Create();
+         ryu.Touch<DargonCommonsRyuPackage>();
+         ryu.Setup();
+         AssertTrue(ryu.Get<ICollectionFactory>() is CollectionFactory);
+         AssertTrue(ryu.Get<ObjectPoolFactory>() is DefaultObjectPoolFactory);
+      }
+   }
+}

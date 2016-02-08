@@ -5,33 +5,33 @@ namespace Dargon.Commons.Collections {
    public class SingleConsumerSingleProducerConcurrentQueue<T> : IConcurrentQueue<T> where T : class {
       public const int kBucketSize = 32;
 
-      private class Segment<T> where T : class {
-         public Box<T>[] elements;
-         public volatile Segment<T> next; 
+      private class Segment {
+         public Box[] elements;
+         public volatile Segment next; 
          public int readIndex;
          public int writeIndex;
 
-         public Segment(Box<T>[] elements, Segment<T> next ) {
+         public Segment(Box[] elements, Segment next ) {
             this.elements = elements;
             this.next = next;
          }
 
-         public class Box<T> where T : class {
+         public class Box {
             public volatile T value;
          }
       }
 
-      private readonly Segment<T> sentinelEnd = new Segment<T>(null, null);
-      private Segment<T> head;
-      private Segment<T> tail;
+      private readonly Segment sentinelEnd = new Segment(null, null);
+      private Segment head;
+      private Segment tail;
 
       public SingleConsumerSingleProducerConcurrentQueue() {
          head = CreateSegment();
          tail = head;
       }
 
-      private Segment<T> CreateSegment() {
-         return new Segment<T>(Util.Generate(kBucketSize, i => new Segment<T>.Box<T>()), sentinelEnd);
+      private Segment CreateSegment() {
+         return new Segment(Util.Generate(kBucketSize, i => new Segment.Box()), sentinelEnd);
       }
 
       public void Enqueue(T item) {

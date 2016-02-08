@@ -9,7 +9,7 @@ namespace Dargon.Commons.Collections
    /// <typeparam name="TValue"></typeparam>
    public interface IOrderedDictionary<TKey, TValue> : IDictionary<TKey, TValue>
    {
-      new TValue this[int index] { get; set; }
+      TValue this[int index] { get; set; }
       new TValue this[TKey key] { get; set; }
       new int Count { get; }
       new ICollection<TKey> Keys { get; }
@@ -24,7 +24,7 @@ namespace Dargon.Commons.Collections
       KeyValuePair<TKey, TValue> GetItem(int index);
       new IEnumerator<KeyValuePair<TKey, TValue>> GetEnumerator();
       new bool Remove(TKey key);
-      new void RemoveAt(int index);
+      void RemoveAt(int index);
       new bool TryGetValue(TKey key, out TValue value);
    }
 }
