@@ -1,9 +1,9 @@
-﻿{
+{
     "projects": [
         "dependencies/commons/src",
         "dependencies/commons/test",
         "dependencies/ryu/src",
-        "dependencies/ryu/test"
+        "dependencies/NMockito/src"
     ],
     "sdk": {
         "version": "1.0.0-rc1-update1"

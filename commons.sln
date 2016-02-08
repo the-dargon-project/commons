@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{883A3125-781C-431F-91AB-64F67B6C866A}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "B. src", "B. src", "{883A3125-781C-431F-91AB-64F67B6C866A}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{D5B7A91D-7E54-4C5F-BD76-B5BD7B94513E}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "A. Solution Items", "A. Solution Items", "{D5B7A91D-7E54-4C5F-BD76-B5BD7B94513E}"
 	ProjectSection(SolutionItems) = preProject
 		global.json = global.json
 	EndProjectSection
@@ -13,6 +13,14 @@ EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Dargon.Ryu.Api", "dependencies\ryu\src\Dargon.Ryu.Api\Dargon.Ryu.Api.xproj", "{97247D5E-A3C9-4050-84E8-2FD8E9178DB8}"
 EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Dargon.Commons", "dependencies\commons\src\Dargon.Commons\Dargon.Commons.xproj", "{2D7BAFC8-38E8-42EC-B215-F1A0A08E4BA8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "C. test", "C. test", "{3AB88227-7A1D-465E-A0AE-3D25CCA7D476}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "D. dependencies", "D. dependencies", "{2D397D03-A905-454C-9DC8-91F4F7F2AA47}"
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "FodyDnx", "dependencies\FodyDnx\src\FodyDnx.xproj", "{F3EA0646-E97A-4535-8E19-B5E38FB2706A}"
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Dargon.Commons.UnitTests", "dependencies\commons\test\Dargon.Commons.UnitTests\Dargon.Commons.UnitTests.xproj", "{52BB074B-E50C-4F02-BC7F-2569BEF37F1B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -28,6 +36,14 @@ Global
 		{2D7BAFC8-38E8-42EC-B215-F1A0A08E4BA8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2D7BAFC8-38E8-42EC-B215-F1A0A08E4BA8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2D7BAFC8-38E8-42EC-B215-F1A0A08E4BA8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F3EA0646-E97A-4535-8E19-B5E38FB2706A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F3EA0646-E97A-4535-8E19-B5E38FB2706A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F3EA0646-E97A-4535-8E19-B5E38FB2706A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F3EA0646-E97A-4535-8E19-B5E38FB2706A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{52BB074B-E50C-4F02-BC7F-2569BEF37F1B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{52BB074B-E50C-4F02-BC7F-2569BEF37F1B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{52BB074B-E50C-4F02-BC7F-2569BEF37F1B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{52BB074B-E50C-4F02-BC7F-2569BEF37F1B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -35,5 +51,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{97247D5E-A3C9-4050-84E8-2FD8E9178DB8} = {883A3125-781C-431F-91AB-64F67B6C866A}
 		{2D7BAFC8-38E8-42EC-B215-F1A0A08E4BA8} = {883A3125-781C-431F-91AB-64F67B6C866A}
+		{F3EA0646-E97A-4535-8E19-B5E38FB2706A} = {2D397D03-A905-454C-9DC8-91F4F7F2AA47}
+		{52BB074B-E50C-4F02-BC7F-2569BEF37F1B} = {3AB88227-7A1D-465E-A0AE-3D25CCA7D476}
 	EndGlobalSection
 EndGlobal

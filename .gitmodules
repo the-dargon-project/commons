@@ -6,3 +6,10 @@
 	path = dependencies/ryu
 	url = git@github.com:the-dargon-project/ryu.git
 	branch = master
+[submodule "dependencies/FodyDnx"]
+	path = dependencies/FodyDnx
+	url = git@github.com:ItzWarty/FodyDnx.git
+[submodule "dependencies/NMockito"]
+	path = dependencies/NMockito
+	url = git@github.com:the-dargon-project/NMockito.git
+	branch = master
