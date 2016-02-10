@@ -6,8 +6,8 @@ using System.Linq;
 namespace Dargon.Commons {
    public static partial class DargonCommonsExtensions
    {
-      public static U[] Map<T, U>(this T[] arr, Func<T, U> projector) {
-         U[] result = new U[arr.Length];
+      public static U[] Map<T, U>(this IReadOnlyList<T> arr, Func<T, U> projector) {
+         U[] result = new U[arr.Count];
          for (var i = 0; i < result.Length; i++) {
             result[i] = projector(arr[i]);
          }

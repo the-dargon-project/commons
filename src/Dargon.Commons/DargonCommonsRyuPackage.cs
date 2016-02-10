@@ -1,12 +1,13 @@
 ﻿using Dargon.Commons.Collections;
 using Dargon.Commons.Pooling;
 using Dargon.Ryu;
+using Dargon.Ryu.Modules;
 
 namespace Dargon.Commons {
-   public class DargonCommonsRyuPackage : RyuPackageV1 {
+   public class DargonCommonsRyuPackage : RyuModule {
       public DargonCommonsRyuPackage() {
-         Singleton<ICollectionFactory, DefaultCollectionFactory>();
-         Singleton<IObjectPoolFactory, DefaultObjectPoolFactory>();
+         Required.Singleton<DefaultCollectionFactory>().Implements<ICollectionFactory>();
+         Required.Singleton<DefaultObjectPoolFactory>().Implements<IObjectPoolFactory>();
       }
    }
 }

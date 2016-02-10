@@ -9,10 +9,8 @@ namespace Dargon.Commons {
       [Fact]
       public void Run() {
          var ryu = new RyuFactory().Create();
-         ryu.Touch<DargonCommonsRyuPackage>();
-         ryu.Setup();
-         AssertTrue(ryu.Get<ICollectionFactory>() is CollectionFactory);
-         AssertTrue(ryu.Get<ObjectPoolFactory>() is DefaultObjectPoolFactory);
+         AssertTrue(ryu.GetOrThrow<ICollectionFactory>() is DefaultCollectionFactory);
+         AssertTrue(ryu.GetOrThrow<IObjectPoolFactory>() is DefaultObjectPoolFactory);
       }
    }
 }
