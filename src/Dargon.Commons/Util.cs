@@ -14,8 +14,11 @@ namespace Dargon.Commons
       public GeneratorExitException() : base("The Generator is unable to produce more results.  Perhaps, there is nothing left to produce?") {}
    }
 
-   public unsafe static class Util
-   {
+   public static unsafe class Util {
+      public static T[] Generate<T>(int count, Func<T> generator) {
+         return Generate(count, i => generator());
+      }
+
       /// <summary>
       /// Creates an array using the given function N times.
       /// The function takes a parameter i, from 0 to count, and returns T.

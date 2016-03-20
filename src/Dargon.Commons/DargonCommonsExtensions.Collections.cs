@@ -4,14 +4,43 @@ using System.Runtime.CompilerServices;
 using System.Linq;
 
 namespace Dargon.Commons {
-   public static partial class DargonCommonsExtensions
-   {
+   public static partial class DargonCommonsExtensions {
+      public static int Sum(this int[] arr) {
+         int result = 0;
+         for (int i = 0; i < arr.Length; i++) {
+            result += arr[i];
+         }
+         return result;
+      }
+
+      public static int Sum<T>(this T[] arr, Func<T, int> map) {
+         int result = 0;
+         for (int i = 0; i < arr.Length; i++) {
+            result += map(arr[i]);
+         }
+         return result;
+      }
+
       public static U[] Map<T, U>(this IReadOnlyList<T> arr, Func<T, U> projector) {
          U[] result = new U[arr.Count];
          for (var i = 0; i < result.Length; i++) {
             result[i] = projector(arr[i]);
          }
          return result;
+      }
+
+      public static U[] Map<T, U>(this IReadOnlyList<T> arr, Func<U> projector) {
+         U[] result = new U[arr.Count];
+         for (var i = 0; i < result.Length; i++) {
+            result[i] = projector();
+         }
+         return result;
+      }
+
+      public static void ForEach<T>(this T[] arr, Action<T> action) {
+         for (int i = 0; i < arr.Length; i++) {
+            action(arr[i]);
+         }
       }
 
       public static T[] LogicalIndex<T>(this IReadOnlyList<T> input, IReadOnlyList<bool> indexConditions) {

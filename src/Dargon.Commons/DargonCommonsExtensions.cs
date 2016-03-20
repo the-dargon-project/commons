@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Linq;
+using System.Reflection;
 using Dargon.Commons.FormatProviders;
 
 namespace Dargon.Commons {
@@ -28,7 +29,7 @@ namespace Dargon.Commons {
          return self;
       }
 
-      public static U Map<T, U>(this T self, Func<T, U> func) {
+      public static U Pass<T, U>(this T self, Func<T, U> func) {
          return func(self);
       }
 
@@ -82,6 +83,25 @@ namespace Dargon.Commons {
       public static TSource MaxBy<TSource, TKey>(this IEnumerable<TSource> source,
          Func<TSource, TKey> selector) {
          return source.MaxBy(selector, Comparer<TKey>.Default);
+      }
+
+      public static void VisitType(this object visitedThing, object target, string targetMethodName, params object[] args) {
+         VisitDispatchHelper(new [] { visitedThing.GetType() }, target, targetMethodName, args);
+      }
+
+      public static void VisitGeneric(this object visitedThing, Type visitedInterfaceGenericDefinition, object target, string targetMethodName, params object[] args) {
+         var interfaces = visitedThing.GetType().GetTypeInfo().GetInterfaces();
+         var interfaceMatch = interfaces.First(x => x.GetGenericTypeDefinition() == visitedInterfaceGenericDefinition);
+         VisitDispatchHelper(interfaceMatch.GetGenericArguments(), target, targetMethodName, args);
+      }
+
+      private static void VisitDispatchHelper(Type[] genericArguments, object target, string targetMethodName, object[] args) {
+         Type targetType = (target as Type) ?? target.GetType();
+         target = target is Type ? null : target;
+         var targetMethods = targetType.GetTypeInfo().GetMethods(BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic);
+         var targetMethodMatch = targetMethods.First(x => x.Name == targetMethodName && x.GetGenericArguments().Length == genericArguments.Length);
+         var targetMethod = targetMethodMatch.MakeGenericMethod(genericArguments);
+         targetMethod.Invoke(target, args);
       }
 
       /// <summary>
