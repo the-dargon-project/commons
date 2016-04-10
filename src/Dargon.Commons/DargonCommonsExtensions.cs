@@ -5,6 +5,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Linq;
 using System.Reflection;
+using System.Threading.Tasks;
 using Dargon.Commons.FormatProviders;
 
 namespace Dargon.Commons {
@@ -161,6 +162,10 @@ namespace Dargon.Commons {
       //http://stackoverflow.com/questions/128618/c-file-size-format-provider
       public static string ToFileSize(this long l) {
          return String.Format(new FileSizeFormatProvider(), "{0:fs}", l);
+      }
+
+      public static async void Forget(this Task task) {
+         await task.ConfigureAwait(false);
       }
    }
 }
