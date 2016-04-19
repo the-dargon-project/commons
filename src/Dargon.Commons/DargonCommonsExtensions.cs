@@ -165,6 +165,10 @@ namespace Dargon.Commons {
       }
 
       public static async void Forget(this Task task) {
+         await task.Forgettable();
+      }
+
+      public static async Task Forgettable(this Task task) {
          await task.ConfigureAwait(false);
       }
    }
