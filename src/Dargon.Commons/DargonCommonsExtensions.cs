@@ -91,7 +91,8 @@ namespace Dargon.Commons {
       }
 
       public static object VisitGeneric(this object visitedThing, Type visitedInterfaceGenericDefinition, object target, string targetMethodName, params object[] args) {
-         var interfaces = visitedThing.GetType().GetTypeInfo().GetInterfaces();
+         var visitedType = visitedThing as Type ?? visitedThing.GetType();
+         var interfaces = visitedType.GetTypeInfo().GetInterfaces();
          var interfaceMatch = interfaces.First(x => x.GetGenericTypeDefinition() == visitedInterfaceGenericDefinition);
          return VisitDispatchHelper(interfaceMatch.GetGenericArguments(), target, targetMethodName, args);
       }
@@ -101,11 +102,11 @@ namespace Dargon.Commons {
          target = target is Type ? null : target;
          if (targetType.IsGenericTypeDefinition) {
             targetType = targetType.MakeGenericType(genericArguments);
-            var targetMethods = targetType.GetTypeInfo().GetMethods(BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic);
+            var targetMethods = targetType.GetTypeInfo().GetMethods(BindingFlags.Static | BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
             var targetMethod = targetMethods.First(x => x.Name == targetMethodName && x.GetGenericArguments().Length == genericArguments.Length);
             return targetMethod.Invoke(target, args);
          } else {
-            var targetMethods = targetType.GetTypeInfo().GetMethods(BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic);
+            var targetMethods = targetType.GetTypeInfo().GetMethods(BindingFlags.Static | BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
             var targetMethodMatch = targetMethods.First(x => x.Name == targetMethodName && x.GetGenericArguments().Length == genericArguments.Length);
             var targetMethod = targetMethodMatch.MakeGenericMethod(genericArguments);
             return targetMethod.Invoke(target, args);
