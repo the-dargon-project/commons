@@ -7,11 +7,17 @@
     "licenseUrl": "",
 
     "frameworks": {
-        "net451": { }
+        "net451": {
+            "frameworkAssemblies": {
+                "System.Threading.Tasks": "",
+                "System.Runtime": ""
+            }
+        }
     },
 
     "dependencies": {
         "Dargon.Ryu.Api": "",
+        "Nito.AsyncEx": "3.0.1",
         "Fody": "1.29.3",
         "NLombok.Fody": "0.0.5"
     },
