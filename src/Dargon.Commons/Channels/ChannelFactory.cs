@@ -1,5 +1,8 @@
-﻿using System.Collections.Concurrent;
+﻿using System;
+using System.Collections.Concurrent;
+using System.Threading.Tasks;
 using Nito.AsyncEx;
+using static Dargon.Commons.Channels.ChannelsExtensions;
 
 namespace Dargon.Commons.Channels {
    public static class ChannelFactory {
@@ -14,6 +17,23 @@ namespace Dargon.Commons.Channels {
 
       public static Channel<T> Blocking<T>() {
          return new BlockingChannel<T>();
-      } 
+      }
+
+      public static ReadableChannel<bool> Timeout(int millis) => Timeout(TimeSpan.FromMilliseconds(millis));
+
+      public static ReadableChannel<bool> Timeout(TimeSpan interval) {
+         var channel = Nonblocking<bool>(1);
+
+         Go(async () => {
+            await Task.Delay(interval).ConfigureAwait(false);
+            await channel.WriteAsync(true).ConfigureAwait(false);
+         });
+
+         return channel;
+      }
+   }
+
+   public static class Time {
+      public static ReadableChannel<bool> After(int millis) => ChannelFactory.Timeout(millis);
    }
 }

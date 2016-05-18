@@ -18,7 +18,7 @@ namespace Dargon.Commons.Channels {
 
       public async Task WriteAsync(T message, CancellationToken cancellationToken) {
          if (writeSemaphore != null) {
-            await writeSemaphore.WaitAsync(cancellationToken);
+            await writeSemaphore.WaitAsync(cancellationToken).ConfigureAwait(false);
          }
          writeQueue.Enqueue(message);
          readSemaphore.Release();
@@ -27,7 +27,7 @@ namespace Dargon.Commons.Channels {
       public async Task<T> ReadAsync(CancellationToken cancellationToken, Func<T, bool> acceptanceTest) {
          await Task.Yield();
          while (!cancellationToken.IsCancellationRequested) {
-            await readSemaphore.WaitAsync(cancellationToken);
+            await readSemaphore.WaitAsync(cancellationToken).ConfigureAwait(false);
             T message;
             while (!writeQueue.TryDequeue(out message)) { }
             if (acceptanceTest(message)) {

@@ -3,6 +3,7 @@ using System.Collections.Concurrent;
 using System.Threading;
 using System.Threading.Tasks;
 using Nito.AsyncEx;
+using static Dargon.Commons.Channels.ToFuncTTaskConverter;
 
 namespace Dargon.Commons.Channels {
    public class DispatchContext {
@@ -17,17 +18,27 @@ namespace Dargon.Commons.Channels {
          dispatchesRemaining = times;
       }
 
-      public DispatchContext Case<T>(ReadableChannel<T> channel, Func<T, Task> callback) {
-         return Case(channel, new Action<T>(t => callback(t)));
+      public bool IsCompleted => cts.IsCancellationRequested;
+
+      public DispatchContext Case<T>(ReadableChannel<T> channel, Action callback) {
+         return Case(channel, Convert<T>(callback));
       }
 
       public DispatchContext Case<T>(ReadableChannel<T> channel, Action<T> callback) {
+         return Case(channel, Convert<T>(callback));
+      }
+
+      public DispatchContext Case<T>(ReadableChannel<T> channel, Func<Task> callback) {
+         return Case(channel, Convert<T>(callback));
+      }
+
+      public DispatchContext Case<T>(ReadableChannel<T> channel, Func<T, Task> callback) {
          var task = ProcessCaseAsync<T>(channel, callback);
          tasksToShutdown.Enqueue(task);
          return this;
       }
 
-      private async Task ProcessCaseAsync<T>(ReadableChannel<T> channel, Action<T> callback) {
+      private async Task ProcessCaseAsync<T>(ReadableChannel<T> channel, Func<T, Task> callback) {
          while (!cts.IsCancellationRequested) {
             bool isFinalDispatch = false;
             var result = await channel.ReadAsync(
@@ -40,22 +51,20 @@ namespace Dargon.Commons.Channels {
                      isFinalDispatch = oldDispatchesRemaining == 1;
                      return oldDispatchesRemaining > 0;
                   }
-
-               });
+               }).ConfigureAwait(false);
             if (isFinalDispatch) {
                cts.Cancel();
-               callback(result);
+               await callback(result).ConfigureAwait(false);
                completionLatch.Set();
             } else {
-               callback(result);
+               await callback(result).ConfigureAwait(false);
             }
          }
       }
-
-      public Task WaitAsync() => WaitAsync(CancellationToken.None);
-
-      public Task WaitAsync(CancellationToken token) {
-         return Task.WhenAny(completionLatch.WaitAsync(), token.AsTask());
+      
+      public async Task WaitAsync(CancellationToken token = default(CancellationToken)) {
+         await Task.WhenAny(completionLatch.WaitAsync(), token.AsTask())
+                   .ConfigureAwait(false);
       }
 
       public async Task ShutdownAsync() {

@@ -15,14 +15,14 @@ namespace Dargon.Commons.Channels {
          writerQueue.Enqueue(context);
          queueSemaphore.Release();
          try {
-            await Task.WhenAny(context.resetEvent.WaitAsync(), cancellationToken.AsTask());
+            await Task.WhenAny(context.resetEvent.WaitAsync(), cancellationToken.AsTask()).ConfigureAwait(false);
          } catch (OperationCanceledException) {
             while (context.state != WriterContext<T>.kStateCancelled) {
                var originalValue = Interlocked.CompareExchange(ref context.state, WriterContext<T>.kStateCancelled, WriterContext<T>.kStatePending);
                if (originalValue == WriterContext<T>.kStatePending) {
                   throw;
                } else if (originalValue == WriterContext<T>.kStateCompleting) {
-                  await context.completingFreedEvent.WaitAsync(CancellationToken.None);
+                  await context.completingFreedEvent.WaitAsync(CancellationToken.None).ConfigureAwait(false);
                }
             }
          } finally {
@@ -34,7 +34,7 @@ namespace Dargon.Commons.Channels {
       public async Task<T> ReadAsync(CancellationToken cancellationToken, Func<T, bool> acceptanceTest) {
          await Task.Yield();
          while (!cancellationToken.IsCancellationRequested) {
-            await queueSemaphore.WaitAsync(cancellationToken);
+            await queueSemaphore.WaitAsync(cancellationToken).ConfigureAwait(false);
             WriterContext<T> context;
             while (!writerQueue.TryDequeue(out context)) { }
             var oldState = Interlocked.CompareExchange(ref context.state, WriterContext<T>.kStateCompleting, WriterContext<T>.kStatePending);

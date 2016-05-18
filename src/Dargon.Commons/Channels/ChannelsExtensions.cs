@@ -1,6 +1,7 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
+using static Dargon.Commons.Channels.ToFuncTTaskConverter;
 
 namespace Dargon.Commons.Channels {
    public static class ChannelsExtensions {
@@ -20,10 +21,26 @@ namespace Dargon.Commons.Channels {
          return channel.ReadAsync(CancellationToken.None, acceptanceTest => true);
       }
 
-      public static Task Run(Func<Task> task) {
-         return task();
+      public static async Task Run(Func<Task> task) {
+         await task().ConfigureAwait(false);
       }
 
       public static Task Go(Func<Task> task) => Run(task);
+
+      public static ICaseTemporary Case<T>(ReadableChannel<T> channel, Action callback) {
+         return new CaseTemporary<T>(channel, Convert<T>(callback));
+      }
+
+      public static ICaseTemporary Case<T>(ReadableChannel<T> channel, Action<T> callback) {
+         return new CaseTemporary<T>(channel, Convert<T>(callback));
+      }
+
+      public static ICaseTemporary Case<T>(ReadableChannel<T> channel, Func<Task> callback) {
+         return new CaseTemporary<T>(channel, Convert<T>(callback));
+      }
+
+      public static ICaseTemporary Case<T>(ReadableChannel<T> channel, Func<T, Task> callback) {
+         return new CaseTemporary<T>(channel, callback);
+      }
    }
 }
