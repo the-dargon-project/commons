@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Dargon.Commons.Exceptions;
 
 namespace Dargon.Commons
 {
@@ -30,6 +31,24 @@ namespace Dargon.Commons
          int rand = rng?.Next() ?? StaticRandom.Next(int.MaxValue);
          var options = source.ToList();
          return options[rand % options.Count];
+      }
+
+      public static T SelectRandomWeighted<T>(this IEnumerable<T> source, Func<T, int> weighter, Random rng = null) {
+         int rand = rng?.Next() ?? StaticRandom.Next(int.MaxValue);
+         var options = source as List<T> ?? source.ToList();
+         var optionsAndWeights = options.Map(o => new { Weight = weighter(o), Option = o });
+         var totalWeight = optionsAndWeights.Sum(o => o.Weight);
+         if (totalWeight == 0) {
+            return options[rand % options.Count];
+         }
+         var weightOffset = rand % totalWeight;
+         foreach (var optionAndWeight in optionsAndWeights) {
+            weightOffset -= optionAndWeight.Weight;
+            if (weightOffset < 0) {
+               return optionAndWeight.Option;
+            }
+         }
+         throw new InvalidStateException();
       }
 
       // via http://stackoverflow.com/questions/1651619/optimal-linq-query-to-get-a-random-sub-collection-shuffle
