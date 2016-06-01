@@ -173,7 +173,12 @@ namespace Dargon.Commons {
       }
 
       public static async void Forget(this Task task) {
-         await task.Forgettable();
+         var throwaway = task.ContinueWith(
+            (t, _) => {
+               if (t.IsFaulted) {
+                  Console.WriteLine("Forgotten task threw: " + t.Exception);
+               }
+            }, null);
       }
 
       public static async Task Forgettable(this Task task) {

@@ -19,7 +19,7 @@
         "Dargon.Ryu.Api": "*",
         "Nito.AsyncEx": "3.0.1",
         "Fody": "1.29.3",
-        "NLombok.Fody": "0.0.5"
+        "NLombok.Fody": "0.0.5",
     },
 
     "compilationOptions": {

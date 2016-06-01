@@ -1,37 +1,33 @@
 ﻿using System;
-using Dargon.Commons.Collections;
+using System.Collections.Generic;
+using System.Threading;
 
 namespace Dargon.Commons.Pooling {
    public class DefaultObjectPool<T> : IObjectPool<T> {
+      private readonly ThreadLocal<Stack<T>> container = new ThreadLocal<Stack<T>>(() => new Stack<T>(), false);
       private readonly Func<IObjectPool<T>, T> generator;
-      private readonly IConcurrentBag<T> container;
       private readonly string name;
 
-      public DefaultObjectPool(Func<IObjectPool<T>, T> generator) : this(generator, new ConcurrentBag<T>(), null) {}
-      public DefaultObjectPool(Func<IObjectPool<T>, T> generator, IConcurrentBag<T> container) : this(generator, container, null) { }
-      public DefaultObjectPool(Func<IObjectPool<T>, T> generator, string name) : this(generator, new ConcurrentBag<T>(), name) { }
-      public DefaultObjectPool(Func<IObjectPool<T>, T> generator, IConcurrentBag<T> container, string name) {
+      public DefaultObjectPool(Func<IObjectPool<T>, T> generator) : this(generator, null) {}
+      public DefaultObjectPool(Func<IObjectPool<T>, T> generator, string name) {
          generator.ThrowIfNull("generator");
-         container.ThrowIfNull("container");
-
+         
          this.generator = generator;
-         this.container = container;
          this.name = name;
       }
 
       public string Name => name;
-      public int Count => container.Count;
 
       public T TakeObject() {
-         T result;
-         if (!container.TryTake(out result)) {
-            result = generator(this);
+         var s = container.Value;
+         if (s.None()) {
+            return generator(this);
          }
-         return result;
+         return s.Pop();
       }
 
       public void ReturnObject(T item) {
-         container.Add(item);
+         container.Value.Push(item);
       }
    }
 }

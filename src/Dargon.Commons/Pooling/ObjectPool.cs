@@ -8,7 +8,7 @@ namespace Dargon.Commons.Pooling {
       }
 
       public static IObjectPool<T> Create<T>(Func<IObjectPool<T>, T> generator) {
-         return new DefaultObjectPool<T>(generator, CollectionFactory.ConcurrentBag<T>());
+         return new DefaultObjectPool<T>(generator);
       }
 
       public static IObjectPool<T> Create<T>(Func<T> generator, string name) {
@@ -16,7 +16,7 @@ namespace Dargon.Commons.Pooling {
       }
 
       public static IObjectPool<T> Create<T>(Func<IObjectPool<T>, T> generator, string name) {
-         return new DefaultObjectPool<T>(generator, CollectionFactory.ConcurrentBag<T>(), name);
+         return new DefaultObjectPool<T>(generator, name);
       }
    }
 }
