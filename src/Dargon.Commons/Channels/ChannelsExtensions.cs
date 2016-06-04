@@ -25,7 +25,13 @@ namespace Dargon.Commons.Channels {
          await task().ConfigureAwait(false);
       }
 
+      public static async Task<T> Run<T>(Func<Task<T>> task) {
+         return await task().ConfigureAwait(false);
+      }
+
       public static Task Go(Func<Task> task) => Run(task);
+
+      public static Task<T> Go<T>(Func<Task<T>> task) => Run(task);
 
       public static ICaseTemporary Case<T>(ReadableChannel<T> channel, Action callback) {
          return new CaseTemporary<T>(channel, Convert<T>(callback));

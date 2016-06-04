@@ -57,15 +57,22 @@ namespace Dargon.Commons.Collections
          return storage.ContainsKey(item);
       }
 
-      public bool TryAdd(T item)
-      {
+      public bool TryAdd(T item) {
          return storage.TryAdd(item, 0);
+      }
+
+      public void AddOrThrow(T item) {
+         storage.AddOrThrow(item, 0);
       }
 
       public bool TryRemove(T item)
       {
          byte dontCare;
          return storage.TryRemove(item, out dontCare);
+      }
+
+      public void RemoveOrThrow(T item) {
+         storage.RemoveOrThrow(item, 0);
       }
 
       void ICollection<T>.Add(T item) {

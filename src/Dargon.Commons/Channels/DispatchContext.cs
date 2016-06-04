@@ -13,12 +13,13 @@ namespace Dargon.Commons.Channels {
       private readonly AsyncManualResetEvent completionLatch = new AsyncManualResetEvent(false);
       private readonly ConcurrentQueue<Task> tasksToShutdown = new ConcurrentQueue<Task>();
       private int dispatchesRemaining;
+      private bool isCompleted = false;
 
       public DispatchContext(int times) {
          dispatchesRemaining = times;
       }
 
-      public bool IsCompleted => cts.IsCancellationRequested;
+      public bool IsCompleted => isCompleted;
 
       public DispatchContext Case<T>(ReadableChannel<T> channel, Action callback) {
          return Case(channel, Convert<T>(callback));
@@ -56,6 +57,7 @@ namespace Dargon.Commons.Channels {
                cts.Cancel();
                await callback(result).ConfigureAwait(false);
                completionLatch.Set();
+               isCompleted = true;
             } else {
                await callback(result).ConfigureAwait(false);
             }
