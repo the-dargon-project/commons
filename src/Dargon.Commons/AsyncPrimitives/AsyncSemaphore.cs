@@ -23,6 +23,22 @@ namespace Dargon.Commons.AsyncPrimitives {
 
       public int Count => counter;
 
+      public bool TryTake() {
+         var spinner = new SpinWait();
+         while (true) {
+            var capturedCounter = Interlocked.CompareExchange(ref counter, 0, 0);
+            if (capturedCounter > 0) {
+               var nextCounter = capturedCounter - 1;
+               if (Interlocked.CompareExchange(ref counter, nextCounter, capturedCounter) == capturedCounter) {
+                  return true;
+               }
+            } else {
+               return false;
+            }
+            spinner.SpinOnce();
+         }
+      }
+
       public async Task WaitAsync(CancellationToken cancellationToken = default(CancellationToken)) {
          var spinner = new SpinWait();
          while (true) {

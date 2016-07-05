@@ -13,6 +13,8 @@ namespace Dargon.Commons.Channels {
       private readonly AsyncSemaphore queueSemaphore = new AsyncSemaphore(0);
       private bool isDebugEnabled;
 
+      public int Count => queueSemaphore.Count;
+
       public void EnableDebug() {
          isDebugEnabled = true;
       }
@@ -42,6 +44,35 @@ namespace Dargon.Commons.Channels {
          } finally {
             Trace.Assert(context.state == WriterContext<T>.kStateCancelled ||
                          context.state == WriterContext<T>.kStateCompleted);
+         }
+      }
+
+      public bool TryRead(out T message) {
+         if (!queueSemaphore.TryTake()) {
+            message = default(T);
+            return false;
+         }
+         SpinWait spinner = new SpinWait();
+         WriterContext<T> context;
+         while (!writerQueue.TryDequeue(out context)) {
+            spinner.SpinOnce();
+         }
+         var oldState = Interlocked.CompareExchange(ref context.state, WriterContext<T>.kStateCompleting, WriterContext<T>.kStatePending);
+         if (oldState == WriterContext<T>.kStatePending) {
+            Interlocked.CompareExchange(ref context.state, WriterContext<T>.kStateCompleted, WriterContext<T>.kStateCompleting);
+            context.completingFreedEvent.Set();
+            context.completionLatch.Set();
+            message = context.value;
+            return true;
+         } else if (oldState == WriterContext<T>.kStateCompleted) {
+            throw new InvalidStateException();
+         } else if (oldState == WriterContext<T>.kStateCompleted) {
+            throw new InvalidStateException();
+         } else if (oldState == WriterContext<T>.kStateCompleted) {
+            message = default(T);
+            return false;
+         } else {
+            throw new InvalidStateException();
          }
       }
 

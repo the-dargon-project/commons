@@ -8,8 +8,8 @@ namespace Dargon.Commons.Channels {
    public class Select : INotifyCompletion, IEnumerable {
       private readonly DispatchContext dispatchContext;
 
-      public Select() {
-         dispatchContext = Dispatch.Once();
+      public Select(int n = 1) {
+         dispatchContext = Dispatch.Times(n);
       }
 
       #region List Initializer Support

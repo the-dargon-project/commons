@@ -17,12 +17,25 @@ namespace Dargon.Commons.Channels {
          this.writeSemaphore = writeSemaphore;
       }
 
+      public int Count => writeQueue.Count;
+
       public async Task WriteAsync(T message, CancellationToken cancellationToken) {
          if (writeSemaphore != null) {
             await writeSemaphore.WaitAsync(cancellationToken).ConfigureAwait(false);
          }
          writeQueue.Enqueue(message);
          readSemaphore.Release();
+      }
+
+      public bool TryRead(out T message) {
+         if (!readSemaphore.TryTake()) {
+            message = default(T);
+            return false;
+         }
+         if (!writeQueue.TryDequeue(out message)) {
+            throw new InvalidStateException();
+         }
+         return true;
       }
 
       public async Task<T> ReadAsync(CancellationToken cancellationToken, Func<T, bool> acceptanceTest) {
