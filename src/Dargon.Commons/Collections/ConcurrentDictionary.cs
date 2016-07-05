@@ -32,6 +32,13 @@ namespace Dargon.Commons.Collections {
          }
       }
 
+      public void RemoveOrThrow(TKey key) {
+         TValue removed;
+         if (!TryRemove(key, out removed)) {
+            throw new InvalidStateException();
+         }
+      }
+
       public void RemoveOrThrow(TKey key, TValue value) {
          TValue removed;
          if (!TryRemove(key, out removed)) {

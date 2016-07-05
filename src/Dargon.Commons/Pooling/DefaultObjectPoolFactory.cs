@@ -4,12 +4,20 @@ using System;
 namespace Dargon.Commons.Pooling {
    [RequiredFieldsConstructor]
    public class DefaultObjectPoolFactory : IObjectPoolFactory {
-      public IObjectPool<T> CreatePool<T>(Func<T> generator) {
-         return ObjectPool.Create(generator);
+      public IObjectPool<T> CreateTlsBackedPool<T>(Func<T> generator) {
+         return ObjectPool.CreateTlsBacked(generator);
       }
 
-      public IObjectPool<T> CreatePool<T>(Func<T> generator, string name) {
-         return ObjectPool.Create(generator, name);
+      public IObjectPool<T> CreateTlsBackedPool<T>(Func<T> generator, string name) {
+         return ObjectPool.CreateTlsBacked(generator, name);
+      }
+
+      public IObjectPool<T> CreateStackBackedPool<T>(Func<T> generator) {
+         return ObjectPool.CreateStackBacked(generator);
+      }
+
+      public IObjectPool<T> CreateStackBackedPool<T>(Func<T> generator, string name) {
+         return ObjectPool.CreateStackBacked(generator, name);
       }
    }
 }

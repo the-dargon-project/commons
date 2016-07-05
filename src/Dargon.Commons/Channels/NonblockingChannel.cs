@@ -1,8 +1,9 @@
-﻿using Nito.AsyncEx;
+﻿using Dargon.Commons.AsyncPrimitives;
+using Dargon.Commons.Collections;
 using System;
-using System.Collections.Concurrent;
 using System.Threading;
 using System.Threading.Tasks;
+using Dargon.Commons.Exceptions;
 
 namespace Dargon.Commons.Channels {
    public class NonblockingChannel<T> : Channel<T> {
@@ -25,11 +26,13 @@ namespace Dargon.Commons.Channels {
       }
 
       public async Task<T> ReadAsync(CancellationToken cancellationToken, Func<T, bool> acceptanceTest) {
-         await Task.Yield();
+         await TaskEx.YieldToThreadPool();
          while (!cancellationToken.IsCancellationRequested) {
             await readSemaphore.WaitAsync(cancellationToken).ConfigureAwait(false);
             T message;
-            while (!writeQueue.TryDequeue(out message)) { }
+            if (!writeQueue.TryDequeue(out message)) {
+               throw new InvalidStateException();
+            }
             if (acceptanceTest(message)) {
                writeSemaphore?.Release();
                return message;

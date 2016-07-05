@@ -21,12 +21,21 @@ namespace Dargon.Commons.Channels {
          return channel.ReadAsync(CancellationToken.None, acceptanceTest => true);
       }
 
-      public static async Task Run(Func<Task> task) {
-         await task().ConfigureAwait(false);
+      public static Task Run(Func<Task> task) {
+         TaskCompletionSource<byte> tcs = new TaskCompletionSource<byte>(TaskCreationOptions.RunContinuationsAsynchronously);
+         Task.Run(async () => {
+            await task().ConfigureAwait(false);
+            tcs.SetResult(0);
+         });
+         return tcs.Task;
       }
 
-      public static async Task<T> Run<T>(Func<Task<T>> task) {
-         return await task().ConfigureAwait(false);
+      public static Task<T> Run<T>(Func<Task<T>> task) {
+         TaskCompletionSource<T> tcs = new TaskCompletionSource<T>(TaskCreationOptions.RunContinuationsAsynchronously);
+         Task.Run(async () => {
+            tcs.SetResult(await task().ConfigureAwait(false));
+         });
+         return tcs.Task;
       }
 
       public static Task Go(Func<Task> task) => Run(task);

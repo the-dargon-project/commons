@@ -1,7 +1,7 @@
-﻿using System;
-using System.Collections.Concurrent;
+﻿using Dargon.Commons.AsyncPrimitives;
+using Dargon.Commons.Collections;
+using System;
 using System.Threading.Tasks;
-using Nito.AsyncEx;
 using static Dargon.Commons.Channels.ChannelsExtensions;
 
 namespace Dargon.Commons.Channels {
@@ -26,6 +26,7 @@ namespace Dargon.Commons.Channels {
 
          Go(async () => {
             await Task.Delay(interval).ConfigureAwait(false);
+//            Console.WriteLine("Time signalling");
             await channel.WriteAsync(true).ConfigureAwait(false);
          });
 
