@@ -6,16 +6,10 @@ using System.Threading.Tasks;
 
 namespace Dargon.Commons.AsyncPrimitives {
    public class AsyncAutoResetLatch {
-      public static readonly ConditionalWeakTable<AsyncAutoResetLatch, object> instances = new ConditionalWeakTable<AsyncAutoResetLatch, object>();
-
       private readonly ConcurrentQueue<AsyncLatch> latches = new ConcurrentQueue<AsyncLatch>();
       private const int kStateSet = -1;
       private const int kStateNeutral = 0;
       private int state = kStateNeutral;
-
-      public AsyncAutoResetLatch() {
-         instances.Add(this, new object());
-      }
 
       public Task WaitAsync(CancellationToken token = default(CancellationToken)) {
          var spinner = new SpinWait();

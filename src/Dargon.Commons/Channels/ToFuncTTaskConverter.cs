@@ -8,9 +8,10 @@ namespace Dargon.Commons.Channels {
       }
 
       public static Func<T, Task> Convert<T>(Action<T> callback) {
-         return t => Task.Factory.StartNew(
-            () => callback(t),
-            TaskCreationOptions.LongRunning);
+         return t => {
+            callback(t);
+            return Task.CompletedTask;
+         };
       }
 
       public static Func<T, Task> Convert<T>(Func<Task> callback) {

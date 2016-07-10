@@ -6,13 +6,10 @@ using Dargon.Commons.Collections;
 
 namespace Dargon.Commons.AsyncPrimitives {
    public class AsyncCountdownLatch {
-      public readonly ConditionalWeakTable<AsyncCountdownLatch, object> instances = new ConditionalWeakTable<AsyncCountdownLatch, object>();
-
       private readonly AsyncLatch latch = new AsyncLatch();
       private int count;
 
       public AsyncCountdownLatch(int count) {
-         instances.Add(this, count);
          this.count = count;
       }
 

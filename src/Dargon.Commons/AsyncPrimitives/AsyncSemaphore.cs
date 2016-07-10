@@ -8,13 +8,11 @@ using Dargon.Commons.Exceptions;
 
 namespace Dargon.Commons.AsyncPrimitives {
    public class AsyncSemaphore {
-      public static readonly ConditionalWeakTable<AsyncSemaphore, object> instances = new ConditionalWeakTable<AsyncSemaphore, object>();
       private readonly ConcurrentQueue<WaitContext> waitContexts = new ConcurrentQueue<WaitContext>();
       private readonly object undoLock = new object();
       private int counter; // positive = signals waiting, negative = queued waiting
 
       public AsyncSemaphore(int count = 0) {
-         instances.Add(this, new object());
          if (count < 0) {
             throw new ArgumentOutOfRangeException();
          }

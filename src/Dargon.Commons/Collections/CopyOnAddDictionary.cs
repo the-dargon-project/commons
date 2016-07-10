@@ -43,10 +43,6 @@ namespace Dargon.Commons.Collections {
       }
 
       public V GetOrAdd(K key, Func<K, V> valueFactory) {
-         return GetOrAdd(key, () => key, () => valueFactory(key));
-      }
-
-      public V GetOrAdd(K key, Func<K> keyFactory, Func<V> valueFactory) {
          V result;
          if (_innerDict.TryGetValue(key, out result)) {
             return result;
@@ -55,8 +51,7 @@ namespace Dargon.Commons.Collections {
                if (_innerDict.TryGetValue(key, out result)) {
                   return result;
                } else {
-                  key = keyFactory();
-                  result = valueFactory();
+                  result = valueFactory(key);
                   var clone = new Dictionary<K, V>(_innerDict, _comparer);
                   clone.Add(key, result);
                   _innerDict = clone;

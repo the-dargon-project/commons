@@ -39,7 +39,6 @@ namespace Dargon.Commons.Channels {
       }
 
       public async Task<T> ReadAsync(CancellationToken cancellationToken, Func<T, bool> acceptanceTest) {
-         await TaskEx.YieldToThreadPool();
          while (!cancellationToken.IsCancellationRequested) {
             await readSemaphore.WaitAsync(cancellationToken).ConfigureAwait(false);
             T message;
