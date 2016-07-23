@@ -61,6 +61,26 @@ namespace Dargon.Commons.Collections {
          }
       }
 
+      public V GetOrAdd(K key, Func<K, K> keyFactory, Func<K, V> valueFactory) {
+         V result;
+         if (_innerDict.TryGetValue(key, out result)) {
+            return result;
+         } else {
+            lock (_updateLock) {
+               if (_innerDict.TryGetValue(key, out result)) {
+                  return result;
+               } else {
+                  key = keyFactory(key);
+                  result = valueFactory(key);
+                  var clone = new Dictionary<K, V>(_innerDict, _comparer);
+                  clone.Add(key, result);
+                  _innerDict = clone;
+                  return result;
+               }
+            }
+         }
+      }
+
       public void Merge(IReadOnlyDictionary<K, V> additional) {
          lock (_updateLock) {
             var result = new Dictionary<K, V>(_innerDict, _comparer);

@@ -1,6 +1,7 @@
 ﻿namespace Dargon.Commons.Pooling {
    public interface IObjectPool<T> {
       string Name { get; }
+      int Count { get; }
 
       /// <summary>
       /// Takes an object from the object pool.

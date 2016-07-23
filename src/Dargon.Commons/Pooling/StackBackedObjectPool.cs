@@ -18,6 +18,7 @@ namespace Dargon.Commons.Pooling {
       }
 
       public string Name => name;
+      public int Count => container.Count;
 
       public T TakeObject() {
          T r;

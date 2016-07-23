@@ -3,17 +3,14 @@ using System.Threading.Tasks;
 
 namespace Dargon.Commons.AsyncPrimitives {
    public class AsyncBox<T> {
-      private readonly AsyncLatch completionLatch = new AsyncLatch();
-      private T result;
+      private readonly TaskCompletionSource<T> tcs = new TaskCompletionSource<T>(TaskCreationOptions.RunContinuationsAsynchronously);
 
       public void SetResult(T value) {
-         result = value;
-         completionLatch.Set();
+         tcs.SetResult(value);
       }
 
-      public async Task<T> GetResultAsync(CancellationToken cancellationToken = default(CancellationToken)) {
-         await completionLatch.WaitAsync(cancellationToken).ConfigureAwait(false);
-         return result;
+      public Task<T> GetResultAsync(CancellationToken cancellationToken = default(CancellationToken)) {
+         return tcs.Task;
       }
    }
 }

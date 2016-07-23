@@ -17,14 +17,16 @@ namespace Dargon.Commons.AsyncPrimitives {
          return latch.WaitAsync(cancellationToken);
       }
 
-      public void Signal() {
+      public bool Signal() {
          var decrementResult = Interlocked.Decrement(ref count);
          if (decrementResult == 0) {
             latch.Set();
+            return true;
          }
          if (decrementResult < 0) {
             throw new InvalidOperationException("Attempted to decrement latch beyond zero count.");
          }
+         return false;
       }
    }
 }
