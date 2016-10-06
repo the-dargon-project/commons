@@ -1,4 +1,4 @@
-﻿using Fody.Constructors;
+﻿using System.ComponentModel;
 
 namespace Dargon.Commons {
    /// <summary>
@@ -9,7 +9,7 @@ namespace Dargon.Commons {
    /// Stops console from being written to.
    /// </summary>
    public static class NullConsole {
-      [System.ComponentModel.DefaultValue(true)]
+      [DefaultValue(true)]
       public static bool RedirectToVoid { get; set; }
 
       public static string Title { get; set; }
