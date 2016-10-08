@@ -16,17 +16,10 @@
     },
 
     "dependencies": {
-        "Dargon.Ryu.Api": "*",
-        "Fody": "1.29.3",
-        "NLombok.Fody": "0.0.5"
+        "Dargon.Ryu.Api": "*"
     },
 
     "compilationOptions": {
         "allowUnsafe": true
-    },
-
-    "scripts": {
-        "prebuild": [ "" ],
-        "postbuild": [ "powershell ../../../FodyDnx/src/exec-fody-weavers.ps1 -ProjectDir %cd%" ]
     }
 }

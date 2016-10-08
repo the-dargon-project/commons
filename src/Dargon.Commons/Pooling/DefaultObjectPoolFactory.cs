@@ -1,8 +1,6 @@
-﻿using Fody.Constructors;
-using System;
+﻿using System;
 
 namespace Dargon.Commons.Pooling {
-   [RequiredFieldsConstructor]
    public class DefaultObjectPoolFactory : IObjectPoolFactory {
       public IObjectPool<T> CreateTlsBackedPool<T>(Func<T> generator) {
          return ObjectPool.CreateTlsBacked(generator);
