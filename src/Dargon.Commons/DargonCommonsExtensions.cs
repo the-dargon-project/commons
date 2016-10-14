@@ -184,5 +184,9 @@ namespace Dargon.Commons {
       public static async Task Forgettable(this Task task) {
          await task.ConfigureAwait(false);
       }
+
+      public static string ToShortString(this Guid x) {
+         return x.ToString("n").Substring(0, 6);
+      }
    }
 }

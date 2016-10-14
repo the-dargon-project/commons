@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Linq;
+using System.Threading;
+using Dargon.Commons.Collections;
+using Dargon.Commons.Exceptions;
 
 namespace Dargon.Commons {
    public static partial class DargonCommonsExtensions {
@@ -110,6 +113,21 @@ namespace Dargon.Commons {
          V result;
          dict.TryGetValue(key, out result);
          return result;
+      }
+
+      [MethodImpl(MethodImplOptions.AggressiveInlining)]
+      public static T WaitThenDequeue<T>(this IConcurrentQueue<T> queue, Semaphore semaphore) {
+         semaphore.WaitOne();
+         return queue.DequeueOrThrow();
+      }
+
+      [MethodImpl(MethodImplOptions.AggressiveInlining)]
+      public static T DequeueOrThrow<T>(this IConcurrentQueue<T> queue) {
+         T entry;
+         if (!queue.TryDequeue(out entry)) {
+            throw new InvalidStateException();
+         }
+         return entry;
       }
    }
 }

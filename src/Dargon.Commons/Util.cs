@@ -160,38 +160,42 @@ namespace Dargon.Commons
          fixed (byte* pABase = a)
          fixed (byte* pBBase = b) {
             byte* pACurrent = pABase + aOffset, pBCurrent = pBBase + bOffset;
-            var length = aLength;
-            int longCount = length / 8;
-            for (var i = 0; i < longCount; i++) {
-               if (*(ulong*)pACurrent != *(ulong*)pBCurrent) {
-                  return false;
-               }
-               pACurrent += 8;
-               pBCurrent += 8;
-            }
-            if ((length & 4) != 0) {
-               if (*(uint*)pACurrent != *(uint*)pBCurrent) {
-                  return false;
-               }
-               pACurrent += 4;
-               pBCurrent += 4;
-            }
-            if ((length & 2) != 0) {
-               if (*(ushort*)pACurrent != *(ushort*)pBCurrent) {
-                  return false;
-               }
-               pACurrent += 2;
-               pBCurrent += 2;
-            }
-            if ((length & 1) != 0) {
-               if (*pACurrent != *pBCurrent) {
-                  return false;
-               }
-               pACurrent += 1;
-               pBCurrent += 1;
-            }
-            return true;
+            return BuffersEqual(pACurrent, pBCurrent, aLength);
          }
+      }
+
+      public static unsafe bool BuffersEqual(byte* pACurrent, byte* pBCurrent, int aLength) {
+         var length = aLength;
+         int longCount = length / 8;
+         for (var i = 0; i < longCount; i++) {
+            if (*(ulong*)pACurrent != *(ulong*)pBCurrent) {
+               return false;
+            }
+            pACurrent += 8;
+            pBCurrent += 8;
+         }
+         if ((length & 4) != 0) {
+            if (*(uint*)pACurrent != *(uint*)pBCurrent) {
+               return false;
+            }
+            pACurrent += 4;
+            pBCurrent += 4;
+         }
+         if ((length & 2) != 0) {
+            if (*(ushort*)pACurrent != *(ushort*)pBCurrent) {
+               return false;
+            }
+            pACurrent += 2;
+            pBCurrent += 2;
+         }
+         if ((length & 1) != 0) {
+            if (*pACurrent != *pBCurrent) {
+               return false;
+            }
+            pACurrent += 1;
+            pBCurrent += 1;
+         }
+         return true;
       }
 
       /// <summary>
